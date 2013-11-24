@@ -89,5 +89,39 @@ public class PronosticServiceImpl implements PronosticService {
 		return result;
 	}
 	
-	
+	@Override
+	public Collection<GameForBetDTO> retrieveBetGamesForUser(Integer id) {
+		
+		Collection<GameForBetDTO> result = new ArrayList<>();
+		
+		Collection<Game> closedGames = this.gameService.retrieveClosedGames();
+		
+		logger.debug("Found closed games : " + closedGames.size());
+		
+		User user = this.userService.findUserById(id);
+		
+		logger.debug("Found user : " + user);
+		
+		for (Game closedGame : closedGames) {
+			
+			logger.debug("Found closed game : " + closedGame);
+			
+			Pronostic userPronostic = this.pronosticDao.retrievePronosticForGameAndUser(closedGame.getId(), id);
+			
+			if (userPronostic != null) {
+				
+				logger.debug("Found a pronostic for this user and this game : " + userPronostic);
+				
+				GameForBetDTO betGameDTO = new GameForBetDTO();
+				
+				betGameDTO.setGame(closedGame);
+				
+				betGameDTO.setPronostic(userPronostic);
+				
+				result.add(betGameDTO);
+			}
+		}
+		
+		return result;
+	}
 }

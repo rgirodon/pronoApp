@@ -25,4 +25,9 @@ public class GameServiceImpl implements GameService {
 		return this.gameDao.retrieveOpenedGames();
 	}
 
+	@Override
+	public Collection<Game> retrieveClosedGames() {
+		
+		return this.gameDao.retrieveClosedGames();
+	}
 }

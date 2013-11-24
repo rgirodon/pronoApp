@@ -14,7 +14,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name="GAME")
 @NamedQueries({
-	@NamedQuery(name="openedGames", query="from Game where closed = false")
+	@NamedQuery(name="openedGames", query="from Game where closed = false"),
+	
+	@NamedQuery(name="closedGames", query="from Game where closed = true")
 })
 public class Game implements Serializable {
 
@@ -38,6 +40,16 @@ public class Game implements Serializable {
 		super();
 	}
 
+	public String getLabel() {
+		
+		return team1 + " - " + team2;
+	}
+	
+	public String getScore() {
+		
+		return scoreTeam1 + " - " + scoreTeam2;
+	}
+	
 	@Override
 	public String toString() {
 		return "Game [id=" + id + ", team1=" + team1 + ", team2=" + team2

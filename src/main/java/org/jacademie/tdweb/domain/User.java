@@ -19,7 +19,8 @@ import javax.persistence.Table;
 @Table(name="UTILISATEUR")
 @NamedQueries({
 	@NamedQuery(name="userByLogin", query="from User where login = :login"),
-	@NamedQuery(name="allUsers", query="from User")
+	@NamedQuery(name="allUsers", query="from User"),
+	@NamedQuery(name="rankingUsers", query="from User order by points desc")
 })
 public class User implements Serializable {
 

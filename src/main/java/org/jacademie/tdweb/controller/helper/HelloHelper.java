@@ -2,6 +2,7 @@ package org.jacademie.tdweb.controller.helper;
 
 import java.util.Collection;
 
+import org.jacademie.tdweb.domain.User;
 import org.jacademie.tdweb.dto.GameForBetDTO;
 import org.jacademie.tdweb.service.PronosticService;
 import org.jacademie.tdweb.service.UserService;
@@ -31,5 +32,13 @@ public class HelloHelper {
 		Collection<GameForBetDTO> gamesForBet = this.pronosticService.retrieveGamesForBetForUser(userId);
 		
 		model.addAttribute("gamesForBet", gamesForBet);
+		
+		Collection<GameForBetDTO> betGames = this.pronosticService.retrieveBetGamesForUser(userId);
+		
+		model.addAttribute("betGames", betGames);
+		
+		Collection<User> rankingUsers = this.userService.retrieveRankingUsers();
+		
+		model.addAttribute("rankingUsers", rankingUsers);
 	}
 }

@@ -43,6 +43,11 @@ public class Pronostic implements Serializable {
 		super();
 	}
 
+	public String getScore() {
+		
+		return scoreTeam1 + " - " + scoreTeam2;
+	}
+	
 	@Override
 	public String toString() {
 		return "Pronostic [id=" + id + ", user=" + user + ", game=" + game

@@ -49,15 +49,115 @@
         </div>
         <div class="col-md-4">
           <h2>History</h2>
-          <p>TODO : put last lines of history here</p>
-          <p><a class="btn btn-default" href="#" role="button"><span class="glyphicon glyphicon-time"></span> View full history &raquo;</a></p>
+          <p>
+	          <table class="table table-striped table-condensed">
+	          	<thead>
+	          		<tr>
+	          			<th>Game</th>
+	          			<th>Score</th>
+	          			<th>Pronostic</th>
+	          			<th>Points</th>
+	          		</tr>
+	          	</thead>
+	          	<c:forEach var="betGame" items="${betGames}" begin="0" end="2">
+	          		<tr>
+	          			<td><c:out value="${ betGame.game.label }" /></td>
+	          			<td><c:out value="${ betGame.game.score }" /></td>
+	          			<td><c:out value="${ betGame.pronostic.score }" /></td>
+	          			<td><c:out value="${ betGame.pronostic.points }" /></td>
+	          		</tr>
+	          	</c:forEach>
+	          </table>
+          </p>
+          <p><button class="btn btn-default" data-toggle="modal" data-target="#historyModal"><span class="glyphicon glyphicon-time"></span> View full history &raquo;</button></p>
         </div>
         <div class="col-md-4">
           <h2>Ranking</h2>
-          <p>TODO : put first lines of ranking here</p>
-          <p><a class="btn btn-default" href="#" role="button"><span class="glyphicon glyphicon-list"></span> View full ranking &raquo;</a></p>
+          <p>
+          	  <table class="table table-striped table-condensed">
+	          	<thead>
+	          		<tr>
+	          			<th>User</th>
+	          			<th>Points</th>
+	          		</tr>
+	          	</thead>
+	          	<c:forEach var="rankingUser" items="${rankingUsers}" begin="0" end="2">
+	          		<tr>
+	          			<td><c:out value="${ rankingUser.login }" /></td>
+	          			<td><c:out value="${ rankingUser.points }" /></td>
+	          		</tr>
+	          	</c:forEach>
+	          </table>
+          </p>
+          <p><button class="btn btn-default" data-toggle="modal" data-target="#rankingModal"><span class="glyphicon glyphicon-list"></span> View full ranking &raquo;</button></p>
         </div>        
       </div>
+    
+	    <!-- History Modal -->
+		<div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="historyModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title" id="historyModalLabel">History</h4>
+		      </div>
+		      <div class="modal-body">
+		        <table class="table table-striped table-condensed">
+		          	<thead>
+		          		<tr>
+		          			<th>Game</th>
+		          			<th>Score</th>
+		          			<th>Pronostic</th>
+		          			<th>Points</th>
+		          		</tr>
+		          	</thead>
+		          	<c:forEach var="betGame" items="${betGames}">
+		          		<tr>
+		          			<td><c:out value="${ betGame.game.label }" /></td>
+		          			<td><c:out value="${ betGame.game.score }" /></td>
+		          			<td><c:out value="${ betGame.pronostic.score }" /></td>
+		          			<td><c:out value="${ betGame.pronostic.points }" /></td>
+		          		</tr>
+		          	</c:forEach>
+		          </table>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		<div class="modal fade" id="rankingModal" tabindex="-1" role="dialog" aria-labelledby="rankingModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title" id="historyModalLabel">Ranking</h4>
+		      </div>
+		      <div class="modal-body">
+		        <table class="table table-striped table-condensed">
+	          	<thead>
+	          		<tr>
+	          			<th>User</th>
+	          			<th>Points</th>
+	          		</tr>
+	          	</thead>
+	          	<c:forEach var="rankingUser" items="${rankingUsers}">
+	          		<tr>
+	          			<td><c:out value="${ rankingUser.login }" /></td>
+	          			<td><c:out value="${ rankingUser.points }" /></td>
+	          		</tr>
+	          	</c:forEach>
+	          </table>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+	
     <script src="js/jquery-1.10.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
   </body>

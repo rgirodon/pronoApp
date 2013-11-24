@@ -10,6 +10,7 @@ import org.jacademie.tdweb.controller.helper.HelloHelper;
 import org.jacademie.tdweb.domain.User;
 import org.jacademie.tdweb.dto.GameForBetDTO;
 import org.jacademie.tdweb.service.PronosticService;
+import org.jacademie.tdweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,6 +29,9 @@ public class BetController {
 	
 	@Autowired
 	private HelloHelper helloHelper;
+	
+	@Autowired
+	private UserService userService;
 
 	@Autowired
 	private PronosticService pronosticService;
@@ -82,6 +86,11 @@ public class BetController {
 		}
 		
 		helloHelper.prepareHelloDisplay(user.getId(), model);
+		
+		// refresh user
+		user = this.userService.findUserById(user.getId());
+		
+		model.addAttribute("user", user);
 		
 		return "Hello";
 	}

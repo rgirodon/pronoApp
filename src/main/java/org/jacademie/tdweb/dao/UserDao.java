@@ -10,5 +10,7 @@ public interface UserDao {
 
 	Collection<User> findAllUsers();
 
-	User findUserById(Integer id);	
+	User findUserById(Integer id);
+
+	Collection<User> retrieveRankingUsers();	
 }

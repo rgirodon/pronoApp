@@ -1,5 +1,7 @@
 package org.jacademie.tdweb.service.impl;
 
+import java.util.Collection;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.jacademie.tdweb.dao.UserDao;
@@ -90,4 +92,9 @@ public class UserServiceImpl implements UserService {
 		return this.userDao.findUserByLogin(login);
 	}
 
+	@Override
+	public Collection<User> retrieveRankingUsers() {
+		
+		return this.userDao.retrieveRankingUsers();
+	}
 }

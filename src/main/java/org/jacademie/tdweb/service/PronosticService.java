@@ -10,4 +10,6 @@ public interface PronosticService {
 
 	void saveBetsForUser(Integer id, Collection<GameForBetDTO> bets);
 
+	Collection<GameForBetDTO> retrieveBetGamesForUser(Integer userId);
+
 }

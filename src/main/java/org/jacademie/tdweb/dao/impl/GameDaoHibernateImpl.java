@@ -33,4 +33,14 @@ public class GameDaoHibernateImpl implements GameDao {
     	return query.list();
 	}
 
+	@Override
+	public Collection<Game> retrieveClosedGames() {
+		
+		Session session = this.getCurrentSession();
+    	
+    	Query query = session.getNamedQuery("closedGames");
+    	
+    	return query.list();
+	}
+
 }

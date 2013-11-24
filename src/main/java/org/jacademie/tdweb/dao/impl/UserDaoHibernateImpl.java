@@ -24,6 +24,17 @@ public class UserDaoHibernateImpl implements UserDao {
         return sessionFactory.getCurrentSession();
     }
     
+    public Collection<User> retrieveRankingUsers() {
+    	
+    	logger.debug("In retrieveRankingUsers");
+    	
+    	Session session = this.getCurrentSession();
+    	
+    	Query query = session.getNamedQuery("rankingUsers");
+    	
+    	return query.list();
+    }
+    
     public User findUserByLogin(String login) {
     	
     	logger.debug("In findUserByLogin with param : " + login);

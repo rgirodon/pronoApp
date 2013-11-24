@@ -1,5 +1,7 @@
 package org.jacademie.tdweb.service;
 
+import java.util.Collection;
+
 import org.jacademie.tdweb.domain.User;
 import org.jacademie.tdweb.dto.LoginPasswordDTO;
 
@@ -14,4 +16,6 @@ public interface UserService {
 	User findUserByLogin(String login);
 
 	User findUserById(Integer id);
+
+	Collection<User> retrieveRankingUsers();
 }
