@@ -1,11 +1,14 @@
 package org.jacademie.tdweb.domain;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -18,9 +21,10 @@ import javax.persistence.Table;
 	@NamedQuery(name="userByLogin", query="from User where login = :login"),
 	@NamedQuery(name="allUsers", query="from User")
 })
-public class User {
+public class User implements Serializable {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	
 	private String login;

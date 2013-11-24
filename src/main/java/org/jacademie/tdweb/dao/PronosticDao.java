@@ -6,4 +6,6 @@ public interface PronosticDao {
 
 	Pronostic retrievePronosticForGameAndUser(Integer gameId, Integer userId);
 
+	void save(Pronostic pronostic);
+
 }

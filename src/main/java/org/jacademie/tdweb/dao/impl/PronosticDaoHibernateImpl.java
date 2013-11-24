@@ -53,4 +53,14 @@ public class PronosticDaoHibernateImpl implements PronosticDao {
     	return result;
 	}
 
+	@Override
+	public void save(Pronostic pronostic) {
+		
+		logger.debug("In save with param : " + pronostic);
+		
+		Session session = this.getCurrentSession();
+		
+		session.merge(pronostic);
+	}
+
 }

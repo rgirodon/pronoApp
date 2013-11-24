@@ -1,9 +1,11 @@
 package org.jacademie.tdweb.dto;
 
+import java.io.Serializable;
+
 import org.jacademie.tdweb.domain.Game;
 import org.jacademie.tdweb.domain.Pronostic;
 
-public class GameForBetDTO {
+public class GameForBetDTO implements Serializable {
 
 	private Game game;
 	
@@ -13,6 +15,21 @@ public class GameForBetDTO {
 		super();
 	}
 
+	public Integer getIdGame() {
+		
+		return this.getGame().getId();
+	}
+	
+	public void setScoreTeam1(Integer scoreTeam1) {
+		
+		this.getPronostic().setScoreTeam1(scoreTeam1);
+	}
+	
+	public void setScoreTeam2(Integer scoreTeam2) {
+		
+		this.getPronostic().setScoreTeam2(scoreTeam2);
+	}
+	
 	public String getTeam1() {
 		
 		return this.getGame().getTeam1();
@@ -48,6 +65,8 @@ public class GameForBetDTO {
 	public void setPronostic(Pronostic pronostic) {
 		this.pronostic = pronostic;
 	}
+
+	
 	
 	
 }

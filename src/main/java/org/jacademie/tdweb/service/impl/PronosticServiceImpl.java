@@ -14,6 +14,7 @@ import org.jacademie.tdweb.service.PronosticService;
 import org.jacademie.tdweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -30,6 +31,19 @@ public class PronosticServiceImpl implements PronosticService {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void saveBetsForUser(Integer id, Collection<GameForBetDTO> bets) {
+		
+		User user = this.userService.findUserById(id);
+		
+		logger.debug("Saving bets for user : " + user);
+		
+		for (GameForBetDTO bet : bets) {
+			
+			this.pronosticDao.save(bet.getPronostic());
+		}
+	}
 	
 	@Override
 	public Collection<GameForBetDTO> retrieveGamesForBetForUser(Integer id) {
@@ -59,6 +73,7 @@ public class PronosticServiceImpl implements PronosticService {
 				logger.debug("Did not find a pronostic for this user and this game");
 				
 				userPronostic = new Pronostic();
+				userPronostic.setPoints(0);
 				userPronostic.setGame(openedGame);
 				user.addPronostic(userPronostic);
 			}

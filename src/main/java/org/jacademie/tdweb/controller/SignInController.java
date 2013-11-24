@@ -1,12 +1,9 @@
 package org.jacademie.tdweb.controller;
 
-import java.util.Collection;
-
 import org.apache.log4j.Logger;
+import org.jacademie.tdweb.controller.helper.HelloHelper;
 import org.jacademie.tdweb.domain.User;
-import org.jacademie.tdweb.dto.GameForBetDTO;
 import org.jacademie.tdweb.dto.LoginPasswordDTO;
-import org.jacademie.tdweb.service.PronosticService;
 import org.jacademie.tdweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes(value={"login"})
+@SessionAttributes(value={"user","gamesForBet"})
 @RequestMapping("/SignIn")
 public class SignInController {
 
@@ -27,7 +24,7 @@ public class SignInController {
 	private UserService userService;
 	
 	@Autowired
-	private PronosticService pronosticService;
+	private HelloHelper helloHelper;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String displaySignInHandler(ModelMap model) {
@@ -54,17 +51,7 @@ public class SignInController {
 			
 			model.addAttribute("user", user);
 			
-			Integer ranking = this.userService.determineRankingForUser(user.getId());
-			
-			model.addAttribute("ranking", ranking);
-			
-			Integer nbTotalUsers = this.userService.determineNbTotalUsers();
-			
-			model.addAttribute("nbTotalUsers", nbTotalUsers);
-			
-			Collection<GameForBetDTO> gamesForBet = this.pronosticService.retrieveGamesForBetForUser(user.getId());
-			
-			model.addAttribute("gamesForBet", gamesForBet);
+			helloHelper.prepareHelloDisplay(user.getId(), model);
 			
 			return "Hello";
 		}

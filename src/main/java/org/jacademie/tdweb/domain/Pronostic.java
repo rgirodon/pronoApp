@@ -1,7 +1,11 @@
 package org.jacademie.tdweb.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,9 +19,10 @@ import javax.persistence.Table;
 	@NamedQuery(name="pronosticByGameAndUser", query="from Pronostic where game.id = :gameId"
 			                                       + "                 and user.id = :userId")
 })
-public class Pronostic {
+public class Pronostic implements Serializable {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	
 	@ManyToOne

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.jacademie.tdweb.domain.User;
 
 @WebFilter(urlPatterns={"*.do", "*.jsp"})
 public class SignInFilter implements Filter {
@@ -50,16 +51,16 @@ public class SignInFilter implements Filter {
 	    	
 	    	HttpSession httpSession = httpServletRequest.getSession();
 	    	
-	    	String login = (String)httpSession.getAttribute("login");
+	    	User user = (User)httpSession.getAttribute("user");
 	    	
-	    	if (login == null) {
+	    	if (user == null) {
 	    		
 	    		logger.debug("User not logged");
 	    		
 	    		httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/SignIn.do");
 	    	}
 	    	else {
-	    		logger.debug("User logged with login : " + login);
+	    		logger.debug("User logged with login : " + user.getLogin());
 	    		
 	    		chain.doFilter(request, response);
 	    	}
