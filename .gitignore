@@ -1,0 +1,8 @@
+.classpath
+.project
+.settings/
+pronodb.tmp/
+pronodb.lck
+pronodb.log
+pronodb.properties
+pronodb.script
