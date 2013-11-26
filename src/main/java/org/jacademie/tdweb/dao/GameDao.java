@@ -10,4 +10,6 @@ public interface GameDao {
 
 	Collection<Game> retrieveClosedGames();
 
+	Collection<Game> retrieveGames();
+
 }

@@ -12,7 +12,8 @@ CREATE TABLE GAME (
 	scoreTeam1 INTEGER,
 	scoreTeam2 INTEGER,
 	date DATE CHECK (date IS NOT NULL),
-	closed BOOLEAN CHECK (closed IS NOT NULL)
+	closed BOOLEAN CHECK (closed IS NOT NULL),
+	pointsComputed BOOLEAN CHECK (pointsComputed IS NOT NULL)
 );
 
 CREATE TABLE PRONOSTIC (

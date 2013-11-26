@@ -2,12 +2,33 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
   <head>
-    <title>Hello World</title>
+    <title>Welcome to PronoApp</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/hello.css" rel="stylesheet">
   </head>
   <body>
+    <div>
+	  	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="navbar-header">
+	    		<a class="navbar-brand" href="Welcome.do">PronoApp</a>
+	  		</div>
+	  		<div class="collapse navbar-collapse">
+	  			<ul class="nav navbar-nav">
+	  				<c:if test="${ user.admin }">
+		  				<li class="dropdown">
+					    	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
+					        <ul class="dropdown-menu">
+					          <li><a href="Games/List.do">Games</a></li>
+		<!-- 			          <li><a href="#">Users</a></li> -->
+		<!-- 			          <li><a href="#">Pronostics</a></li> -->
+					        </ul>
+					    </li>
+				    </c:if>
+	  			</ul>
+	  		</div>
+		</nav>
+	</div>
   	<div class="jumbotron">
 		<div class="container">	    
 		  <h2>Welcome <c:out value="${ user.login }" /></h2>

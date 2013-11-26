@@ -10,4 +10,6 @@ public interface GameService {
 
 	Collection<Game> retrieveClosedGames();
 
+	Collection<Game> retrieveGames();
+
 }

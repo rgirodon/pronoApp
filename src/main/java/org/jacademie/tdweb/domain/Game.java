@@ -11,12 +11,17 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.time.DateFormatUtils;
+import org.apache.commons.lang.time.DateUtils;
+
 @Entity
 @Table(name="GAME")
 @NamedQueries({
 	@NamedQuery(name="openedGames", query="from Game where closed = false"),
 	
-	@NamedQuery(name="closedGames", query="from Game where closed = true")
+	@NamedQuery(name="closedGames", query="from Game where closed = true"),
+	
+	@NamedQuery(name="allGames", query="from Game order by date desc"),
 })
 public class Game implements Serializable {
 
@@ -35,11 +40,18 @@ public class Game implements Serializable {
 	private Date date;
 	
 	private Boolean closed;
+	
+	private Boolean pointsComputed;
 
 	public Game() {
 		super();
 	}
 
+	public String getFormattedDate() {
+		
+		return DateFormatUtils.ISO_DATE_FORMAT.format(this.date);
+	}
+	
 	public String getLabel() {
 		
 		return team1 + " - " + team2;
@@ -47,7 +59,14 @@ public class Game implements Serializable {
 	
 	public String getScore() {
 		
-		return scoreTeam1 + " - " + scoreTeam2;
+		if (this.scoreTeam1 != null
+				&& this.scoreTeam2 != null) {
+		
+			return scoreTeam1 + " - " + scoreTeam2;
+		}
+		else {
+			return null;
+		}
 	}
 	
 	@Override
@@ -147,6 +166,14 @@ public class Game implements Serializable {
 
 	public void setClosed(Boolean closed) {
 		this.closed = closed;
+	}
+
+	public Boolean getPointsComputed() {
+		return pointsComputed;
+	}
+
+	public void setPointsComputed(Boolean pointsComputed) {
+		this.pointsComputed = pointsComputed;
 	}
 	
 	
