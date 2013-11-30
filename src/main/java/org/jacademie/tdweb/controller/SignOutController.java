@@ -3,6 +3,7 @@ package org.jacademie.tdweb.controller;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.jacademie.tdweb.domain.User;
 import org.jacademie.tdweb.dto.LoginPasswordDTO;
 import org.jacademie.tdweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,11 @@ public class SignOutController {
 	private UserService userService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String signOutHandler(HttpSession session) {
+	public String signOutHandler(HttpSession session, @ModelAttribute(value = "user") User user) {
 		
 		logger.debug("In signOutHandler");
 		
-		String login = (String)session.getAttribute("login");
-		
-		logger.debug("User is signing out : " + login);
+		logger.debug("User is signing out : " + user.getLogin());
 		
 		session.invalidate();
 		

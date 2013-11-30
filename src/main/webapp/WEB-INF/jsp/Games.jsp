@@ -76,6 +76,9 @@
 		  	<div class="alert alert-danger"><c:out value="${ actionError }" /></div>
 		  </c:if>
 
+		  <p>
+		  	<a href="New.do" role="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> New Game</a>
+		  </p>
           <p>
 	          <table id="gamesTable" class="table table-striped table-condensed">
 	          	<thead>

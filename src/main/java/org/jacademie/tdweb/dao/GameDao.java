@@ -16,4 +16,8 @@ public interface GameDao {
 
 	void deleteGame(Integer id);
 
+	void updateGame(Game gameEdited);
+
+	void createGame(Game gameBeingCreated);
+
 }

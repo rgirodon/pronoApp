@@ -70,4 +70,20 @@ public class GameDaoHibernateImpl implements GameDao {
 		
 		session.delete(game);
 	}
+
+	@Override
+	public void updateGame(Game gameEdited) {
+		
+		Session session = this.getCurrentSession();
+		
+		session.merge(gameEdited);
+	}
+
+	@Override
+	public void createGame(Game gameBeingCreated) {
+		
+		Session session = this.getCurrentSession();
+		
+		session.save(gameBeingCreated);
+	}
 }

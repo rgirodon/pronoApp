@@ -52,7 +52,8 @@ public class GameServiceImpl implements GameService {
 		game.setClosed(Boolean.TRUE);
 	}
 
-	private Game retrieveGameById(Integer id) {
+	@Override
+	public Game retrieveGameById(Integer id) {
 		
 		return this.gameDao.retrieveGameById(id);
 	}
@@ -142,5 +143,23 @@ public class GameServiceImpl implements GameService {
 	public boolean canDeleteGame(Integer id) {
 		
 		return this.pronosticService.retrievePronosticsForGame(id).isEmpty();
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void updateGame(Game gameEdited) {
+		
+		logger.debug("Updating game : " + gameEdited.getId());
+		
+		this.gameDao.updateGame(gameEdited);
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void createGame(Game gameBeingCreated) {
+		
+		logger.debug("Creating game : " + gameBeingCreated);
+		
+		this.gameDao.createGame(gameBeingCreated);
 	}
 }
