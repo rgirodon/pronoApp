@@ -124,4 +124,10 @@ public class PronosticServiceImpl implements PronosticService {
 		
 		return result;
 	}
+
+	@Override
+	public Collection<Pronostic> retrievePronosticsForGame(Integer id) {
+		
+		return this.pronosticDao.retrievePronosticsForGame(id);
+	}
 }

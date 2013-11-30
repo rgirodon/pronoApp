@@ -51,6 +51,11 @@ public class User implements Serializable {
 		
 		this.pronostics.add(pronostic);
 	}
+	
+	public void addPoints(Integer points) {
+		
+		this.points = this.points + points;
+	}
 
 	@Override
 	public String toString() {
@@ -129,6 +134,8 @@ public class User implements Serializable {
 	public void setPronostics(Set<Pronostic> pronostics) {
 		this.pronostics = pronostics;
 	}
+
+	
 
 	
 	

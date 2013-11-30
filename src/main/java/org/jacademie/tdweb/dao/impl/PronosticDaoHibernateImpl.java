@@ -1,5 +1,6 @@
 package org.jacademie.tdweb.dao.impl;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -63,4 +64,15 @@ public class PronosticDaoHibernateImpl implements PronosticDao {
 		session.merge(pronostic);
 	}
 
+	public Collection<Pronostic> retrievePronosticsForGame(Integer id) {
+		
+		logger.debug("In retrievePronosticsForGame with param : " + id);
+		
+		Session session = this.getCurrentSession();
+    	
+    	Query query = session.getNamedQuery("pronosticsByGame");
+    	query.setInteger("id", id);
+    	
+    	return query.list();
+	}
 }

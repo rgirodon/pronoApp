@@ -12,4 +12,14 @@ public interface GameService {
 
 	Collection<Game> retrieveGames();
 
+	void closeGame(Integer id);
+
+	void openGame(Integer id);
+
+	void computePointsForGame(Integer id);
+
+	void deleteGame(Integer id);
+
+	boolean canDeleteGame(Integer id);
+
 }

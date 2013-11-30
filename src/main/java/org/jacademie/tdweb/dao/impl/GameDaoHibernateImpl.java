@@ -52,4 +52,22 @@ public class GameDaoHibernateImpl implements GameDao {
     	
     	return query.list();
 	}
+
+	@Override
+	public Game retrieveGameById(Integer id) {
+		
+		Session session = this.getCurrentSession();
+		
+		return (Game)session.get(Game.class, id);
+	}
+
+	@Override
+	public void deleteGame(Integer id) {
+		
+		Session session = this.getCurrentSession();
+		
+		Game game = this.retrieveGameById(id);
+		
+		session.delete(game);
+	}
 }

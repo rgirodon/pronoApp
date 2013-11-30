@@ -69,6 +69,13 @@
           
           <h2>Games</h2>
 
+		  <c:if test="${ not empty actionMessage }">
+		  	<div class="alert alert-success"><c:out value="${ actionMessage }" /></div>
+		  </c:if>
+		  <c:if test="${ not empty actionError }">
+		  	<div class="alert alert-danger"><c:out value="${ actionError }" /></div>
+		  </c:if>
+
           <p>
 	          <table id="gamesTable" class="table table-striped table-condensed">
 	          	<thead>
@@ -78,6 +85,7 @@
 	          			<th>Score</th>
 	          			<th>Closed</th>
 	          			<th>Points Computed</th>
+	          			<th>Action</th>
 	          		</tr>
 	          	</thead>
 	          	<tbody>
@@ -88,6 +96,23 @@
 		          			<td><c:out value="${ game.score }" /></td>
 		          			<td><c:out value="${ game.closed }" /></td>
 		          			<td><c:out value="${ game.pointsComputed }" /></td>
+		          			<td>
+		          				<c:if test="${ game.editable }">
+		          					<a href="Edit.do?id=<c:out value="${ game.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+		          				</c:if>
+		          				<c:if test="${ game.closable }">
+		          					<a href="Close.do?id=<c:out value="${ game.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-eye-close"></span> Close</a>
+		          				</c:if>
+		          				<c:if test="${ game.openable }">
+		          					<a href="Open.do?id=<c:out value="${ game.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-eye-open"></span> Open</a>
+		          				</c:if>
+		          				<c:if test="${ game.pointsComputable }">
+		          					<a href="ComputePoints.do?id=<c:out value="${ game.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-dashboard"></span> Compute points</a>
+		          				</c:if>
+		          				<c:if test="${ game.deletable }">
+		          					<a href="Delete.do?id=<c:out value="${ game.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+		          				</c:if>
+		          			</td>
 		          		</tr>
 		          	</c:forEach>
 	          	</tbody>

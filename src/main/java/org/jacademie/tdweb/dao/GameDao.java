@@ -12,4 +12,8 @@ public interface GameDao {
 
 	Collection<Game> retrieveGames();
 
+	Game retrieveGameById(Integer id);
+
+	void deleteGame(Integer id);
+
 }

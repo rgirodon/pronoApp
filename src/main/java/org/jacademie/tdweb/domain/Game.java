@@ -47,6 +47,47 @@ public class Game implements Serializable {
 		super();
 	}
 
+	public Boolean getEditable() {
+		
+		Boolean result = !this.pointsComputed;
+		
+		return result;
+	}
+	
+	public Boolean getDeletable() {
+		
+		Boolean result = !this.pointsComputed;
+		
+		return result;
+	}
+	
+	public Boolean getClosable() {
+		
+		Boolean result = !this.closed;
+	
+		return result;
+	}
+	
+	public Boolean getOpenable() {
+		
+		Boolean result = this.closed 
+							&& !this.pointsComputed
+							&& this.scoreTeam1 == null
+							&& this.scoreTeam2 == null;
+		
+		return result;
+	}
+	
+	public Boolean getPointsComputable() {
+		
+		Boolean result = !this.pointsComputed
+							&& this.closed
+							&& this.scoreTeam1 != null
+							&& this.scoreTeam2 != null;
+		
+		return result;
+	}
+	
 	public String getFormattedDate() {
 		
 		return DateFormatUtils.ISO_DATE_FORMAT.format(this.date);

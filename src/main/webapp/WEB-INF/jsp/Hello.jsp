@@ -46,11 +46,11 @@
           <h2>Bet for games</h2>
           
           <c:if test="${ not empty betConfirmMessage }">
-          	<p><span class="text-info"><c:out value="${ betConfirmMessage }" /></span></p>
+          	<div class="alert alert-success"><c:out value="${ betConfirmMessage }" /></div>
           </c:if>
           
           <c:if test="${ not empty betErrorMessage }">
-          	<p><span class="text-danger"><c:out value="${ betErrorMessage }" /></span></p>
+          	<div class="alert alert-danger"><c:out value="${ betErrorMessage }" /></div>
           </c:if>
           
           <form class="form-inline" method="post" role="form" action="Bet.do">
