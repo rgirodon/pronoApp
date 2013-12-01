@@ -94,19 +94,19 @@ public class PronosticServiceImpl implements PronosticService {
 		
 		Collection<GameForBetDTO> result = new ArrayList<>();
 		
-		Collection<Game> closedGames = this.gameService.retrieveClosedGames();
+		Collection<Game> pointsComputedGames = this.gameService.retrievePointsComputedGames();
 		
-		logger.debug("Found closed games : " + closedGames.size());
+		logger.debug("Found pointsComputed games : " + pointsComputedGames.size());
 		
 		User user = this.userService.findUserById(id);
 		
 		logger.debug("Found user : " + user);
 		
-		for (Game closedGame : closedGames) {
+		for (Game pointsComputedGame : pointsComputedGames) {
 			
-			logger.debug("Found closed game : " + closedGame);
+			logger.debug("Found pointsComputed game : " + pointsComputedGame);
 			
-			Pronostic userPronostic = this.pronosticDao.retrievePronosticForGameAndUser(closedGame.getId(), id);
+			Pronostic userPronostic = this.pronosticDao.retrievePronosticForGameAndUser(pointsComputedGame.getId(), id);
 			
 			if (userPronostic != null) {
 				
@@ -114,7 +114,7 @@ public class PronosticServiceImpl implements PronosticService {
 				
 				GameForBetDTO betGameDTO = new GameForBetDTO();
 				
-				betGameDTO.setGame(closedGame);
+				betGameDTO.setGame(pointsComputedGame);
 				
 				betGameDTO.setPronostic(userPronostic);
 				

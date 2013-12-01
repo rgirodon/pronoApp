@@ -6,13 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/bootstrap.min.css" rel="stylesheet"> 
     <link href="../css/hello.css" rel="stylesheet">
+    <link href="../css/datepicker.css" rel="stylesheet">
     <script src="../js/jquery-1.10.2.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap-datepicker.js"></script>
 	<script id="js">
 	
 	$(function() {
 
-
+		$('#strDate').datepicker({
+			format : 'yyyy-mm-dd',
+			autoclose: true
+		});
 	});
 
     </script>
@@ -58,6 +63,7 @@
 	      <form class="form-inline" method="post" role="form" action="Save.do">
           
 			  <p>
+			  	<input id="strDate" required="true" type="text" class="form-control date-input" name="strDate" value="<c:out value="${ gameEdited.formattedDate }" />" />
 			  	<input required="true" type="text" class="form-control team-input" name="team1" value="<c:out value="${ gameEdited.team1 }" />" />
 			  		<input type="text" class="form-control score-input" name="strScoreTeam1" value="<c:out value="${ gameEdited.scoreTeam1 }" />" />
 			  		 - 

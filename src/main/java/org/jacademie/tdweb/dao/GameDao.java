@@ -20,4 +20,6 @@ public interface GameDao {
 
 	void createGame(Game gameBeingCreated);
 
+	Collection<Game> retrievePointsComputedGames();
+
 }

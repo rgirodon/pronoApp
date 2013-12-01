@@ -6,13 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/bootstrap.min.css" rel="stylesheet"> 
     <link href="../css/hello.css" rel="stylesheet">
+    <link href="../css/datepicker.css" rel="stylesheet">
     <script src="../js/jquery-1.10.2.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+     <script src="../js/bootstrap-datepicker.js"></script>
 	<script id="js">
 	
 	$(function() {
 
-
+		$('#strDate').datepicker({
+			format : 'yyyy-mm-dd',
+			autoclose: true
+		});
 	});
 
     </script>
@@ -58,9 +63,10 @@
 	      <form class="form-inline" method="post" role="form" action="Finish.do">
           
 			  <p>
-			  	<input required="true" type="text" class="form-control team-input" name="team1" value="<c:out value="${ gameBeingCreated.team1 }" />" />
+			  	<input id="strDate" placeholder="Date" required="true" type="text" class="form-control date-input" name="strDate" value="<c:out value="${ gameBeingCreated.formattedDate }" />" />
+			  	<input required="true" placeholder="Team 1" type="text" class="form-control team-input" name="team1" value="<c:out value="${ gameBeingCreated.team1 }" />" />
 			  		 - 
-			  	<input required="true" type="text" class="form-control team-input" name="team2" value="<c:out value="${ gameBeingCreated.team2 }" />" />
+			  	<input required="true" placeholder="Team 2" type="text" class="form-control team-input" name="team2" value="<c:out value="${ gameBeingCreated.team2 }" />" />
 			  </p>
 			  
 	          <p>

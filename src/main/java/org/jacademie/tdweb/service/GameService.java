@@ -28,4 +28,6 @@ public interface GameService {
 
 	void createGame(Game gameBeingCreated);
 
+	Collection<Game> retrievePointsComputedGames();
+
 }

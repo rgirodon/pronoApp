@@ -17,11 +17,13 @@ import org.apache.commons.lang.time.DateUtils;
 @Entity
 @Table(name="GAME")
 @NamedQueries({
-	@NamedQuery(name="openedGames", query="from Game where closed = false"),
+	@NamedQuery(name="openedGames", query="from Game where closed = false order by date desc"),
 	
-	@NamedQuery(name="closedGames", query="from Game where closed = true"),
+	@NamedQuery(name="closedGames", query="from Game where closed = true order by date desc"),
 	
 	@NamedQuery(name="allGames", query="from Game order by date desc"),
+	
+	@NamedQuery(name="pointsComputedGames", query="from Game where pointsComputed = true order by date desc"),
 })
 public class Game implements Serializable {
 
@@ -90,7 +92,10 @@ public class Game implements Serializable {
 	
 	public String getFormattedDate() {
 		
-		return DateFormatUtils.ISO_DATE_FORMAT.format(this.date);
+		if (this.date != null)
+			return DateFormatUtils.ISO_DATE_FORMAT.format(this.date);
+		else
+			return "";
 	}
 	
 	public String getLabel() {

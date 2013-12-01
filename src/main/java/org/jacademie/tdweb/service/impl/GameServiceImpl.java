@@ -162,4 +162,10 @@ public class GameServiceImpl implements GameService {
 		
 		this.gameDao.createGame(gameBeingCreated);
 	}
+
+	@Override
+	public Collection<Game> retrievePointsComputedGames() {
+		
+		return this.gameDao.retrievePointsComputedGames();
+	}
 }

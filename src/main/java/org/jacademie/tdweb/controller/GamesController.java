@@ -1,5 +1,6 @@
 package org.jacademie.tdweb.controller;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -8,6 +9,8 @@ import java.util.Map;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Logger;
 import org.jacademie.tdweb.domain.Game;
 import org.jacademie.tdweb.domain.User;
@@ -86,9 +89,6 @@ public class GamesController {
 		
 		Game gameBeingCreated = new Game();
 		
-		// TODO change that
-		gameBeingCreated.setDate(new Date());
-		
 		gameBeingCreated.setClosed(Boolean.TRUE);
 		gameBeingCreated.setPointsComputed(Boolean.FALSE);
 		
@@ -99,6 +99,7 @@ public class GamesController {
 	
 	@RequestMapping(value="Finish", method = RequestMethod.POST)
 	public String finishHandler(@ModelAttribute(value = "gameBeingCreated") Game gameBeingCreated,
+								@RequestParam String strDate,
 								@RequestParam String team1,
 								@RequestParam String team2,
 							 	ModelMap model) {
@@ -107,7 +108,23 @@ public class GamesController {
 		
 		Collection<String> errors = new ArrayList<>();
 		
-		// TODO handle date
+		logger.debug("Date : " + strDate);
+		if (StringUtils.isEmpty(strDate)) {
+			
+			errors.add("Date is mandatory");
+		}
+		else {
+			String[] patterns = {DateFormatUtils.ISO_DATE_FORMAT.getPattern()};
+			Date date = null;
+			try {
+				date = DateUtils.parseDate(strDate, patterns);
+			}
+			catch(ParseException pe) {
+				errors.add("Date is invalid");
+				date = null;
+			}
+			gameBeingCreated.setDate(date);
+		}
 		
 		logger.debug("Team1 : " + team1);
 		if (StringUtils.isEmpty(team1)) {
@@ -152,6 +169,7 @@ public class GamesController {
 	
 	@RequestMapping(value="Save", method = RequestMethod.POST)
 	public String saveHandler(@ModelAttribute(value = "gameEdited") Game gameEdited,
+								@RequestParam String strDate,
 								@RequestParam String team1,
 								@RequestParam String team2,
 								@RequestParam String strScoreTeam1,
@@ -162,7 +180,23 @@ public class GamesController {
 		
 		Collection<String> errors = new ArrayList<>();
 		
-		// TODO handle date
+		logger.debug("Date : " + strDate);
+		if (StringUtils.isEmpty(strDate)) {
+			
+			errors.add("Date is mandatory");
+		}
+		else {
+			String[] patterns = {DateFormatUtils.ISO_DATE_FORMAT.getPattern()};
+			Date date = null;
+			try {
+				date = DateUtils.parseDate(strDate, patterns);
+			}
+			catch(ParseException pe) {
+				errors.add("Date is invalid");
+				date = null;
+			}
+			gameEdited.setDate(date);
+		}
 		
 		logger.debug("Team1 : " + team1);
 		if (StringUtils.isEmpty(team1)) {

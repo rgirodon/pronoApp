@@ -42,6 +42,15 @@ public class GameDaoHibernateImpl implements GameDao {
     	
     	return query.list();
 	}
+	
+	public Collection<Game> retrievePointsComputedGames() {
+		
+		Session session = this.getCurrentSession();
+    	
+    	Query query = session.getNamedQuery("pointsComputedGames");
+    	
+    	return query.list();
+	}
 
 	@Override
 	public Collection<Game> retrieveGames() {
