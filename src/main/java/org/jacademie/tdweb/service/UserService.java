@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.jacademie.tdweb.domain.User;
 import org.jacademie.tdweb.dto.LoginPasswordDTO;
+import org.jacademie.tdweb.dto.RegisterDTO;
 
 public interface UserService {
 
@@ -18,4 +19,8 @@ public interface UserService {
 	User findUserById(Integer id);
 
 	Collection<User> retrieveRankingUsers();
+
+	void register(RegisterDTO registerDTO);
+
+	Collection<String> validateRegister(RegisterDTO registerDTO);
 }

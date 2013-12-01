@@ -78,4 +78,12 @@ public class UserDaoHibernateImpl implements UserDao {
 		
 		return (User)session.get(User.class, id);
 	}
+
+	@Override
+	public void createUser(User user) {
+		
+		Session session = this.getCurrentSession();
+		
+		session.save(user);
+	}
 }

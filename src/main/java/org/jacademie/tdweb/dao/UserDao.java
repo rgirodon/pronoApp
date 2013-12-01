@@ -12,5 +12,7 @@ public interface UserDao {
 
 	User findUserById(Integer id);
 
-	Collection<User> retrieveRankingUsers();	
+	Collection<User> retrieveRankingUsers();
+
+	void createUser(User user);	
 }

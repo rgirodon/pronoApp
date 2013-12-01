@@ -69,7 +69,8 @@ public class SignInFilter implements Filter {
 
 	private boolean excludeFromFilter(String path) {
 		
-		 if (path.startsWith("/SignIn")) {
+		 if (path.startsWith("/SignIn")
+				 || path.startsWith("/Register")) {
 			 
 			 return true;
 		 }

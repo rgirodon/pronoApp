@@ -83,7 +83,7 @@ public class GamesController {
 	}
 	
 	@RequestMapping(value="New", method = RequestMethod.GET)
-	public String editHandler(ModelMap model) {
+	public String newHandler(ModelMap model) {
 		
 		logger.debug("Creating new game");
 		
