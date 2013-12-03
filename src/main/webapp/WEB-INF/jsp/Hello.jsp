@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
   <head>
-    <title>Welcome to PronoApp</title>
+    <title>Welcome to Pronostico</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/hello.css" rel="stylesheet">
@@ -56,17 +56,30 @@
           <form class="form-inline" method="post" role="form" action="Bet.do">
           
 	          <c:forEach var="gameForBet" items="${gamesForBet}" >
-			  	<p><c:out value="${ gameForBet.team1 }" /> 
-			  		<input type="text" class="form-control score-input" name="<c:out value="${ gameForBet.idGame }" />_scoreTeam1" value="<c:out value="${ gameForBet.scoreTeam1 }" />">
-			  		 - 
-			  		<input type="text" class="form-control score-input" name="<c:out value="${ gameForBet.idGame }" />_scoreTeam2" value="<c:out value="${ gameForBet.scoreTeam2 }" />"> 
-			  	   <c:out value="${ gameForBet.team2 }" />
-			  	</p>
+	          	<div class="row bet-row">
+		          	<div class="col-md-4 bet-team-home">
+				  		<c:out value="${ gameForBet.team1 }" /> 
+				  	</div>
+				  	<div class="col-md-2">
+			  			<input type="text" class="form-control score-input" name="<c:out value="${ gameForBet.idGame }" />_scoreTeam1" value="<c:out value="${ gameForBet.scoreTeam1 }" />">
+			  		</div>
+			  		<div class="col-md-2"> 
+			  			<input type="text" class="form-control score-input" name="<c:out value="${ gameForBet.idGame }" />_scoreTeam2" value="<c:out value="${ gameForBet.scoreTeam2 }" />"> 
+			  		</div>
+			  		<div class="col-md-4 bet-team-away">
+			  			<c:out value="${ gameForBet.team2 }" />
+			  		</div>
+			  	</div>
 			  </c:forEach>
 			  
-	          <p><button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bet</button></p>
+	          <div class="row">
+	          	<div class="col-md-12 bet-button">
+	          		<button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bet</button>
+	          	</div>
+	          </div>
 	          
           </form>
+
         </div>
         <div class="col-md-4">
           <h2>History</h2>

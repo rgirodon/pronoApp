@@ -7,6 +7,7 @@
     <link href="../css/bootstrap.min.css" rel="stylesheet"> 
     <link href="../css/theme.bootstrap.css" rel="stylesheet">
     <link href="../addons/pager/jquery.tablesorter.pager.css" rel="stylesheet">
+    <link href="../css/hello.css" rel="stylesheet">
     <script src="../js/jquery-1.10.2.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/jquery.tablesorter.js"></script>
@@ -92,8 +93,18 @@
 	          		</tr>
 	          	</thead>
 	          	<tbody>
-		          	<c:forEach var="game" items="${games}">
-		          		<tr>
+		          	<c:forEach var="game" items="${games}">		          		
+		          		<c:choose>
+							<c:when test="${ game.pointsComputed }"> 
+								<tr>
+							</c:when>
+							<c:when test="${ game.closed }">
+								<tr class="danger">
+							</c:when>
+							<c:when test="${ not game.closed }">
+								<tr class="success">
+							</c:when>	
+						</c:choose>
 		          			<td><c:out value="${ game.formattedDate }" /></td>
 		          			<td><c:out value="${ game.label }" /></td>
 		          			<td><c:out value="${ game.score }" /></td>

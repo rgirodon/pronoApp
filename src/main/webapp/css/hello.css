@@ -9,3 +9,26 @@
 .date-input {
 	width: 100px
 }
+
+.bet-team-home {
+	text-align: right;
+	padding-top: 5px;
+}
+
+.bet-team-away {
+	text-align: left;
+	padding-top: 5px;
+}
+
+.bet-button {
+	text-align: center;
+	padding-top: 15px;
+}
+
+.bet-row {
+	margin: 10px;
+}
+
+.tablesorter-bootstrap tbody > .odd:hover > td, .tablesorter-bootstrap tbody > .even:hover > td {
+	background-color: #999999; !important
+}
