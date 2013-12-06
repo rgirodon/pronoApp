@@ -11,7 +11,7 @@
     <div>
 	  	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="navbar-header">
-	    		<a class="navbar-brand" href="Welcome.do">PronoApp</a>
+	    		<a class="navbar-brand" href="Welcome.do">Pronostico</a>
 	  		</div>
 	  		<div class="collapse navbar-collapse">
 	  			<ul class="nav navbar-nav">
