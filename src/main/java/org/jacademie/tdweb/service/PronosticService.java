@@ -11,8 +11,10 @@ public interface PronosticService {
 
 	void saveBetsForUser(Integer id, Collection<GameForBetDTO> bets);
 
-	Collection<GameForBetDTO> retrieveBetGamesForUser(Integer userId);
+	Collection<GameForBetDTO> retrieveComputedBetGamesForUser(Integer userId);
 
 	Collection<Pronostic> retrievePronosticsForGame(Integer id);
+
+	Collection<GameForBetDTO> retrieveNotComputedBetGamesForUser(Integer userId);
 
 }

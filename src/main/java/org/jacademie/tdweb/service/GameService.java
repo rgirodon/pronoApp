@@ -30,4 +30,6 @@ public interface GameService {
 
 	Collection<Game> retrievePointsComputedGames();
 
+	Collection<Game> retrievePointsNotComputedClosedGames();
+
 }

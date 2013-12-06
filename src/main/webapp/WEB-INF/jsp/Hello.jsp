@@ -41,6 +41,7 @@
 	<div class="container">
       <!-- Example row of columns -->
       <div class="row">
+      
         <div class="col-md-4">
           
           <h2>Bet for games</h2>
@@ -81,52 +82,82 @@
           </form>
 
         </div>
-        <div class="col-md-4">
-          <h2>History</h2>
-          <p>
-	          <table class="table table-striped table-condensed">
-	          	<thead>
-	          		<tr>
-	          			<th>Game</th>
-	          			<th>Score</th>
-	          			<th>Pronostic</th>
-	          			<th>Points</th>
-	          		</tr>
-	          	</thead>
-	          	<c:forEach var="betGame" items="${betGames}" begin="0" end="2">
-	          		<tr>
-	          			<td><c:out value="${ betGame.game.label }" /></td>
-	          			<td><c:out value="${ betGame.game.score }" /></td>
-	          			<td><c:out value="${ betGame.pronostic.score }" /></td>
-	          			<td><c:out value="${ betGame.pronostic.points }" /></td>
-	          		</tr>
-	          	</c:forEach>
-	          </table>
-          </p>
-          <p><button class="btn btn-default" data-toggle="modal" data-target="#historyModal"><span class="glyphicon glyphicon-time"></span> View full history &raquo;</button></p>
+        
+	        <div class="col-md-4">
+	        	<h2>Hope for the best...</h2>
+	        	<c:forEach var="notComputedBetGame" items="${notComputedBetGames}" >
+		          	<div class="row bet-row">
+			          	<div class="col-md-4 bet-team-home">
+					  		<c:out value="${ notComputedBetGame.team1 }" /> 
+					  	</div>
+					  	<div class="col-md-2">
+				  			<input disabled="true" type="text" class="form-control score-input" name="<c:out value="${ notComputedBetGame.idGame }" />_scoreTeam1" value="<c:out value="${ notComputedBetGame.scoreTeam1 }" />">
+				  		</div>
+				  		<div class="col-md-2"> 
+				  			<input disabled="true" type="text" class="form-control score-input" name="<c:out value="${ notComputedBetGame.idGame }" />_scoreTeam2" value="<c:out value="${ notComputedBetGame.scoreTeam2 }" />"> 
+				  		</div>
+				  		<div class="col-md-4 bet-team-away">
+				  			<c:out value="${ notComputedBetGame.team2 }" />
+				  		</div>
+				  	</div>
+				 </c:forEach>
+				 <h3>(But prepare for the worst)</h3>
+	        </div>
+	    
+        
+	        <div class="col-md-4">
+	          <h2>Ranking</h2>
+	          <p>
+	          	  <table class="table table-striped table-condensed">
+		          	<thead>
+		          		<tr>
+		          			<th>User</th>
+		          			<th>Points</th>
+		          		</tr>
+		          	</thead>
+		          	<c:forEach var="rankingUser" items="${rankingUsers}" begin="0" end="2">
+		          		<tr>
+		          			<td><c:out value="${ rankingUser.login }" /></td>
+		          			<td><c:out value="${ rankingUser.points }" /></td>
+		          		</tr>
+		          	</c:forEach>
+		          </table>
+	          </p>
+	          <p><button class="btn btn-default" data-toggle="modal" data-target="#rankingModal"><span class="glyphicon glyphicon-list"></span> View full ranking &raquo;</button></p>
+	        </div>
+      
         </div>
-        <div class="col-md-4">
-          <h2>Ranking</h2>
-          <p>
-          	  <table class="table table-striped table-condensed">
-	          	<thead>
-	          		<tr>
-	          			<th>User</th>
-	          			<th>Points</th>
-	          		</tr>
-	          	</thead>
-	          	<c:forEach var="rankingUser" items="${rankingUsers}" begin="0" end="2">
-	          		<tr>
-	          			<td><c:out value="${ rankingUser.login }" /></td>
-	          			<td><c:out value="${ rankingUser.points }" /></td>
-	          		</tr>
-	          	</c:forEach>
-	          </table>
-          </p>
-          <p><button class="btn btn-default" data-toggle="modal" data-target="#rankingModal"><span class="glyphicon glyphicon-list"></span> View full ranking &raquo;</button></p>
-        </div>        
-      </div>
-    
+        
+        <div class="row">
+        
+	        <div class="col-md-4">
+	          <h2>History</h2>
+	          <p>
+		          <table class="table table-striped table-condensed">
+		          	<thead>
+		          		<tr>
+		          			<th>Game</th>
+		          			<th>Score</th>
+		          			<th>Pronostic</th>
+		          			<th>Points</th>
+		          		</tr>
+		          	</thead>
+		          	<c:forEach var="computedBetGame" items="${computedBetGames}" begin="0" end="2">
+		          		<tr>
+		          			<td><c:out value="${ computedBetGame.game.label }" /></td>
+		          			<td><c:out value="${ computedBetGame.game.score }" /></td>
+		          			<td><c:out value="${ computedBetGame.pronostic.score }" /></td>
+		          			<td><c:out value="${ computedBetGame.pronostic.points }" /></td>
+		          		</tr>
+		          	</c:forEach>
+		          </table>
+	          </p>
+	          <p><button class="btn btn-default" data-toggle="modal" data-target="#historyModal"><span class="glyphicon glyphicon-time"></span> View full history &raquo;</button></p>
+	        </div>
+                
+      	</div>
+      
+      
 	    <!-- History Modal -->
 		<div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="historyModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
@@ -145,12 +176,12 @@
 		          			<th>Points</th>
 		          		</tr>
 		          	</thead>
-		          	<c:forEach var="betGame" items="${betGames}">
+		          	<c:forEach var="computedBetGame" items="${computedBetGames}">
 		          		<tr>
-		          			<td><c:out value="${ betGame.game.label }" /></td>
-		          			<td><c:out value="${ betGame.game.score }" /></td>
-		          			<td><c:out value="${ betGame.pronostic.score }" /></td>
-		          			<td><c:out value="${ betGame.pronostic.points }" /></td>
+		          			<td><c:out value="${ computedBetGame.game.label }" /></td>
+		          			<td><c:out value="${ computedBetGame.game.score }" /></td>
+		          			<td><c:out value="${ computedBetGame.pronostic.score }" /></td>
+		          			<td><c:out value="${ computedBetGame.pronostic.points }" /></td>
 		          		</tr>
 		          	</c:forEach>
 		          </table>

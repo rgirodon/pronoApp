@@ -90,7 +90,7 @@ public class PronosticServiceImpl implements PronosticService {
 	}
 	
 	@Override
-	public Collection<GameForBetDTO> retrieveBetGamesForUser(Integer id) {
+	public Collection<GameForBetDTO> retrieveComputedBetGamesForUser(Integer id) {
 		
 		Collection<GameForBetDTO> result = new ArrayList<>();
 		
@@ -125,6 +125,42 @@ public class PronosticServiceImpl implements PronosticService {
 		return result;
 	}
 
+	@Override
+	public Collection<GameForBetDTO> retrieveNotComputedBetGamesForUser(Integer id) {
+		
+		Collection<GameForBetDTO> result = new ArrayList<>();
+		
+		Collection<Game> pointsNotComputedClosedGames = this.gameService.retrievePointsNotComputedClosedGames();
+		
+		logger.debug("Found pointsNotComputed closed games : " + pointsNotComputedClosedGames.size());
+		
+		User user = this.userService.findUserById(id);
+		
+		logger.debug("Found user : " + user);
+		
+		for (Game pointsNotComputedClosedGame : pointsNotComputedClosedGames) {
+			
+			logger.debug("Found pointsNotComputed closed game : " + pointsNotComputedClosedGame);
+			
+			Pronostic userPronostic = this.pronosticDao.retrievePronosticForGameAndUser(pointsNotComputedClosedGame.getId(), id);
+			
+			if (userPronostic != null) {
+				
+				logger.debug("Found a pronostic for this user and this game : " + userPronostic);
+				
+				GameForBetDTO betGameDTO = new GameForBetDTO();
+				
+				betGameDTO.setGame(pointsNotComputedClosedGame);
+				
+				betGameDTO.setPronostic(userPronostic);
+				
+				result.add(betGameDTO);
+			}
+		}
+		
+		return result;
+	}
+	
 	@Override
 	public Collection<Pronostic> retrievePronosticsForGame(Integer id) {
 		

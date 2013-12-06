@@ -24,6 +24,8 @@ import org.apache.commons.lang.time.DateUtils;
 	@NamedQuery(name="allGames", query="from Game order by date desc"),
 	
 	@NamedQuery(name="pointsComputedGames", query="from Game where pointsComputed = true order by date desc"),
+	
+	@NamedQuery(name="pointsNotComputedClosedGames", query="from Game where pointsComputed = false and closed = true order by date desc")
 })
 public class Game implements Serializable {
 

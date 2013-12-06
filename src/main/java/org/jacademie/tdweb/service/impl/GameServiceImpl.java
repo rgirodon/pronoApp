@@ -168,4 +168,10 @@ public class GameServiceImpl implements GameService {
 		
 		return this.gameDao.retrievePointsComputedGames();
 	}
+	
+	@Override
+	public Collection<Game> retrievePointsNotComputedClosedGames() {
+		
+		return this.gameDao.retrievePointsNotComputedClosedGames();
+	}
 }

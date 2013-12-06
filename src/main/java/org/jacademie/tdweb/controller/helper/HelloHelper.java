@@ -33,9 +33,13 @@ public class HelloHelper {
 		
 		model.addAttribute("gamesForBet", gamesForBet);
 		
-		Collection<GameForBetDTO> betGames = this.pronosticService.retrieveBetGamesForUser(userId);
+		Collection<GameForBetDTO> notComputedBetGames = this.pronosticService.retrieveNotComputedBetGamesForUser(userId);
 		
-		model.addAttribute("betGames", betGames);
+		model.addAttribute("notComputedBetGames", notComputedBetGames);
+		
+		Collection<GameForBetDTO> computedBetGames = this.pronosticService.retrieveComputedBetGamesForUser(userId);
+		
+		model.addAttribute("computedBetGames", computedBetGames);
 		
 		Collection<User> rankingUsers = this.userService.retrieveRankingUsers();
 		

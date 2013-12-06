@@ -22,4 +22,6 @@ public interface GameDao {
 
 	Collection<Game> retrievePointsComputedGames();
 
+	Collection<Game> retrievePointsNotComputedClosedGames();
+
 }
