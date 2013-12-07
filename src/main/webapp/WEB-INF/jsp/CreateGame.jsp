@@ -30,16 +30,19 @@
 	  		</div>
 	  		<div class="collapse navbar-collapse">
 	  			<ul class="nav navbar-nav">
-	  				<c:if test="${ user.admin }">
-		  				<li class="dropdown">
-					    	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
-					        <ul class="dropdown-menu">
-					          <li><a href="List.do">Games</a></li>
-		<!-- 			          <li><a href="#">Users</a></li> -->
-		<!-- 			          <li><a href="#">Pronostics</a></li> -->
-					        </ul>
-					    </li>
-				    </c:if>
+	  				
+	  				<li class="dropdown">
+				    	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
+				        <ul class="dropdown-menu">
+				          <li><a href="../ChangeMyPassword.do">Change my password</a></li>
+				          <c:if test="${ user.admin }">
+				          	<li><a href="List.do">Admin Games</a></li>
+	<!-- 			          <li><a href="#">Users</a></li> -->
+	<!-- 			          <li><a href="#">Pronostics</a></li> -->
+						  </c:if>
+				        </ul>
+				    </li>
+				    
 	  			</ul>
 	  		</div>
 		</nav>
@@ -48,6 +51,9 @@
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-12">
+          
+          <br/>
+          <br/>
           
           <h2>Create Game</h2>
 

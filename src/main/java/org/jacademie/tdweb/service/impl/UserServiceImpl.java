@@ -8,6 +8,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.log4j.Logger;
 import org.jacademie.tdweb.dao.UserDao;
 import org.jacademie.tdweb.domain.User;
+import org.jacademie.tdweb.dto.ChangeMyPasswordDTO;
 import org.jacademie.tdweb.dto.LoginPasswordDTO;
 import org.jacademie.tdweb.dto.RegisterDTO;
 import org.jacademie.tdweb.service.UserService;
@@ -149,6 +150,45 @@ public class UserServiceImpl implements UserService {
 		if (!StringUtils.equals(registerDTO.getPassword(), registerDTO.getReEnterPassword())) {
 			
 			errors.add("Passwords are not the same");
+		}
+		
+		return errors;
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void changeMyPassword(Integer userId,
+			ChangeMyPasswordDTO changeMyPasswordDTO) {
+		
+		User user = this.findUserById(userId);
+		
+		user.setPassword(changeMyPasswordDTO.getNewPassword());
+	}
+
+	@Override	
+	public Collection<String> validateChangeMyPassword(Integer userId,
+			ChangeMyPasswordDTO changeMyPasswordDTO) {
+		
+		Collection<String> errors = new ArrayList<>();
+		
+		User user = this.findUserById(userId);
+		
+		// check oldPassword and user password are equals
+		if (!StringUtils.equals(changeMyPasswordDTO.getOldPassword(), user.getPassword())) {
+			
+			errors.add("Old Password is not correct");
+		}
+		
+		// check new password is not empty
+		if (StringUtils.isEmpty(changeMyPasswordDTO.getNewPassword())) {
+			
+			errors.add("New Password is mandatory");
+		}
+		
+		// check newPassword and reEnterNewPassword are equals
+		if (!StringUtils.equals(changeMyPasswordDTO.getNewPassword(), changeMyPasswordDTO.getReEnterNewPassword())) {
+			
+			errors.add("New Passwords are not the same");
 		}
 		
 		return errors;
