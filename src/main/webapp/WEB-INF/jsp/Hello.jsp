@@ -5,7 +5,41 @@
     <title>Welcome to Pronostico</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/theme.bootstrap.css" rel="stylesheet">
+    <link href="addons/pager/jquery.tablesorter.pager.css" rel="stylesheet">
     <link href="css/hello.css" rel="stylesheet">
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.tablesorter.js"></script>
+	<script src="js/jquery.tablesorter.widgets.js"></script>	
+	<script src="addons/pager/jquery.tablesorter.pager.js"></script>
+	<script id="js">
+	
+	$(function() {
+
+		$("#fullComputedBetGamesTable").tablesorter({
+
+			theme : "bootstrap",
+	
+			widthFixed: true,
+	
+			headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+	
+			widgets : [ "uitheme", "zebra" ]		
+		})
+		.tablesorterPager({
+	
+			container: $(".ts-pager"),
+	
+			cssGoto  : ".pagenum",
+	
+			removeRows: false,
+	
+			output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'	
+		});
+	});
+
+    </script>
   </head>
   <body>
     <div>
@@ -167,7 +201,7 @@
 		        <h4 class="modal-title" id="historyModalLabel">History</h4>
 		      </div>
 		      <div class="modal-body">
-		        <table class="table table-striped table-condensed">
+		        <table id="fullComputedBetGamesTable" class="table table-striped table-condensed">
 		          	<thead>
 		          		<tr>
 		          			<th>Game</th>
@@ -176,6 +210,30 @@
 		          			<th>Points</th>
 		          		</tr>
 		          	</thead>
+		          	<tfoot>
+						<tr>
+		          			<th>Game</th>
+		          			<th>Score</th>
+		          			<th>Pronostic</th>
+		          			<th>Points</th>
+						</tr>
+						<tr>
+							<th colspan="4" class="ts-pager form-horizontal">
+								<button type="button" class="btn first"><i class="icon-step-backward glyphicon glyphicon-step-backward"></i></button>
+								<button type="button" class="btn prev"><i class="icon-arrow-left glyphicon glyphicon-backward"></i></button>
+								<span class="pagedisplay"></span> <!-- this can be any element, including an input -->
+								<button type="button" class="btn next"><i class="icon-arrow-right glyphicon glyphicon-forward"></i></button>
+								<button type="button" class="btn last"><i class="icon-step-forward glyphicon glyphicon-step-forward"></i></button>
+								<select class="pagesize input-mini" title="Select page size">
+									<option selected="selected" value="10">10</option>
+									<option value="20">20</option>
+									<option value="30">30</option>
+									<option value="40">40</option>
+								</select>
+								<select class="pagenum input-mini" title="Select page number"></select>
+							</th>
+						</tr>
+					</tfoot>
 		          	<c:forEach var="computedBetGame" items="${computedBetGames}">
 		          		<tr>
 		          			<td><c:out value="${ computedBetGame.game.label }" /></td>
@@ -219,11 +277,10 @@
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		      </div>
-		    </div><!-- /.modal-content -->
-		  </div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
+		    </div>
+		  </div>
+		</div>
 	
-    <script src="js/jquery-1.10.2.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    
   </body>
 </html>
