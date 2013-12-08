@@ -15,6 +15,16 @@ public class GameForBetDTO implements Serializable {
 		super();
 	}
 
+	public String getLogin() {
+		
+		return this.getPronostic().getUser().getLogin();
+	}
+	
+	public String getPronosticScore() {
+		
+		return this.getPronostic().getScore();
+	}
+	
 	public Integer getIdGame() {
 		
 		return this.getGame().getId();

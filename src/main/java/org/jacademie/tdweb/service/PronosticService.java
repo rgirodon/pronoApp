@@ -17,4 +17,7 @@ public interface PronosticService {
 
 	Collection<GameForBetDTO> retrieveNotComputedBetGamesForUser(Integer userId);
 
+	Collection<GameForBetDTO> retrieveOthersPronosticsForGame(Integer idUser,
+			Integer idGame);
+
 }

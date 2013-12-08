@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @NamedQueries({
 	@NamedQuery(name="pronosticByGameAndUser", query="from Pronostic where game.id = :gameId"
 			                                       + "                 and user.id = :userId"),
-	@NamedQuery(name="pronosticsByGame", query="from Pronostic where game.id = :id") 
+	@NamedQuery(name="pronosticsByGame", query="from Pronostic where game.id = :id order by user.login") 
 })
 public class Pronostic implements Serializable {
 

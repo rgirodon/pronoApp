@@ -37,6 +37,10 @@
 	
 			output: '{startRow} - {endRow} / {filteredRows} ({totalRows})'	
 		});
+		
+		$('#seeOtherPronosticsModal').on('hidden.bs.modal', function () {
+		    $('#seeOtherPronosticsModal').removeData('bs.modal');
+		});
 	});
 
     </script>
@@ -83,6 +87,8 @@
           
           <h2>Bet for games</h2>
           
+          <br/>
+          
           <c:if test="${ not empty betConfirmMessage }">
           	<div class="alert alert-success"><c:out value="${ betConfirmMessage }" /></div>
           </c:if>
@@ -96,7 +102,7 @@
 	          <c:forEach var="gameForBet" items="${gamesForBet}" >
 	          	<div class="row bet-row">
 		          	<div class="col-md-4 bet-team-home">
-				  		<c:out value="${ gameForBet.team1 }" /> 
+				  		<small><c:out value="${ gameForBet.team1 }" /></small>
 				  	</div>
 				  	<div class="col-md-2">
 			  			<input type="text" class="form-control score-input" name="<c:out value="${ gameForBet.idGame }" />_scoreTeam1" value="<c:out value="${ gameForBet.scoreTeam1 }" />">
@@ -105,7 +111,7 @@
 			  			<input type="text" class="form-control score-input" name="<c:out value="${ gameForBet.idGame }" />_scoreTeam2" value="<c:out value="${ gameForBet.scoreTeam2 }" />"> 
 			  		</div>
 			  		<div class="col-md-4 bet-team-away">
-			  			<c:out value="${ gameForBet.team2 }" />
+			  			<small><c:out value="${ gameForBet.team2 }" /></small>
 			  		</div>
 			  	</div>
 			  </c:forEach>
@@ -121,11 +127,12 @@
         </div>
         
 	        <div class="col-md-4">
-	        	<h2>Hope for the best...</h2>
+	        	<h2>Ongoing bets</h2>
+	        	<br/>
 	        	<c:forEach var="notComputedBetGame" items="${notComputedBetGames}" >
 		          	<div class="row bet-row">
 			          	<div class="col-md-4 bet-team-home">
-					  		<c:out value="${ notComputedBetGame.team1 }" /> 
+					  		<small><c:out value="${ notComputedBetGame.team1 }" /></small>
 					  	</div>
 					  	<div class="col-md-2">
 				  			<input disabled="true" type="text" class="form-control score-input" name="<c:out value="${ notComputedBetGame.idGame }" />_scoreTeam1" value="<c:out value="${ notComputedBetGame.scoreTeam1 }" />">
@@ -134,11 +141,13 @@
 				  			<input disabled="true" type="text" class="form-control score-input" name="<c:out value="${ notComputedBetGame.idGame }" />_scoreTeam2" value="<c:out value="${ notComputedBetGame.scoreTeam2 }" />"> 
 				  		</div>
 				  		<div class="col-md-4 bet-team-away">
-				  			<c:out value="${ notComputedBetGame.team2 }" />
+		  					<small><c:out value="${ notComputedBetGame.team2 }" /></small>
+		  					<a href="SeeOtherPronostics.do?idGame=<c:out value="${ notComputedBetGame.idGame }" />" data-toggle="modal" data-target="#seeOtherPronosticsModal"><span class="glyphicon glyphicon-eye-open"></span></a> 
 				  		</div>
 				  	</div>
 				 </c:forEach>
-				 <h3>(But prepare for the worst)</h3>
+				 <br/>
+				 <h4>Hope for the best, prepare for the worst</h4>
 	        </div>
 	    
         
@@ -194,6 +203,9 @@
                 
       	</div>
       
+        <!-- SeeOtherPronostics Modal -->
+		<div class="modal fade" id="seeOtherPronosticsModal" tabindex="-1" role="dialog" aria-labelledby="seeOtherPronosticsModallLabel" aria-hidden="true">		  
+		</div>
       
 	    <!-- History Modal -->
 		<div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="historyModalLabel" aria-hidden="true">

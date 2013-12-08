@@ -1,5 +1,5 @@
 .score-input {
-	width: 45px
+	width: 35px
 }
 
 .team-input {
@@ -13,11 +13,15 @@
 .bet-team-home {
 	text-align: right;
 	padding-top: 5px;
+	padding-right: 0px;
+	padding-left: 0px;
 }
 
 .bet-team-away {
 	text-align: left;
 	padding-top: 5px;
+	padding-right: 0px;
+	padding-left: 0px;
 }
 
 .bet-button {
