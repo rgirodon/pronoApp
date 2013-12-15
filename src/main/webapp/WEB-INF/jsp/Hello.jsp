@@ -29,7 +29,7 @@
 		})
 		.tablesorterPager({
 	
-			container: $(".ts-pager"),
+			container: $(".fullComputedBetGamesTable-ts-pager"),
 	
 			cssGoto  : ".pagenum",
 	
@@ -233,7 +233,7 @@
 		          			<th>Points</th>
 						</tr>
 						<tr>
-							<th colspan="4" class="ts-pager form-horizontal">
+							<th colspan="4" class="fullComputedBetGamesTable-ts-pager form-horizontal">
 								<button type="button" class="btn first"><i class="icon-step-backward glyphicon glyphicon-step-backward"></i></button>
 								<button type="button" class="btn prev"><i class="icon-arrow-left glyphicon glyphicon-backward"></i></button>
 								<span class="pagedisplay"></span> <!-- this can be any element, including an input -->
