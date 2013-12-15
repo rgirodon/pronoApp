@@ -60,7 +60,7 @@
 				          <li><a href="ChangeMyPassword.do">Change my password</a></li>
 				          <c:if test="${ user.admin }">
 				          	<li><a href="Games/List.do">Admin Games</a></li>
-	<!-- 			          <li><a href="#">Users</a></li> -->
+	 			            <li><a href="Users/List.do">Admin Users</a></li>
 	<!-- 			          <li><a href="#">Pronostics</a></li> -->
 						  </c:if>
 				        </ul>
@@ -157,12 +157,14 @@
 	          	  <table class="table table-striped table-condensed">
 		          	<thead>
 		          		<tr>
+		          			<th>Rank</th>
 		          			<th>User</th>
 		          			<th>Points</th>
 		          		</tr>
 		          	</thead>
-		          	<c:forEach var="rankingUser" items="${rankingUsers}" begin="0" end="2">
+		          	<c:forEach var="rankingUser" items="${rankingUsers}" begin="0" end="2" varStatus="rank">
 		          		<tr>
+		          			<td><c:out value="${ rank.index + 1 }" /></td>
 		          			<td><c:out value="${ rankingUser.login }" /></td>
 		          			<td><c:out value="${ rankingUser.points }" /></td>
 		          		</tr>
@@ -277,14 +279,24 @@
 		        <table class="table table-striped table-condensed">
 	          	<thead>
 	          		<tr>
+	          			<th>Rank</th>
 	          			<th>User</th>
 	          			<th>Points</th>
+	          			<th>Pronos</th>
+	          			<th>Correct (including exact)</th>
+	          			<th>Exact</th>
+	          			<th>Correct, but inexact</th>
 	          		</tr>
 	          	</thead>
-	          	<c:forEach var="rankingUser" items="${rankingUsers}">
+	          	<c:forEach var="rankingUser" items="${rankingUsers}" varStatus="rank">
 	          		<tr>
+	          			<td><c:out value="${ rank.index + 1 }" /></td>
 	          			<td><c:out value="${ rankingUser.login }" /></td>
 	          			<td><c:out value="${ rankingUser.points }" /></td>
+	          			<td><c:out value="${ rankingUser.nbComputedPronos }" /></td>
+	          			<td><c:out value="${ rankingUser.nbCorrectResults }" /></td>
+	          			<td><c:out value="${ rankingUser.nbExactScores }" /></td>
+	          			<td><c:out value="${ rankingUser.nbCorrectButInexactResults }" /></td>
 	          		</tr>
 	          	</c:forEach>
 	          </table>

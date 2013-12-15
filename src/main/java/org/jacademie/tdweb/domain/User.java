@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,8 +20,8 @@ import javax.persistence.Table;
 @Table(name="UTILISATEUR")
 @NamedQueries({
 	@NamedQuery(name="userByLogin", query="from User where login = :login"),
-	@NamedQuery(name="allUsers", query="from User"),
-	@NamedQuery(name="rankingUsers", query="from User order by points desc")
+	@NamedQuery(name="allUsers", query="from User order by login"),
+	@NamedQuery(name="rankingUsers", query="from User order by points desc, nbCorrectResults desc")
 })
 public class User implements Serializable {
 
@@ -36,6 +37,15 @@ public class User implements Serializable {
 	
 	private Integer points;
 	
+	@Column(name="NB_CORRECT_RESULTS")
+	private Integer nbCorrectResults;
+	
+	@Column(name="NB_EXACT_SCORES")
+	private Integer nbExactScores;
+	
+	@Column(name="NB_COMPUTED_PRONOS")
+	private Integer nbComputedPronos;
+	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="user", cascade=CascadeType.ALL, orphanRemoval=true)
 	private Set<Pronostic> pronostics;
 
@@ -43,6 +53,19 @@ public class User implements Serializable {
 		super();
 		
 		this.pronostics = new HashSet<>();
+	}
+	
+	public Integer getNbCorrectButInexactResults() {
+		
+		return this.getNbCorrectResults() - this.getNbExactScores();
+	}
+	
+	public void resetPoints() {
+		
+		this.setPoints(0);
+		this.setNbComputedPronos(0);
+		this.setNbCorrectResults(0);
+		this.setNbExactScores(0);
 	}
 	
 	public void addPronostic(Pronostic pronostic) {
@@ -55,6 +78,21 @@ public class User implements Serializable {
 	public void addPoints(Integer points) {
 		
 		this.points = this.points + points;
+	}
+	
+	public void incrementNbComputedPronos() {
+		
+		this.nbComputedPronos++;
+	}
+	
+	public void incrementNbCorrectResults() {
+
+		this.nbCorrectResults++;
+	}
+
+	public void incrementNbExactScores() {
+		
+		this.nbExactScores++;
 	}
 
 	@Override
@@ -127,6 +165,30 @@ public class User implements Serializable {
 		this.points = points;
 	}
 
+	public Integer getNbCorrectResults() {
+		return nbCorrectResults;
+	}
+
+	public void setNbCorrectResults(Integer nbCorrectResults) {
+		this.nbCorrectResults = nbCorrectResults;
+	}
+
+	public Integer getNbExactScores() {
+		return nbExactScores;
+	}
+
+	public void setNbExactScores(Integer nbExactScores) {
+		this.nbExactScores = nbExactScores;
+	}
+
+	public Integer getNbComputedPronos() {
+		return nbComputedPronos;
+	}
+
+	public void setNbComputedPronos(Integer nbComputedPronos) {
+		this.nbComputedPronos = nbComputedPronos;
+	}
+
 	public Set<Pronostic> getPronostics() {
 		return pronostics;
 	}
@@ -134,10 +196,4 @@ public class User implements Serializable {
 	public void setPronostics(Set<Pronostic> pronostics) {
 		this.pronostics = pronostics;
 	}
-
-	
-
-	
-	
-	
 }

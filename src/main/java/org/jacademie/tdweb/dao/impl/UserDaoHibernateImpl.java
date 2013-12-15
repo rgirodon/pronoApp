@@ -34,6 +34,7 @@ public class UserDaoHibernateImpl implements UserDao {
     	
     	return query.list();
     }
+
     
     public User findUserByLogin(String login) {
     	

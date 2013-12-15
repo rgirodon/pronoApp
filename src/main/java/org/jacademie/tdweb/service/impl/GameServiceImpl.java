@@ -88,6 +88,20 @@ public class GameServiceImpl implements GameService {
 			pronostic.setPoints(points);
 			
 			logger.debug("User " + user + " won " + points + " points for this game");
+			
+			user.incrementNbComputedPronos();
+			
+			if (points.equals(1)) {
+				
+				user.incrementNbCorrectResults();
+			}
+			
+			if (points.equals(3)) {
+				
+				user.incrementNbCorrectResults();
+				
+				user.incrementNbExactScores();
+			}
 		}
 		
 		game.setPointsComputed(Boolean.TRUE);

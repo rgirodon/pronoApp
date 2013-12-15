@@ -36,3 +36,8 @@
 .tablesorter-bootstrap tbody > .odd:hover > td, .tablesorter-bootstrap tbody > .even:hover > td {
 	background-color: #999999; !important
 }
+
+#rankingModal .modal-dialog
+{
+  width: 800px;
+}

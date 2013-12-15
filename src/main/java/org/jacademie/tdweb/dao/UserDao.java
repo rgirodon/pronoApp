@@ -14,5 +14,5 @@ public interface UserDao {
 
 	Collection<User> retrieveRankingUsers();
 
-	void createUser(User user);	
+	void createUser(User user);
 }

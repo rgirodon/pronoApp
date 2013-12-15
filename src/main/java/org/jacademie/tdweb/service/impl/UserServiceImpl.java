@@ -7,10 +7,12 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.log4j.Logger;
 import org.jacademie.tdweb.dao.UserDao;
+import org.jacademie.tdweb.domain.Game;
 import org.jacademie.tdweb.domain.User;
 import org.jacademie.tdweb.dto.ChangeMyPasswordDTO;
 import org.jacademie.tdweb.dto.LoginPasswordDTO;
 import org.jacademie.tdweb.dto.RegisterDTO;
+import org.jacademie.tdweb.service.GameService;
 import org.jacademie.tdweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,9 @@ public class UserServiceImpl implements UserService {
 
 	private static Logger logger = Logger.getLogger(UserServiceImpl.class);
 
+	@Autowired
+	private GameService gameService;
+	
 	@Autowired
 	private UserDao userDao;
 	
@@ -102,6 +107,12 @@ public class UserServiceImpl implements UserService {
 		
 		return this.userDao.retrieveRankingUsers();
 	}
+	
+	@Override
+	public Collection<User> retrieveUsers() {
+		
+		return this.userDao.findAllUsers();
+	}
 
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
@@ -112,6 +123,9 @@ public class UserServiceImpl implements UserService {
 		user.setLogin(registerDTO.getLogin());
 		user.setPassword(registerDTO.getPassword());
 		user.setPoints(0);
+		user.setNbComputedPronos(0);
+		user.setNbCorrectResults(0);
+		user.setNbExactScores(0);
 		
 		this.userDao.createUser(user);
 	}
@@ -192,5 +206,24 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		return errors;
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void reComputeRanking() {
+		
+		Collection<User> allUsers = this.retrieveUsers();
+		
+		for (User user : allUsers) {
+			
+			user.resetPoints();
+		}
+		
+		Collection<Game> pointsComputedGames = gameService.retrievePointsComputedGames();
+		
+		for (Game game : pointsComputedGames) {
+			
+			gameService.computePointsForGame(game.getId());
+		}
 	}
 }

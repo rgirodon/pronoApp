@@ -37,7 +37,7 @@
 				          <li><a href="../ChangeMyPassword.do">Change my password</a></li>
 				          <c:if test="${ user.admin }">
 				          	<li><a href="List.do">Admin Games</a></li>
-	<!-- 			          <li><a href="#">Users</a></li> -->
+							<li><a href="../Users/List.do">Admin Users</a></li>
 	<!-- 			          <li><a href="#">Pronostics</a></li> -->
 						  </c:if>
 				        </ul>

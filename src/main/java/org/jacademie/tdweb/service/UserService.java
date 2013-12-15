@@ -29,4 +29,8 @@ public interface UserService {
 
 	Collection<String> validateChangeMyPassword(Integer userId,
 			ChangeMyPasswordDTO changeMyPasswordDTO);
+
+	Collection<User> retrieveUsers();
+
+	void reComputeRanking();
 }

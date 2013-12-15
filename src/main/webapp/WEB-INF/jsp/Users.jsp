@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
   <head>
-    <title>Games Administration</title>
+    <title>Users Administration</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/bootstrap.min.css" rel="stylesheet"> 
     <link href="../css/theme.bootstrap.css" rel="stylesheet">
@@ -17,7 +17,7 @@
 	
 	$(function() {
 
-		$("#gamesTable").tablesorter({
+		$("#usersTable").tablesorter({
 
 			theme : "bootstrap",
 	
@@ -55,8 +55,8 @@
 				        <ul class="dropdown-menu">
 				          <li><a href="../ChangeMyPassword.do">Change my password</a></li>
 				          <c:if test="${ user.admin }">
-				          	<li><a href="List.do">Admin Games</a></li>
-							<li><a href="../Users/List.do">Admin Users</a></li>
+				          	<li><a href="../Games/List.do">Admin Games</a></li>
+							<li><a href="List.do">Admin Users</a></li>
 	<!-- 			          <li><a href="#">Pronostics</a></li> -->
 						  </c:if>
 				        </ul>
@@ -74,7 +74,7 @@
           <br/>
           <br/>
           
-          <h2>List of Games</h2>
+          <h2>List of Users</h2>
 
 		  <c:if test="${ not empty actionMessage }">
 		  	<div class="alert alert-success"><c:out value="${ actionMessage }" /></div>
@@ -84,28 +84,28 @@
 		  </c:if>
 
 		  <p>
-		  	<a href="New.do" role="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> New Game</a>
+		  	<a href="ReComputeRanking.do" role="button" class="btn btn-default"><span class="glyphicon glyphicon-dashboard"></span> Re-Compute Ranking</a>
 		  </p>
           <p>
-	          <table id="gamesTable" class="table table-striped table-condensed">
+	          <table id="usersTable" class="table table-striped table-condensed">
 	          	<thead>
 	          		<tr>
-	          			<th data-sorter="shortDate" data-date-format="yyyymmdd">Date</th>
-	          			<th>Game</th>
-	          			<th>Score</th>
-	          			<th>Closed</th>
-	          			<th>Points Computed</th>
-	          			<th>Action</th>
+	          			<th>Login</th>
+	          			<th>Admin</th>
+	          			<th>Points</th>
+	          			<th>Pronos</th>
+	          			<th>Correct</th>
+	          			<th>Exact</th>
 	          		</tr>
 	          	</thead>
 	          	<tfoot>
 					<tr>
-						<th data-sorter="shortDate" data-date-format="yyyymmdd">Date</th>
-	          			<th>Game</th>
-	          			<th>Score</th>
-	          			<th>Closed</th>
-	          			<th>Points Computed</th>
-	          			<th>Action</th>
+	          			<th>Login</th>
+	          			<th>Admin</th>
+	          			<th>Points</th>
+	          			<th>Pronos</th>
+	          			<th>Correct</th>
+	          			<th>Exact</th>
 					</tr>
 					<tr>
 						<th colspan="6" class="ts-pager form-horizontal">
@@ -125,40 +125,14 @@
 					</tr>
 				</tfoot>
 	          	<tbody>
-		          	<c:forEach var="game" items="${games}">		          		
-		          		<c:choose>
-							<c:when test="${ game.pointsComputed }"> 
-								<tr>
-							</c:when>
-							<c:when test="${ game.closed }">
-								<tr class="danger">
-							</c:when>
-							<c:when test="${ not game.closed }">
-								<tr class="success">
-							</c:when>	
-						</c:choose>
-		          			<td><c:out value="${ game.formattedDate }" /></td>
-		          			<td><c:out value="${ game.label }" /></td>
-		          			<td><c:out value="${ game.score }" /></td>
-		          			<td><c:out value="${ game.closed }" /></td>
-		          			<td><c:out value="${ game.pointsComputed }" /></td>
-		          			<td>
-		          				<c:if test="${ game.editable }">
-		          					<a href="Edit.do?id=<c:out value="${ game.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-		          				</c:if>
-		          				<c:if test="${ game.closable }">
-		          					<a href="Close.do?id=<c:out value="${ game.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-eye-close"></span> Close</a>
-		          				</c:if>
-		          				<c:if test="${ game.openable }">
-		          					<a href="Open.do?id=<c:out value="${ game.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-eye-open"></span> Open</a>
-		          				</c:if>
-		          				<c:if test="${ game.pointsComputable }">
-		          					<a href="ComputePoints.do?id=<c:out value="${ game.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-dashboard"></span> Compute points</a>
-		          				</c:if>
-		          				<c:if test="${ game.deletable }">
-		          					<a href="Delete.do?id=<c:out value="${ game.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove"></span> Delete</a>
-		          				</c:if>
-		          			</td>
+		          	<c:forEach var="user" items="${users}">		          		
+		          		<tr>
+		          			<td><c:out value="${ user.login }" /></td>
+		          			<td><c:out value="${ user.admin }" /></td>
+		          			<td><c:out value="${ user.points }" /></td>
+		          			<td><c:out value="${ user.nbComputedPronos }" /></td>
+		          			<td><c:out value="${ user.nbCorrectResults }" /></td>
+		          			<td><c:out value="${ user.nbExactScores }" /></td>
 		          		</tr>
 		          	</c:forEach>
 	          	</tbody>
