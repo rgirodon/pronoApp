@@ -54,27 +54,21 @@
 	  		<div class="collapse navbar-collapse">
 	  			<ul class="nav navbar-nav">
 	  				
-	  				<li class="dropdown">
-				    	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
-				        <ul class="dropdown-menu">
-				          <li><a href="ChangeMyPassword.do">Change my password</a></li>
-				          <c:if test="${ user.admin }">
-				          	<li><a href="Games/List.do">Admin Games</a></li>
-	 			            <li><a href="Users/List.do">Admin Users</a></li>
-	<!-- 			          <li><a href="#">Pronostics</a></li> -->
-						  </c:if>
-				        </ul>
-				    </li>
+	  				<%@include file="MyAccountMenu.jsp" %>
+				    
+				    <%@include file="AdministrationMenu.jsp" %>
 				    
 	  			</ul>
+	  			
+	  			<%@include file="SelectLeagueMenu.jsp" %>
+	  			
 	  		</div>
 		</nav>
 	</div>
   	<div class="jumbotron">
 		<div class="container">	    
-		  <h2>Welcome <c:out value="${ user.login }" /></h2>
-		  <p>We are very pleased to see you here.</p>
-		  <p>You have <c:out value="${ user.points }" /> point(s)</p>
+		  <h2>Welcome to league <c:out value="${ league.name }" /> dear <c:out value="${ user.login }" /></h2>
+		  <p>You have <c:out value="${ user.getPointsForLeague(league.id) }" /> point(s)</p>
 		  <p>Your ranking : <c:out value="${ ranking }" /> / <c:out value="${ nbTotalUsers }" /></p>
 		  <p>If you want to leave <a class="btn btn-lg btn-default" href="SignOut.do" role="button"><span class="glyphicon glyphicon-off"></span> Sign Out</a></p>
 		</div>		
@@ -166,7 +160,7 @@
 		          		<tr>
 		          			<td><c:out value="${ rank.index + 1 }" /></td>
 		          			<td><c:out value="${ rankingUser.login }" /></td>
-		          			<td><c:out value="${ rankingUser.points }" /></td>
+		          			<td><c:out value="${ rankingUser.getPointsForLeague(league.id) }" /></td>
 		          		</tr>
 		          	</c:forEach>
 		          </table>
@@ -292,11 +286,11 @@
 	          		<tr>
 	          			<td><c:out value="${ rank.index + 1 }" /></td>
 	          			<td><c:out value="${ rankingUser.login }" /></td>
-	          			<td><c:out value="${ rankingUser.points }" /></td>
-	          			<td><c:out value="${ rankingUser.nbComputedPronos }" /></td>
-	          			<td><c:out value="${ rankingUser.nbCorrectResults }" /></td>
-	          			<td><c:out value="${ rankingUser.nbExactScores }" /></td>
-	          			<td><c:out value="${ rankingUser.nbCorrectButInexactResults }" /></td>
+	          			<td><c:out value="${ rankingUser.getPointsForLeague(league.id) }" /></td>
+	          			<td><c:out value="${ rankingUser.getNbComputedPronosForLeague(league.id) }" /></td>
+	          			<td><c:out value="${ rankingUser.getNbCorrectResultsForLeague(league.id) }" /></td>
+	          			<td><c:out value="${ rankingUser.getNbExactScoresForLeague(league.id) }" /></td>
+	          			<td><c:out value="${ rankingUser.getNbCorrectButInexactResultsForLeague(league.id) }" /></td>
 	          		</tr>
 	          	</c:forEach>
 	          </table>

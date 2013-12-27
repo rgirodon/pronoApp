@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -17,15 +20,13 @@ import org.apache.commons.lang.time.DateUtils;
 @Entity
 @Table(name="GAME")
 @NamedQueries({
-	@NamedQuery(name="openedGames", query="from Game where closed = false order by date desc"),
+	@NamedQuery(name="openedGamesForLeague", query="from Game where closed = false and league.id = :leagueId order by date desc"),
 	
-	@NamedQuery(name="closedGames", query="from Game where closed = true order by date desc"),
+	@NamedQuery(name="gamesForLeague", query="from Game where league.id = :leagueId order by date desc"),
 	
-	@NamedQuery(name="allGames", query="from Game order by date desc"),
+	@NamedQuery(name="pointsComputedGamesForLeague", query="from Game where pointsComputed = true and league.id = :leagueId order by date desc"),
 	
-	@NamedQuery(name="pointsComputedGames", query="from Game where pointsComputed = true order by date desc"),
-	
-	@NamedQuery(name="pointsNotComputedClosedGames", query="from Game where pointsComputed = false and closed = true order by date desc")
+	@NamedQuery(name="pointsNotComputedClosedGamesForLeague", query="from Game where pointsComputed = false and closed = true and league.id = :leagueId order by date desc")
 })
 public class Game implements Serializable {
 
@@ -46,6 +47,10 @@ public class Game implements Serializable {
 	private Boolean closed;
 	
 	private Boolean pointsComputed;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name = "league_id")
+	private League league;
 
 	public Game() {
 		super();
@@ -222,6 +227,14 @@ public class Game implements Serializable {
 
 	public void setPointsComputed(Boolean pointsComputed) {
 		this.pointsComputed = pointsComputed;
+	}
+
+	public League getLeague() {
+		return league;
+	}
+
+	public void setLeague(League league) {
+		this.league = league;
 	}
 	
 	

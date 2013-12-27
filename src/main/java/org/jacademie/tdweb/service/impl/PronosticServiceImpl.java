@@ -46,15 +46,15 @@ public class PronosticServiceImpl implements PronosticService {
 	}
 	
 	@Override
-	public Collection<GameForBetDTO> retrieveGamesForBetForUser(Integer id) {
+	public Collection<GameForBetDTO> retrieveGamesForBetForUserForLeague(Integer userId, Integer leagueId) {
 		
 		Collection<GameForBetDTO> result = new ArrayList<>();
 		
-		Collection<Game> openedGames = this.gameService.retrieveOpenedGames();
+		Collection<Game> openedGames = this.gameService.retrieveOpenedGamesForLeague(leagueId);
 		
 		logger.debug("Found opened games : " + openedGames.size());
 		
-		User user = this.userService.findUserById(id);
+		User user = this.userService.findUserById(userId);
 		
 		logger.debug("Found user : " + user);
 		
@@ -66,7 +66,7 @@ public class PronosticServiceImpl implements PronosticService {
 			
 			gameForBetDTO.setGame(openedGame);
 			
-			Pronostic userPronostic = this.pronosticDao.retrievePronosticForGameAndUser(openedGame.getId(), id);
+			Pronostic userPronostic = this.pronosticDao.retrievePronosticForGameAndUser(openedGame.getId(), userId);
 			
 			if (userPronostic == null) {
 				
@@ -90,15 +90,15 @@ public class PronosticServiceImpl implements PronosticService {
 	}
 	
 	@Override
-	public Collection<GameForBetDTO> retrieveComputedBetGamesForUser(Integer id) {
+	public Collection<GameForBetDTO> retrieveComputedBetGamesForUserForLeague(Integer userId, Integer leagueId) {
 		
 		Collection<GameForBetDTO> result = new ArrayList<>();
 		
-		Collection<Game> pointsComputedGames = this.gameService.retrievePointsComputedGames();
+		Collection<Game> pointsComputedGames = this.gameService.retrievePointsComputedGamesForLeague(leagueId);
 		
 		logger.debug("Found pointsComputed games : " + pointsComputedGames.size());
 		
-		User user = this.userService.findUserById(id);
+		User user = this.userService.findUserById(userId);
 		
 		logger.debug("Found user : " + user);
 		
@@ -106,7 +106,7 @@ public class PronosticServiceImpl implements PronosticService {
 			
 			logger.debug("Found pointsComputed game : " + pointsComputedGame);
 			
-			Pronostic userPronostic = this.pronosticDao.retrievePronosticForGameAndUser(pointsComputedGame.getId(), id);
+			Pronostic userPronostic = this.pronosticDao.retrievePronosticForGameAndUser(pointsComputedGame.getId(), userId);
 			
 			if (userPronostic != null) {
 				
@@ -126,15 +126,15 @@ public class PronosticServiceImpl implements PronosticService {
 	}
 
 	@Override
-	public Collection<GameForBetDTO> retrieveNotComputedBetGamesForUser(Integer id) {
+	public Collection<GameForBetDTO> retrieveNotComputedBetGamesForUserForLeague(Integer userId, Integer leagueId) {
 		
 		Collection<GameForBetDTO> result = new ArrayList<>();
 		
-		Collection<Game> pointsNotComputedClosedGames = this.gameService.retrievePointsNotComputedClosedGames();
+		Collection<Game> pointsNotComputedClosedGames = this.gameService.retrievePointsNotComputedClosedGamesForLeague(leagueId);
 		
 		logger.debug("Found pointsNotComputed closed games : " + pointsNotComputedClosedGames.size());
 		
-		User user = this.userService.findUserById(id);
+		User user = this.userService.findUserById(userId);
 		
 		logger.debug("Found user : " + user);
 		
@@ -142,7 +142,7 @@ public class PronosticServiceImpl implements PronosticService {
 			
 			logger.debug("Found pointsNotComputed closed game : " + pointsNotComputedClosedGame);
 			
-			Pronostic userPronostic = this.pronosticDao.retrievePronosticForGameAndUser(pointsNotComputedClosedGame.getId(), id);
+			Pronostic userPronostic = this.pronosticDao.retrievePronosticForGameAndUser(pointsNotComputedClosedGame.getId(), userId);
 			
 			if (userPronostic != null) {
 				

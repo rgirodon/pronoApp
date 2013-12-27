@@ -2,25 +2,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
   <head>
-    <title>Games Administration</title>
+    <title>Create League</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet"> 
     <link href="css/hello.css" rel="stylesheet">
     <link href="css/datepicker.css" rel="stylesheet">
     <script src="js/jquery-1.10.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-     <script src="js/bootstrap-datepicker.js"></script>
-	<script id="js">
-	
-	$(function() {
+    <script src="js/bootstrap-datepicker.js"></script>
 
-		$('#strDate').datepicker({
-			format : 'yyyy-mm-dd',
-			autoclose: true
-		});
-	});
-
-    </script>
   </head>
   <body>
     <div>
@@ -50,7 +40,7 @@
           <br/>
           <br/>
           
-          <h2>Create Game</h2>
+          <h2>Create League</h2>
 
 		  <c:if test="${ not empty errors }">
 		  	<div class="alert alert-danger">
@@ -61,19 +51,14 @@
 		  </c:if>
 
 
-	      <form class="form-inline" method="post" role="form" action="FinishGame.do">
+	      <form method="post" role="form" action="CreateLeague.do">
           
-			  <p>
-			  	<input id="strDate" placeholder="Date" required="true" type="text" class="form-control date-input" name="strDate" value="<c:out value="${ gameBeingCreated.formattedDate }" />" />
-			  	<input required="true" placeholder="Team 1" type="text" class="form-control team-input" name="team1" value="<c:out value="${ gameBeingCreated.team1 }" />" />
-			  		 - 
-			  	<input required="true" placeholder="Team 2" type="text" class="form-control team-input" name="team2" value="<c:out value="${ gameBeingCreated.team2 }" />" />
-			  </p>
-			  
-	          <p>
-	          	<a href="ListGames.do" role="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
-	          	<button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Finish</button>
-	          </p>
+			  <div class="form-group">
+			    <label for="name">League Name</label>
+			    <input type="text" class="form-control" id="name" name="name" placeholder="Enter League Name" value="<c:out value="${ leagueBeingCreated.name }" />">
+			  </div>
+			  	          
+	          <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Finish</button>	          
 	          
           </form> 
           

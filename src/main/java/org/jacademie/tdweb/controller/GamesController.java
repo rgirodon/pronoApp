@@ -11,6 +11,7 @@ import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Logger;
 import org.jacademie.tdweb.domain.Game;
+import org.jacademie.tdweb.domain.League;
 import org.jacademie.tdweb.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,8 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@RequestMapping("/Games")
-@SessionAttributes(value={"gameEdited","gameBeingCreated"})
+@SessionAttributes(value={"league","gameEdited","gameBeingCreated"})
 public class GamesController {
 
 	private static Logger logger = Logger.getLogger(GamesController.class);
@@ -31,56 +31,64 @@ public class GamesController {
 	@Autowired
 	private GameService gameService;
 	
-	@RequestMapping(value="List", method = RequestMethod.GET)
-	public String listHandler(ModelMap model) {
+	@RequestMapping(value="ListGames", method = RequestMethod.GET)
+	public String listHandler(@ModelAttribute League league,
+								ModelMap model) {
 		
 		logger.debug("List games.");
 		
-		Collection<Game> games = gameService.retrieveGames();
+		Collection<Game> games = gameService.retrieveGamesForLeague(league.getId());
 		
 		model.addAttribute("games", games);
 		
 		return "Games";
 	}
 	
-	@RequestMapping(value="Close", method = RequestMethod.GET)
-	public String closeHandler(@RequestParam Integer id, ModelMap model) {
+	@RequestMapping(value="CloseGame", method = RequestMethod.GET)
+	public String closeHandler(@RequestParam Integer gameId, 
+								@ModelAttribute League league,
+								ModelMap model) {
 		
-		logger.debug("Closing game " + id);
+		logger.debug("Closing game " + gameId);
 		
-		gameService.closeGame(id);
+		gameService.closeGame(gameId);
 		
 		model.addAttribute("actionMessage", "Game successfully closed.");
 		
-		return this.listHandler(model);
+		return this.listHandler(league, model);
 	}
 	
-	@RequestMapping(value="Open", method = RequestMethod.GET)
-	public String openHandler(@RequestParam Integer id, ModelMap model) {
+	@RequestMapping(value="OpenGame", method = RequestMethod.GET)
+	public String openHandler(@RequestParam Integer gameId, 
+								@ModelAttribute League league,
+								ModelMap model) {
 		
-		logger.debug("Opening game " + id);
+		logger.debug("Opening game " + gameId);
 		
-		gameService.openGame(id);
+		gameService.openGame(gameId);
 		
 		model.addAttribute("actionMessage", "Game successfully opened.");
 		
-		return this.listHandler(model);
+		return this.listHandler(league, model);
 	}
 	
-	@RequestMapping(value="ComputePoints", method = RequestMethod.GET)
-	public String computePointsHandler(@RequestParam Integer id, ModelMap model) {
+	@RequestMapping(value="ComputePointsForGame", method = RequestMethod.GET)
+	public String computePointsHandler(@RequestParam Integer gameId, 
+										@ModelAttribute League league,
+										ModelMap model) {
 		
-		logger.debug("Computing points for game " + id);
+		logger.debug("Computing points for game " + gameId);
 		
-		gameService.computePointsForGame(id);
+		gameService.computePointsForGame(gameId);
 		
 		model.addAttribute("actionMessage", "Points successfully computed.");
 		
-		return this.listHandler(model);
+		return this.listHandler(league, model);
 	}
 	
-	@RequestMapping(value="New", method = RequestMethod.GET)
-	public String newHandler(ModelMap model) {
+	@RequestMapping(value="NewGame", method = RequestMethod.GET)
+	public String newHandler(@ModelAttribute League league,
+							 ModelMap model) {
 		
 		logger.debug("Creating new game");
 		
@@ -88,14 +96,16 @@ public class GamesController {
 		
 		gameBeingCreated.setClosed(Boolean.TRUE);
 		gameBeingCreated.setPointsComputed(Boolean.FALSE);
+		gameBeingCreated.setLeague(league);
 		
 		model.addAttribute("gameBeingCreated", gameBeingCreated);
 		
 		return "CreateGame";
 	}
 	
-	@RequestMapping(value="Finish", method = RequestMethod.POST)
+	@RequestMapping(value="FinishGame", method = RequestMethod.POST)
 	public String finishHandler(@ModelAttribute(value = "gameBeingCreated") Game gameBeingCreated,
+								@ModelAttribute League league,
 								@RequestParam String strDate,
 								@RequestParam String team1,
 								@RequestParam String team2,
@@ -148,24 +158,25 @@ public class GamesController {
 			
 			model.addAttribute("actionMessage", "Game successfully created"); 
 			
-			return this.listHandler(model);
+			return this.listHandler(league, model);
 		}
 	}
 	
-	@RequestMapping(value="Edit", method = RequestMethod.GET)
-	public String editHandler(@RequestParam Integer id, ModelMap model) {
+	@RequestMapping(value="EditGame", method = RequestMethod.GET)
+	public String editHandler(@RequestParam Integer gameId, ModelMap model) {
 		
-		logger.debug("Editing game " + id);
+		logger.debug("Editing game " + gameId);
 		
-		Game gameEdited = gameService.retrieveGameById(id);
+		Game gameEdited = gameService.retrieveGameById(gameId);
 		
 		model.addAttribute("gameEdited", gameEdited);
 		
 		return "EditGame";
 	}
 	
-	@RequestMapping(value="Save", method = RequestMethod.POST)
+	@RequestMapping(value="SaveGame", method = RequestMethod.POST)
 	public String saveHandler(@ModelAttribute(value = "gameEdited") Game gameEdited,
+								@ModelAttribute League league,
 								@RequestParam String strDate,
 								@RequestParam String team1,
 								@RequestParam String team2,
@@ -248,27 +259,29 @@ public class GamesController {
 			
 			model.addAttribute("actionMessage", "Game successfully saved"); 
 			
-			return this.listHandler(model);
+			return this.listHandler(league, model);
 		}
 	}
 	
-	@RequestMapping(value="Delete", method = RequestMethod.GET)
-	public String deleteHandler(@RequestParam Integer id, ModelMap model) {
+	@RequestMapping(value="DeleteGame", method = RequestMethod.GET)
+	public String deleteHandler(@RequestParam Integer gameId, 
+								@ModelAttribute League league,
+								ModelMap model) {
 		
-		if (gameService.canDeleteGame(id)) {
+		if (gameService.canDeleteGame(gameId)) {
 		
-			logger.debug("Deleting game " + id);
+			logger.debug("Deleting game " + gameId);
 			
-			gameService.deleteGame(id);
+			gameService.deleteGame(gameId);
 			
 			model.addAttribute("actionMessage", "Game successfully deleted.");
 			
-			return this.listHandler(model);
+			return this.listHandler(league, model);
 		}
 		else {
 			model.addAttribute("actionError", "Game can not be deleted because pronostics have already been made.");
 			
-			return this.listHandler(model);
+			return this.listHandler(league, model);
 		}
 	}
 }

@@ -6,11 +6,9 @@ import org.jacademie.tdweb.domain.Game;
 
 public interface GameService {
 
-	Collection<Game> retrieveOpenedGames();
+	Collection<Game> retrieveOpenedGamesForLeague(Integer leagueId);
 
-	Collection<Game> retrieveClosedGames();
-
-	Collection<Game> retrieveGames();
+	Collection<Game> retrieveGamesForLeague(Integer leagueId);
 
 	void closeGame(Integer id);
 
@@ -28,8 +26,8 @@ public interface GameService {
 
 	void createGame(Game gameBeingCreated);
 
-	Collection<Game> retrievePointsComputedGames();
+	Collection<Game> retrievePointsComputedGamesForLeague(Integer leagueId);
 
-	Collection<Game> retrievePointsNotComputedClosedGames();
+	Collection<Game> retrievePointsNotComputedClosedGamesForLeague(Integer leagueId);
 
 }

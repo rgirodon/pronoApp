@@ -24,51 +24,45 @@ public class GameDaoHibernateImpl implements GameDao {
     }
 	
 	@Override
-	public Collection<Game> retrieveOpenedGames() {
+	public Collection<Game> retrieveOpenedGamesForLeague(Integer leagueId) {
 		
 		Session session = this.getCurrentSession();
     	
-    	Query query = session.getNamedQuery("openedGames");
-    	
-    	return query.list();
-	}
-
-	@Override
-	public Collection<Game> retrieveClosedGames() {
-		
-		Session session = this.getCurrentSession();
-    	
-    	Query query = session.getNamedQuery("closedGames");
+    	Query query = session.getNamedQuery("openedGamesForLeague");
+    	query.setInteger("leagueId", leagueId);
     	
     	return query.list();
 	}
 	
 	@Override
-	public Collection<Game> retrievePointsComputedGames() {
+	public Collection<Game> retrievePointsComputedGamesForLeague(Integer leagueId) {
 		
 		Session session = this.getCurrentSession();
     	
-    	Query query = session.getNamedQuery("pointsComputedGames");
+    	Query query = session.getNamedQuery("pointsComputedGamesForLeague");
+    	query.setInteger("leagueId", leagueId);
     	
     	return query.list();
 	}
 	
 	@Override
-	public Collection<Game> retrievePointsNotComputedClosedGames() {
+	public Collection<Game> retrievePointsNotComputedClosedGamesForLeague(Integer leagueId) {
 		
 		Session session = this.getCurrentSession();
     	
-    	Query query = session.getNamedQuery("pointsNotComputedClosedGames");
+    	Query query = session.getNamedQuery("pointsNotComputedClosedGamesForLeague");
+    	query.setInteger("leagueId", leagueId);
     	
     	return query.list();
 	}
 
 	@Override
-	public Collection<Game> retrieveGames() {
+	public Collection<Game> retrieveGamesForLeague(Integer leagueId) {
 		
 		Session session = this.getCurrentSession();
     	
-    	Query query = session.getNamedQuery("allGames");
+    	Query query = session.getNamedQuery("gamesForLeague");
+    	query.setInteger("leagueId", leagueId);
     	
     	return query.list();
 	}

@@ -6,6 +6,8 @@ public class RegisterDTO implements Serializable {
 
 	private String login;
 	
+	private String displayName;
+	
 	private String password;
 	
 	private String reEnterPassword;
@@ -20,6 +22,14 @@ public class RegisterDTO implements Serializable {
 
 	public void setLogin(String login) {
 		this.login = login;
+	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
 	public String getPassword() {

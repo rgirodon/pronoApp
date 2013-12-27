@@ -6,11 +6,9 @@ import org.jacademie.tdweb.domain.Game;
 
 public interface GameDao {
 
-	Collection<Game> retrieveOpenedGames();
+	Collection<Game> retrieveOpenedGamesForLeague(Integer leagueId);
 
-	Collection<Game> retrieveClosedGames();
-
-	Collection<Game> retrieveGames();
+	Collection<Game> retrieveGamesForLeague(Integer leagueId);
 
 	Game retrieveGameById(Integer id);
 
@@ -20,8 +18,8 @@ public interface GameDao {
 
 	void createGame(Game gameBeingCreated);
 
-	Collection<Game> retrievePointsComputedGames();
+	Collection<Game> retrievePointsComputedGamesForLeague(Integer leagueId);
 
-	Collection<Game> retrievePointsNotComputedClosedGames();
+	Collection<Game> retrievePointsNotComputedClosedGamesForLeague(Integer leagueId);
 
 }

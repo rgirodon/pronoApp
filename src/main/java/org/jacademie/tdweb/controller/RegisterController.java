@@ -45,6 +45,8 @@ public class RegisterController {
 		
 		logger.debug("login : " + registerDTO.getLogin());
 		
+		logger.debug("displayName : " + registerDTO.getDisplayName());
+		
 		logger.debug("password : " + registerDTO.getPassword());
 		
 		logger.debug("re-enter password : " + registerDTO.getReEnterPassword());

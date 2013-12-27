@@ -18,19 +18,14 @@
 	  		<div class="collapse navbar-collapse">
 	  			<ul class="nav navbar-nav">
 	  				
-	  				<li class="dropdown">
-				    	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
-				        <ul class="dropdown-menu">
-				          <li><a href="ChangeMyPassword.do">Change my password</a></li>
-				          <c:if test="${ user.admin }">
-				          	<li><a href="Games/List.do">Admin Games</a></li>
-				          	<li><a href="Users/List.do">Admin Users</a></li>
-	<!-- 			          <li><a href="#">Pronostics</a></li> -->
-						  </c:if>
-				        </ul>
-				    </li>
+	  				<%@include file="MyAccountMenu.jsp" %>
+	  				
+	  				<%@include file="AdministrationMenu.jsp" %>
 				    
 	  			</ul>
+	  			
+	  			<%@include file="SelectLeagueMenu.jsp" %>
+	  			
 	  		</div>
 		</nav>
 	</div>

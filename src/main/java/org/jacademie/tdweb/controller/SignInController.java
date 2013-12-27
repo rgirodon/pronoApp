@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes(value={"user","gamesForBet"})
+@SessionAttributes(value={"user"})
 @RequestMapping("/SignIn")
 public class SignInController {
 
@@ -51,9 +51,11 @@ public class SignInController {
 			
 			model.addAttribute("user", user);
 			
-			helloHelper.prepareHelloDisplay(user.getId(), model);
+			Integer nbInvitations = this.userService.retrieveInvitationsForUser(user.getId()).size();
 			
-			return "Hello";
+			model.addAttribute("nbInvitations", nbInvitations);
+			
+			return "Welcome";
 		}
 		else {
 			logger.debug("Login / Password is not valid");

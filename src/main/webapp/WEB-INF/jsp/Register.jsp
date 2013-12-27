@@ -23,6 +23,7 @@
 	  	</c:if>
         
         <input name="login" type="text" class="form-control" placeholder="Email address" required autofocus value="<c:out value="${ registerDTO.login }" />">
+        <input name="displayName" type="text" class="form-control" placeholder="Display name" required autofocus value="<c:out value="${ registerDTO.displayName }" />">
         <input name="password" type="password" class="form-control" placeholder="Password" required>
         <input name="reEnterPassword" type="password" class="form-control" placeholder="Re-enter Password" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>

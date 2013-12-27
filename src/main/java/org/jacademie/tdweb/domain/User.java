@@ -1,6 +1,7 @@
 package org.jacademie.tdweb.domain;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,6 +12,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -21,13 +25,17 @@ import javax.persistence.Table;
 @NamedQueries({
 	@NamedQuery(name="userByLogin", query="from User where login = :login"),
 	@NamedQuery(name="allUsers", query="from User order by login"),
-	@NamedQuery(name="rankingUsers", query="from User order by points desc, nbCorrectResults desc")
+	@NamedQuery(name="allUsersForLeague", query="Select u from User as u join u.leagueParticipations as lp where lp.league.id = :leagueId order by u.login"),
+	@NamedQuery(name="rankingUsersForLeague", query="Select u from User as u join u.leagueParticipations as lp where lp.league.id = :leagueId order by lp.points desc, lp.nbCorrectResults desc"),
+	@NamedQuery(name="userByDisplayName", query="from User where UPPER(displayName) = :displayName")
 })
 public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
+
+	private String displayName;
 	
 	private String login;
 	
@@ -35,37 +43,92 @@ public class User implements Serializable {
 	
 	private Boolean admin;
 	
-	private Integer points;
-	
-	@Column(name="NB_CORRECT_RESULTS")
-	private Integer nbCorrectResults;
-	
-	@Column(name="NB_EXACT_SCORES")
-	private Integer nbExactScores;
-	
-	@Column(name="NB_COMPUTED_PRONOS")
-	private Integer nbComputedPronos;
-	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="user", cascade=CascadeType.ALL, orphanRemoval=true)
 	private Set<Pronostic> pronostics;
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="user", cascade=CascadeType.ALL, orphanRemoval=true)
+	private Set<LeagueParticipation> leagueParticipations;
 
 	public User() {
 		super();
 		
 		this.pronostics = new HashSet<>();
+		this.leagueParticipations = new HashSet<>();
 	}
 	
-	public Integer getNbCorrectButInexactResults() {
+	public void addLeagueParticipation(LeagueParticipation leagueParticipation) {
 		
-		return this.getNbCorrectResults() - this.getNbExactScores();
+		leagueParticipation.setUser(this);
+		
+		this.leagueParticipations.add(leagueParticipation);
 	}
 	
-	public void resetPoints() {
+	public Boolean isLeagueAdmin(Integer leagueId) {
 		
-		this.setPoints(0);
-		this.setNbComputedPronos(0);
-		this.setNbCorrectResults(0);
-		this.setNbExactScores(0);
+		Boolean result = null;
+		
+		for (LeagueParticipation leagueParticipation : leagueParticipations) {
+			
+			if (leagueId.equals(leagueParticipation.getLeagueId())) {
+				
+				result = leagueParticipation.getAdmin();
+				break;
+			}
+		}
+		
+		return result;
+	} 
+	
+	public boolean isInvolvedInLeague(Integer leagueId) {
+		
+		return (this.getLeagueParticipation(leagueId) != null);
+	}
+	
+	public Collection<League> getLeaguesInvolvedIn() {
+		
+		Collection<League> result = new HashSet<>();
+		
+		for (LeagueParticipation leagueParticipation : leagueParticipations) {
+			
+			result.add(leagueParticipation.getLeague());
+		}
+		
+		return result;
+	}
+	
+	public LeagueParticipation getLeagueParticipation(Integer leagueId) {
+		
+		LeagueParticipation result = null;
+		
+		for (LeagueParticipation leagueParticipation : leagueParticipations) {
+			
+			if (leagueId.equals(leagueParticipation.getLeagueId())) {
+				
+				result = leagueParticipation;
+				break;
+			}
+		}
+		
+		return result;
+	}
+	
+	public Integer getNbInvolvedLeagues() {
+		
+		return this.getLeagueParticipations().size();
+	}
+	
+	public Integer getNbCorrectButInexactResultsForLeague(Integer leagueId) {
+		
+		LeagueParticipation leagueParticipation = this.getLeagueParticipation(leagueId);
+		
+		return leagueParticipation.getNbCorrectButInexactResults();
+	}
+	
+	public void resetPointsForLeague(Integer leagueId) {
+		
+		LeagueParticipation leagueParticipation = this.getLeagueParticipation(leagueId);
+		
+		leagueParticipation.resetPoints();
 	}
 	
 	public void addPronostic(Pronostic pronostic) {
@@ -75,29 +138,66 @@ public class User implements Serializable {
 		this.pronostics.add(pronostic);
 	}
 	
-	public void addPoints(Integer points) {
+	public void addPointsForLeague(Integer leagueId, Integer points) {
 		
-		this.points = this.points + points;
+		LeagueParticipation leagueParticipation = this.getLeagueParticipation(leagueId);
+		
+		leagueParticipation.addPoints(points);
 	}
 	
-	public void incrementNbComputedPronos() {
+	public void incrementNbComputedPronosForLeague(Integer leagueId) {
 		
-		this.nbComputedPronos++;
+		LeagueParticipation leagueParticipation = this.getLeagueParticipation(leagueId);
+		
+		leagueParticipation.incrementNbComputedPronos();
 	}
 	
-	public void incrementNbCorrectResults() {
-
-		this.nbCorrectResults++;
-	}
-
-	public void incrementNbExactScores() {
+	public void incrementNbCorrectResultsForLeague(Integer leagueId) {
 		
-		this.nbExactScores++;
+		LeagueParticipation leagueParticipation = this.getLeagueParticipation(leagueId);
+
+		leagueParticipation.incrementNbCorrectResults();
 	}
 
+	public void incrementNbExactScoresForLeague(Integer leagueId) {
+		
+		LeagueParticipation leagueParticipation = this.getLeagueParticipation(leagueId);
+		
+		leagueParticipation.incrementNbExactScores();
+	}
+
+	public int getPointsForLeague(Integer leagueId) {
+		
+		LeagueParticipation leagueParticipation = this.getLeagueParticipation(leagueId);
+		
+		return leagueParticipation.getPoints();
+	}
+	
+	public int getNbComputedPronosForLeague(Integer leagueId) {
+		
+		LeagueParticipation leagueParticipation = this.getLeagueParticipation(leagueId);
+		
+		return leagueParticipation.getNbComputedPronos();
+	}
+
+	public int getNbCorrectResultsForLeague(Integer leagueId) {
+		
+		LeagueParticipation leagueParticipation = this.getLeagueParticipation(leagueId);
+		
+		return leagueParticipation.getNbCorrectResults();
+	}
+	
+	public int getNbExactScoresForLeague(Integer leagueId) {
+		
+		LeagueParticipation leagueParticipation = this.getLeagueParticipation(leagueId);
+		
+		return leagueParticipation.getNbExactScores();
+	}
+	
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", login=" + login + ", admin=" + admin + "]";
+		return "User [id=" + id + ", displayName=" + displayName + ", login="
+				+ login + "]";
 	}
 
 	@Override
@@ -133,6 +233,14 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+
 	public String getLogin() {
 		return login;
 	}
@@ -157,38 +265,6 @@ public class User implements Serializable {
 		this.admin = admin;
 	}
 
-	public Integer getPoints() {
-		return points;
-	}
-
-	public void setPoints(Integer points) {
-		this.points = points;
-	}
-
-	public Integer getNbCorrectResults() {
-		return nbCorrectResults;
-	}
-
-	public void setNbCorrectResults(Integer nbCorrectResults) {
-		this.nbCorrectResults = nbCorrectResults;
-	}
-
-	public Integer getNbExactScores() {
-		return nbExactScores;
-	}
-
-	public void setNbExactScores(Integer nbExactScores) {
-		this.nbExactScores = nbExactScores;
-	}
-
-	public Integer getNbComputedPronos() {
-		return nbComputedPronos;
-	}
-
-	public void setNbComputedPronos(Integer nbComputedPronos) {
-		this.nbComputedPronos = nbComputedPronos;
-	}
-
 	public Set<Pronostic> getPronostics() {
 		return pronostics;
 	}
@@ -196,4 +272,18 @@ public class User implements Serializable {
 	public void setPronostics(Set<Pronostic> pronostics) {
 		this.pronostics = pronostics;
 	}
+
+	public Set<LeagueParticipation> getLeagueParticipations() {
+		return leagueParticipations;
+	}
+
+	public void setLeagueParticipations(Set<LeagueParticipation> leagueParticipations) {
+		this.leagueParticipations = leagueParticipations;
+	}
+
+	
+
+	
+
+	
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.log4j.Logger;
 import org.jacademie.tdweb.controller.helper.HelloHelper;
+import org.jacademie.tdweb.domain.League;
 import org.jacademie.tdweb.domain.User;
 import org.jacademie.tdweb.dto.GameForBetDTO;
 import org.jacademie.tdweb.service.PronosticService;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes(value={"user","gamesForBet"})
+@SessionAttributes(value={"user","league","gamesForBet"})
 @RequestMapping("/Bet")
 public class BetController {
 
@@ -39,6 +40,7 @@ public class BetController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String betHandler(@RequestParam Map<String,String> allRequestParams, 
 							 @ModelAttribute(value = "user") User user, 
+							 @ModelAttribute(value = "league") League league,
 							 @ModelAttribute(value = "gamesForBet") Collection<GameForBetDTO> gamesForBet, 
 							 ModelMap model) {
 		
@@ -85,7 +87,8 @@ public class BetController {
 			model.addAttribute("betErrorMessage", invalidBets.size() + " of your bet(s) were invalid. Retry !");
 		}
 		
-		helloHelper.prepareHelloDisplay(user.getId(), model);
+		// get leagueId
+		helloHelper.prepareHelloDisplay(user.getId(), league.getId(), model);
 		
 		// refresh user
 		user = this.userService.findUserById(user.getId());

@@ -8,6 +8,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.jacademie.tdweb.dao.UserDao;
+import org.jacademie.tdweb.domain.Invitation;
 import org.jacademie.tdweb.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,13 +25,26 @@ public class UserDaoHibernateImpl implements UserDao {
         return sessionFactory.getCurrentSession();
     }
     
-    public Collection<User> retrieveRankingUsers() {
+    public Collection<Invitation> findInvitationsForEmail(String email) {
     	
-    	logger.debug("In retrieveRankingUsers");
+    	logger.debug("In findInvitationsForEmail");
     	
     	Session session = this.getCurrentSession();
     	
-    	Query query = session.getNamedQuery("rankingUsers");
+    	Query query = session.getNamedQuery("invitationsForEmail");
+    	query.setString("email", email);
+    	
+    	return query.list();
+    }
+     
+    public Collection<User> retrieveRankingUsersForLeague(Integer leagueId) {
+    	
+    	logger.debug("In retrieveRankingUsersForLeague");
+    	
+    	Session session = this.getCurrentSession();
+    	
+    	Query query = session.getNamedQuery("rankingUsersForLeague");
+    	query.setInteger("leagueId", leagueId);
     	
     	return query.list();
     }
@@ -61,6 +75,33 @@ public class UserDaoHibernateImpl implements UserDao {
     	
     	return result;
     }
+    
+    @Override
+    public User findUserByDisplayName(String displayName) {
+    	
+    	logger.debug("In findUserByDisplayName with param : " + displayName);
+    	
+    	User result = null;
+    	
+    	Session session = this.getCurrentSession();
+    	
+    	Query query = session.getNamedQuery("userByDisplayName");
+    	query.setString("displayName", displayName.toUpperCase());
+    	
+    	List<User> users = query.list();
+    	
+    	if (!users.isEmpty()) {
+    		
+    		result = users.iterator().next();
+    		
+    		logger.debug("Found a result : " + result);
+    	}
+    	else {
+    		logger.debug("Found no result");
+    	}
+    	
+    	return result;
+    }
 
 	@Override
 	public Collection<User> findAllUsers() {
@@ -68,6 +109,17 @@ public class UserDaoHibernateImpl implements UserDao {
 		Session session = this.getCurrentSession();
     	
     	Query query = session.getNamedQuery("allUsers");
+    	
+    	return query.list();
+	}
+	
+	@Override
+	public Collection<User> findAllUsersForLeague(Integer leagueId) {
+		
+		Session session = this.getCurrentSession();
+    	
+    	Query query = session.getNamedQuery("allUsersForLeague");
+    	query.setInteger("leagueId", leagueId);
     	
     	return query.list();
 	}
@@ -86,5 +138,31 @@ public class UserDaoHibernateImpl implements UserDao {
 		Session session = this.getCurrentSession();
 		
 		session.save(user);
+	}
+
+	@Override
+	public void createInvitation(Invitation invitation) {
+
+		Session session = this.getCurrentSession();
+		
+		session.save(invitation);
+	}
+
+	@Override
+	public Invitation findInvitationById(Integer invitationId) {
+		
+		Session session = this.getCurrentSession();
+		
+		return (Invitation)session.get(Invitation.class, invitationId);
+	}
+
+	@Override
+	public void deleteInvitation(Integer invitationId) {
+		
+		Session session = this.getCurrentSession();
+				
+		Invitation invitation = this.findInvitationById(invitationId);
+		
+		session.delete(invitation);
 	}
 }

@@ -27,21 +27,15 @@ public class GameServiceImpl implements GameService {
 	private PronosticService pronosticService;
 	
 	@Override
-	public Collection<Game> retrieveOpenedGames() {
+	public Collection<Game> retrieveOpenedGamesForLeague(Integer leagueId) {
 		
-		return this.gameDao.retrieveOpenedGames();
-	}
-
-	@Override
-	public Collection<Game> retrieveClosedGames() {
-		
-		return this.gameDao.retrieveClosedGames();
+		return this.gameDao.retrieveOpenedGamesForLeague(leagueId);
 	}
 	
 	@Override
-	public Collection<Game> retrieveGames() {
+	public Collection<Game> retrieveGamesForLeague(Integer leagueId) {
 		
-		return this.gameDao.retrieveGames();
+		return this.gameDao.retrieveGamesForLeague(leagueId);
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRED)
@@ -73,6 +67,8 @@ public class GameServiceImpl implements GameService {
 		
 		Game game = this.retrieveGameById(id);
 		
+		Integer leagueId = game.getLeague().getId(); 
+		
 		Collection<Pronostic> pronostics = this.pronosticService.retrievePronosticsForGame(id);
 		
 		logger.debug("Found " + pronostics.size() + " pronostics for this game");
@@ -83,24 +79,24 @@ public class GameServiceImpl implements GameService {
 			
 			User user = pronostic.getUser();
 			
-			user.addPoints(points);
+			user.addPointsForLeague(leagueId, points);
 			
 			pronostic.setPoints(points);
 			
 			logger.debug("User " + user + " won " + points + " points for this game");
 			
-			user.incrementNbComputedPronos();
+			user.incrementNbComputedPronosForLeague(leagueId);
 			
 			if (points.equals(1)) {
 				
-				user.incrementNbCorrectResults();
+				user.incrementNbCorrectResultsForLeague(leagueId);
 			}
 			
 			if (points.equals(3)) {
 				
-				user.incrementNbCorrectResults();
+				user.incrementNbCorrectResultsForLeague(leagueId);
 				
-				user.incrementNbExactScores();
+				user.incrementNbExactScoresForLeague(leagueId);
 			}
 		}
 		
@@ -178,14 +174,14 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
-	public Collection<Game> retrievePointsComputedGames() {
+	public Collection<Game> retrievePointsComputedGamesForLeague(Integer leagueId) {
 		
-		return this.gameDao.retrievePointsComputedGames();
+		return this.gameDao.retrievePointsComputedGamesForLeague(leagueId);
 	}
 	
 	@Override
-	public Collection<Game> retrievePointsNotComputedClosedGames() {
+	public Collection<Game> retrievePointsNotComputedClosedGamesForLeague(Integer leagueId) {
 		
-		return this.gameDao.retrievePointsNotComputedClosedGames();
+		return this.gameDao.retrievePointsNotComputedClosedGamesForLeague(leagueId);
 	}
 }

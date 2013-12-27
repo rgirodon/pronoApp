@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
   <head>
-    <title>Games Administration</title>
+    <title>Invite friends</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet"> 
     <link href="css/hello.css" rel="stylesheet">
@@ -10,17 +10,7 @@
     <script src="js/jquery-1.10.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap-datepicker.js"></script>
-	<script id="js">
-	
-	$(function() {
 
-		$('#strDate').datepicker({
-			format : 'yyyy-mm-dd',
-			autoclose: true
-		});
-	});
-
-    </script>
   </head>
   <body>
     <div>
@@ -50,8 +40,12 @@
           <br/>
           <br/>
           
-          <h2>Edit Game</h2>
-
+          <h2>Invite friends to league <c:out value="${ league.name }" /></h2>
+		  
+		  <c:if test="${ not empty actionMessage }">
+		  	<div class="alert alert-success"><c:out value="${ actionMessage }" /></div>
+		  </c:if>
+		  
 		  <c:if test="${ not empty errors }">
 		  	<div class="alert alert-danger">
 		  		<c:forEach items="${ errors }" var="error">
@@ -61,21 +55,30 @@
 		  </c:if>
 
 
-	      <form class="form-inline" method="post" role="form" action="SaveGame.do">
+	      <form method="post" role="form" action="InviteFriends.do">
           
-			  <p>
-			  	<input id="strDate" required="true" type="text" class="form-control date-input" name="strDate" value="<c:out value="${ gameEdited.formattedDate }" />" />
-			  	<input required="true" type="text" class="form-control team-input" name="team1" value="<c:out value="${ gameEdited.team1 }" />" />
-			  		<input type="text" class="form-control score-input" name="strScoreTeam1" value="<c:out value="${ gameEdited.scoreTeam1 }" />" />
-			  		 - 
-			  		<input type="text" class="form-control score-input" name="strScoreTeam2" value="<c:out value="${ gameEdited.scoreTeam2 }" />" /> 
-			  	<input required="true" type="text" class="form-control team-input" name="team2" value="<c:out value="${ gameEdited.team2 }" />" />
-			  </p>
-			  
-	          <p>
-	          	<a href="ListGames.do" role="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
-	          	<button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Save</button>
-	          </p>
+			  <div class="form-group">
+			    <label for="friend1">Friend #1</label>
+			    <input type="text" class="form-control" id="friend1" name="friend1" placeholder="Friend 1" value="">
+			  </div>
+			  <div class="form-group">
+			    <label for="friend2">Friend #2</label>
+			    <input type="text" class="form-control" id="friend2" name="friend2" placeholder="Friend 2" value="">
+			  </div>
+			  <div class="form-group">
+			    <label for="friend3">Friend #3</label>
+			    <input type="text" class="form-control" id="friend3" name="friend3" placeholder="Friend 3" value="">
+			  </div>
+			  <div class="form-group">
+			    <label for="friend4">Friend #4</label>
+			    <input type="text" class="form-control" id="friend4" name="friend4" placeholder="Friend 4" value="">
+			  </div>
+			  <div class="form-group">
+			    <label for="friend5">Friend #5</label>
+			    <input type="text" class="form-control" id="friend5" name="friend5" placeholder="Friend 5" value="">
+			  </div>
+			  	          
+	          <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Invite</button>	          
 	          
           </form> 
           

@@ -7,3 +7,8 @@ pronodb.lck
 pronodb.log
 pronodb.properties
 pronodb.script
+ml_pronodb.tmp/
+ml_pronodb.lck
+ml_pronodb.log
+ml_pronodb.properties
+ml_pronodb.script
