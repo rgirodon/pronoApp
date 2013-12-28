@@ -18,3 +18,7 @@ $(function() {
     </div>
     <button type="submit" class="btn btn-success">Go</button>
 </form>
+
+<ul class="nav navbar-nav">
+	<a target="_blank" href="Help.do" class="btn btn-info navbar-btn" role="button">Help</a>
+</ul>
