@@ -384,4 +384,20 @@ public class UserServiceImpl implements UserService {
 		
 		this.userDao.deleteInvitation(invitationId);
 	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void changeMyDefaultLeague(Integer userId, Integer defaultLeagueId) {
+		
+		User user = this.userDao.findUserById(userId);
+		
+		League defaultLeague = null;
+		
+		if (defaultLeagueId != -1) {
+			
+			defaultLeague = this.leagueService.findLeagueById(defaultLeagueId);
+		}
+		
+		user.setDefaultLeague(defaultLeague);
+	}
 }

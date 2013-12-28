@@ -1,5 +1,7 @@
 package org.jacademie.tdweb.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.jacademie.tdweb.controller.helper.HelloHelper;
 import org.jacademie.tdweb.domain.User;
@@ -14,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes(value={"user"})
+@SessionAttributes(value={"user","league"})
 @RequestMapping("/SignIn")
 public class SignInController {
 
 	private static Logger logger = Logger.getLogger(SignInController.class);
+	
+	@Autowired
+	private WelcomeController welcomeController;
 	
 	@Autowired
 	private UserService userService;
@@ -35,7 +40,9 @@ public class SignInController {
     }
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String validateSignInHandler(@ModelAttribute LoginPasswordDTO loginPasswordDTO, ModelMap model) {
+	public String validateSignInHandler(HttpSession session, 
+										@ModelAttribute LoginPasswordDTO loginPasswordDTO, 
+										ModelMap model) {
 		
 		logger.debug("In validateSignInHandler");
 		
@@ -51,11 +58,17 @@ public class SignInController {
 			
 			model.addAttribute("user", user);
 			
-			Integer nbInvitations = this.userService.retrieveInvitationsForUser(user.getId()).size();
+			if (user.getDefaultLeague() == null) {
 			
-			model.addAttribute("nbInvitations", nbInvitations);
-			
-			return "Welcome";
+				Integer nbInvitations = this.userService.retrieveInvitationsForUser(user.getId()).size();
+				
+				model.addAttribute("nbInvitations", nbInvitations);
+				
+				return "Welcome";
+			}
+			else {
+				return welcomeController.chooseLeagueHandler(session, user.getDefaultLeague().getId(), user, model);
+			}
 		}
 		else {
 			logger.debug("Login / Password is not valid");

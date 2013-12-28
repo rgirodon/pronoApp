@@ -55,4 +55,6 @@ public interface UserService {
 	void declineInvitation(Integer invitationId);
 
 	void acceptInvitation(Integer invitationId, Integer userId);
+
+	void changeMyDefaultLeague(Integer userId, Integer defaultLeagueId);
 }

@@ -44,7 +44,7 @@ public class ChangeMyPasswordController {
 													@ModelAttribute(value = "user") User user, 
 													ModelMap model) {
 		
-		logger.debug("In displayChangeMyPasswordHandler");
+		logger.debug("In validateChangeMyPasswordHandler");
 		
 		logger.debug("old password : " + changeMyPasswordDTO.getOldPassword());
 		

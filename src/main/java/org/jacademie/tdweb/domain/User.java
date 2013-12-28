@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -48,6 +49,10 @@ public class User implements Serializable {
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="user", cascade=CascadeType.ALL, orphanRemoval=true)
 	private Set<LeagueParticipation> leagueParticipations;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name = "default_league_id")
+	private League defaultLeague;
 
 	public User() {
 		super();
@@ -279,6 +284,14 @@ public class User implements Serializable {
 
 	public void setLeagueParticipations(Set<LeagueParticipation> leagueParticipations) {
 		this.leagueParticipations = leagueParticipations;
+	}
+
+	public League getDefaultLeague() {
+		return defaultLeague;
+	}
+
+	public void setDefaultLeague(League defaultLeague) {
+		this.defaultLeague = defaultLeague;
 	}
 
 	
