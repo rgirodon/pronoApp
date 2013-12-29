@@ -51,12 +51,20 @@
 		<groupId>commons-validator</groupId>
 		<artifactId>commons-validator</artifactId>
 		<version>1.4.0</version>
-	</dependency>            
+	</dependency>  
+<!--  	          
     <dependency>
 		<groupId>org.hsqldb</groupId>
 		<artifactId>hsqldb</artifactId>
 		<version>2.3.1</version>
 	</dependency>
+-->
+    <dependency>
+		<groupId>org.postgresql</groupId>
+		<artifactId>postgresql</artifactId>
+		<version>9.3-1100-jdbc41</version>
+	</dependency>
+            	
 	<dependency>
 		<groupId>org.hibernate</groupId>
 		<artifactId>hibernate-core</artifactId>
@@ -72,6 +80,7 @@
 		<artifactId>markdown4j</artifactId>
 		<version>2.2-cj-1.0</version>
 	</dependency>
+	
                                                        
   </dependencies>
   <build>
@@ -84,6 +93,17 @@
           <target>1.7</target>
         </configuration>
       </plugin>
+      <plugin>
+		<groupId>org.eclipse.jetty</groupId>
+		<artifactId>jetty-maven-plugin</artifactId>
+		<version>9.1.0.v20131115</version>
+		<configuration>
+	    	<scanIntervalSeconds>10</scanIntervalSeconds>
+	    	<webApp>
+	      		<contextPath>/pronostico</contextPath>
+	    	</webApp>
+	  	</configuration>
+	  </plugin>
     </plugins>
   </build>
 </project>

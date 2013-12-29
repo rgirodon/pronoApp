@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +22,8 @@ import javax.persistence.Table;
 public class Invitation implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@SequenceGenerator(name = "invitation_id_seq", sequenceName = "invitation_id_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "invitation_id_seq")
 	private Integer id;
 	
 	private String email;

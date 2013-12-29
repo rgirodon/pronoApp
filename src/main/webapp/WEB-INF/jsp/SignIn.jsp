@@ -15,7 +15,7 @@
         <h2 class="form-signin-heading">Already registered ?</h2> 
         <h2 class="form-signin-heading">Please sign in</h2>
         
-        <c:if test="${ badLogin }">
+        <c:if test="${ not empty badLogin }">
 			<div class="alert alert-danger badLogin">Bad login, retry</div>
 		</c:if>
 		

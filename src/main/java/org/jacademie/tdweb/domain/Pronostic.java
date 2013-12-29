@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -23,7 +24,8 @@ import javax.persistence.Table;
 public class Pronostic implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@SequenceGenerator(name = "pronostic_id_seq", sequenceName = "pronostic_id_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pronostic_id_seq")
 	private Integer id;
 	
 	@ManyToOne

@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -17,7 +18,8 @@ import javax.persistence.Table;
 public class LeagueParticipation implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@SequenceGenerator(name = "league_participation_id_seq", sequenceName = "league_participation_id_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "league_participation_id_seq")
 	private Integer id;
 	
 	@ManyToOne

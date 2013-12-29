@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -28,7 +29,8 @@ import javax.persistence.Table;
 public class League implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@SequenceGenerator(name = "league_id_seq", sequenceName = "league_id_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "league_id_seq")
 	private Integer id;
 	
 	private String name;

@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.apache.commons.lang.time.DateFormatUtils;
@@ -31,7 +32,8 @@ import org.apache.commons.lang.time.DateUtils;
 public class Game implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@SequenceGenerator(name = "game_id_seq", sequenceName = "game_id_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "game_id_seq")
 	private Integer id;
 	
 	private String team1;

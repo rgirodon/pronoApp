@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes(value={"user","league"})
+@SessionAttributes(value={"user","league","gamesForBet"})
 @RequestMapping("/SignIn")
 public class SignInController {
 
