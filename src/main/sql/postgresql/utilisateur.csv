@@ -1,0 +1,13 @@
+ID,LOGIN,PASSWORD,ADMIN,DISPLAY_NAME,DEFAULT_LEAGUE_ID
+0,rgirodon@sqli.com,password,TRUE,rgirodon,
+1,rgirodon2000@yahoo.fr,password,FALSE,rgirodon2000,
+2,nmoret@sqli.com,password,FALSE,nmoret,
+3,gnachury@sqli.com,password,FALSE,gnachury,
+4,mduclos@sqli.com,password,FALSE,mduclos,
+5,msulli@sqli.com,password,FALSE,msulli,
+6,nico@nmedia.fr,password,FALSE,nico,
+7,dede@sqli.com,password,FALSE,dede,
+8,dodo@sqli.com,password,FALSE,dodo,
+9,didi@sqli.com,password,FALSE,didi,
+10,dudu@sqli.com,password,FALSE,dudu,
+11,dada@sqli.com,password,FALSE,dada,

@@ -52,6 +52,7 @@
 		<artifactId>commons-validator</artifactId>
 		<version>1.4.0</version>
 	</dependency>  
+
 <!--  	          
     <dependency>
 		<groupId>org.hsqldb</groupId>
@@ -59,6 +60,7 @@
 		<version>2.3.1</version>
 	</dependency>
 -->
+
     <dependency>
 		<groupId>org.postgresql</groupId>
 		<artifactId>postgresql</artifactId>

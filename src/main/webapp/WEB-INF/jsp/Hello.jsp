@@ -67,7 +67,7 @@
 	</div>
   	<div class="jumbotron">
 		<div class="container">	    
-		  <h2>Welcome to league <c:out value="${ league.name }" /> dear <c:out value="${ user.login }" /></h2>
+		  <h2>Welcome to league <c:out value="${ league.name }" /> dear <c:out value="${ user.displayName }" /></h2>
 		  <p>You have <c:out value="${ user.getPointsForLeague(league.id) }" /> point(s)</p>
 		  <p>Your ranking : <c:out value="${ ranking }" /> / <c:out value="${ nbTotalUsers }" /></p>
 		  <p>If you want to leave <a class="btn btn-lg btn-default" href="SignOut.do" role="button"><span class="glyphicon glyphicon-off"></span> Sign Out</a></p>
