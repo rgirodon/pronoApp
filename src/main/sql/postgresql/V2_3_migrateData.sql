@@ -14,4 +14,11 @@ psql \copy UTILISATEUR FROM 'D:\projets\pronoApp\src\main\sql\postgresql\utilisa
 
 psql \copy LEAGUE_PARTICIPATION FROM 'D:\projets\pronoApp\src\main\sql\postgresql\league_participation.csv' WITH DELIMITER AS ',' CSV HEADER;
 		  
-psql \copy PRONOSTIC FROM 'D:\projets\pronoApp\src\main\sql\postgresql\pronostic.csv' WITH DELIMITER AS ',' CSV HEADER;		  
+psql \copy PRONOSTIC FROM 'D:\projets\pronoApp\src\main\sql\postgresql\pronostic.csv' WITH DELIMITER AS ',' CSV HEADER;		
+
+ALTER SEQUENCE game_id_seq RESTART WITH 1000;
+ALTER SEQUENCE invitation_id_seq RESTART WITH 1000;  
+ALTER SEQUENCE league_id_seq RESTART WITH 1000;
+ALTER SEQUENCE utilisateur_id_seq RESTART WITH 1000;
+ALTER SEQUENCE pronostic_id_seq RESTART WITH 1000;
+ALTER SEQUENCE league_participation_id_seq RESTART WITH 1000;
