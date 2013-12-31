@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
   <head>
-    <title>Welcome to Pronostico</title>
+    <title>Welcome to PronoClub</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/theme.bootstrap.css" rel="stylesheet">
@@ -49,7 +49,7 @@
     <div>
 	  	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="navbar-header">
-	    		<a class="navbar-brand" href="Welcome.do">Pronostico</a>
+	    		<a class="navbar-brand" href="Welcome.do">PronoClub</a>
 	  		</div>
 	  		<div class="collapse navbar-collapse">
 	  			<ul class="nav navbar-nav">

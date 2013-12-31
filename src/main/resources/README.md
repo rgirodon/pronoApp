@@ -1,8 +1,8 @@
-# Pronostico
+# PronoClub
 
-Pronostico lets you forecast the scores of football games.
+PronoClub lets you forecast the scores of football games.
 
-You can join a public league, with all the games administration handled by Pronostico team.
+You can join a public league, with all the games administration handled by PronoClub team.
 
 You can also build a private league, and you will then have the responsibility of inviting your fiends, administering the games, computing the points...
 
@@ -57,7 +57,7 @@ If you decline, the invitation is dropped.
 ### Join a public league
 
 This page lets you join a public league.
-Public leagues are administered by Pronostico team.
+Public leagues are administered by PronoClub team.
 Anyone can join and bet in public leagues.
 
 ### Invite friends
@@ -69,7 +69,7 @@ You can enter up to 5 mail address.
 
 ### Create a public league
 
-This page is reserved to Pronostico admins.
+This page is reserved to PronoClub admins.
 It enables to create a new public league.
 
 ### Create a private league
@@ -81,12 +81,12 @@ Private league can only be joined via invitations.
 ### Admin league
 
 This page enables to change a league's name.
-It is reserved to Pronostico admins for public leagues, and to league admins for private leagues.
+It is reserved to PronoClub admins for public leagues, and to league admins for private leagues.
 
 ### Admin games
 
 This page enables to administrate the games of a league.
-It is reserved to Pronostico admins for public leagues, and to league admins for private leagues.
+It is reserved to PronoClub admins for public leagues, and to league admins for private leagues.
 
 Here is the life cycle of a game in a league :
 
@@ -115,6 +115,6 @@ Once the points have been computed, the ranking of this league has probably been
 ### Admin participants
 
 This page enables to administrate the participants of a league.
-It is reserved to Pronostico admins for public leagues, and to league admins for private leagues.
+It is reserved to PronoClub admins for public leagues, and to league admins for private leagues.
 
 On this page you can recompute the full ranking of this league.
