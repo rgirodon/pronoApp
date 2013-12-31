@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
 		
 		logger.debug("login : " + loginPasswordDTO.getLogin());
 		
-		logger.debug("password : " + loginPasswordDTO.getPassword());
+		logger.debug("password : " + loginPasswordDTO.getEncryptedPassword());
 		
 		User user = this.userDao.findUserByLogin(loginPasswordDTO.getLogin());
 		
@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
 			return false;
 		}
 		else {
-			if (StringUtils.equals(loginPasswordDTO.getPassword(), user.getPassword())) {
+			if (StringUtils.equals(loginPasswordDTO.getEncryptedPassword(), user.getPassword())) {
 				
 				logger.debug("Login / Password is valid");
 				
@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService {
 		User user = new User();
 		user.setAdmin(Boolean.FALSE);
 		user.setLogin(registerDTO.getLogin());
-		user.setPassword(registerDTO.getPassword());
+		user.setPassword(registerDTO.getEncryptedPassword());
 		user.setDisplayName(registerDTO.getDisplayName());
 		
 		this.userDao.createUser(user);

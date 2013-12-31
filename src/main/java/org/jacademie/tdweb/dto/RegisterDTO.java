@@ -2,6 +2,8 @@ package org.jacademie.tdweb.dto;
 
 import java.io.Serializable;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 public class RegisterDTO implements Serializable {
 
 	private String login;
@@ -14,6 +16,14 @@ public class RegisterDTO implements Serializable {
 	
 	public RegisterDTO() {
 		super();
+	}
+	
+	public String getEncryptedPassword() {
+		return DigestUtils.md5Hex(password);
+	}
+	
+	public String getReEnterEncryptedPassword() {
+		return DigestUtils.md5Hex(reEnterPassword);
 	}
 
 	public String getLogin() {

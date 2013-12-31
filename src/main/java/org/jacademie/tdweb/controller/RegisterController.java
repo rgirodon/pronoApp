@@ -47,9 +47,9 @@ public class RegisterController {
 		
 		logger.debug("displayName : " + registerDTO.getDisplayName());
 		
-		logger.debug("password : " + registerDTO.getPassword());
+		logger.debug("encrypted password : " + registerDTO.getEncryptedPassword());
 		
-		logger.debug("re-enter password : " + registerDTO.getReEnterPassword());
+		logger.debug("re-enter encrypted password : " + registerDTO.getReEnterEncryptedPassword());
 		
 		Collection<String> errors = this.userService.validateRegister(registerDTO);
 		

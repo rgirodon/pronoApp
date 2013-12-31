@@ -48,7 +48,7 @@ public class SignInController {
 		
 		logger.debug("login : " + loginPasswordDTO.getLogin());
 		
-		logger.debug("password : " + loginPasswordDTO.getPassword());
+		logger.debug("encrypted password : " + loginPasswordDTO.getEncryptedPassword());
 		
 		if (this.userService.validateSignIn(loginPasswordDTO)) {
 		

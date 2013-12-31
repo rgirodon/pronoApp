@@ -1,5 +1,7 @@
 package org.jacademie.tdweb.dto;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 public class LoginPasswordDTO {
 
 	private String login;
@@ -10,6 +12,10 @@ public class LoginPasswordDTO {
 		super();
 	}
 
+	public String getEncryptedPassword() {
+		return DigestUtils.md5Hex(password);
+	}
+	
 	public String getLogin() {
 		return login;
 	}
