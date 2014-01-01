@@ -10,9 +10,16 @@
       <c:if test="${ (not empty league) 
       				 and ((user.isLeagueAdmin(league.id))
       				 	  or (user.admin)) }">
-	      <li><a href="EditLeague.do">Admin league</a></li>
-	      <li><a href="ListGames.do">Admin games</a></li>
+	      <li><a href="EditLeague.do">Admin league</a></li>	      
 	      <li><a href="ListUsers.do">Admin participants</a></li>
       </c:if>
+      
+      <c:if test="${ (not empty league) 
+                     and (empty league.inheritsGamesFromLeague)
+      				 and ((user.isLeagueAdmin(league.id))
+      				 	  or (user.admin)) }">
+	      <li><a href="ListGames.do">Admin games</a></li>
+      </c:if>
+        
     </ul>
 </li>

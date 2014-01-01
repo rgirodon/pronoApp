@@ -10,7 +10,16 @@
     <script src="js/jquery-1.10.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap-datepicker.js"></script>
-
+	<script>
+		$(function() {
+			
+			$("#inheritsGamesFromLeagueId").val('-1');
+			
+			<c:if test="${ not empty leagueBeingCreated.inheritsGamesFromLeague }">
+				$("#inheritsGamesFromLeagueId").val('<c:out value="${ leagueBeingCreated.inheritsGamesFromLeague.id }" />');
+			</c:if>
+		});
+	</script>
   </head>
   <body>
     <div>
@@ -56,6 +65,20 @@
 			  <div class="form-group">
 			    <label for="name">League Name</label>
 			    <input type="text" class="form-control" id="name" name="name" placeholder="Enter League Name" value="<c:out value="${ leagueBeingCreated.name }" />">
+			    
+			    <c:if test="${ not leagueBeingCreated.isPublic }">
+			    	<label for="name">Inherits Games from league</label>
+			    	<select id="inheritsGamesFromLeagueId" name="inheritsGamesFromLeagueId" class="form-control">
+				  		<option value="-1">- No League -</option>
+				  		<c:forEach var="publicLeague" items="${publicLeagues}">
+				       		<option value="<c:out value="${ publicLeague.id }" />"><c:out value="${ publicLeague.name }" /></option>
+				       	</c:forEach>
+					</select>
+			    </c:if>
+			    <c:if test="${ leagueBeingCreated.isPublic }">
+			    	<input type="hidden" name="inheritsGamesFromLeagueId" value="-1" />
+			    </c:if>
+			    
 			  </div>
 			  	          
 	          <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Finish</button>	          

@@ -75,7 +75,10 @@ It enables to create a new public league.
 ### Create a private league
 
 This page enables to create a new private league.
-You only need to enter a league name.
+You need to enter a league name.
+You can also set a public league as the league from which the league being created will inherit its games.
+A private league inheriting games from a public league does not need games administration.
+All game administration will be done by PronoClub team in the public league and inherited in this private league.
 Private league can only be joined via invitations.
 
 ### Admin league

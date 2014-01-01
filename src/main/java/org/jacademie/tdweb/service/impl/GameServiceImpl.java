@@ -1,13 +1,16 @@
 package org.jacademie.tdweb.service.impl;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import org.apache.log4j.Logger;
 import org.jacademie.tdweb.dao.GameDao;
 import org.jacademie.tdweb.domain.Game;
+import org.jacademie.tdweb.domain.League;
 import org.jacademie.tdweb.domain.Pronostic;
 import org.jacademie.tdweb.domain.User;
 import org.jacademie.tdweb.service.GameService;
+import org.jacademie.tdweb.service.LeagueService;
 import org.jacademie.tdweb.service.PronosticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,9 @@ public class GameServiceImpl implements GameService {
 	
 	@Autowired
 	private PronosticService pronosticService;
+	
+	@Autowired
+	private LeagueService leagueService;
 	
 	@Override
 	public Collection<Game> retrieveOpenedGamesForLeague(Integer leagueId) {
@@ -67,7 +73,18 @@ public class GameServiceImpl implements GameService {
 		
 		Game game = this.retrieveGameById(id);
 		
-		Integer leagueId = game.getLeague().getId(); 
+		Collection<Integer> leagueIds = new HashSet<>();
+		
+		Integer gameLeagueId = game.getLeague().getId(); 
+		
+		leagueIds.add(gameLeagueId);
+		
+		Collection<League> leaguesInheritingFromLeague = this.leagueService.retrieveLeaguesInheritingFromLeague(gameLeagueId);
+		
+		for (League leagueInheritingFromLeague : leaguesInheritingFromLeague) {
+			
+			leagueIds.add(leagueInheritingFromLeague.getId());
+		}
 		
 		Collection<Pronostic> pronostics = this.pronosticService.retrievePronosticsForGame(id);
 		
@@ -77,26 +94,32 @@ public class GameServiceImpl implements GameService {
 			
 			Integer points = this.determinePointsForPronosticWithGame(pronostic, game);
 			
-			User user = pronostic.getUser();
-			
-			user.addPointsForLeague(leagueId, points);
-			
 			pronostic.setPoints(points);
 			
-			logger.debug("User " + user + " won " + points + " points for this game");
+			User user = pronostic.getUser();
 			
-			user.incrementNbComputedPronosForLeague(leagueId);
+			for (Integer leagueId : leagueIds) {
 			
-			if (points.equals(1)) {
+				if (user.isInvolvedInLeague(leagueId)) {
 				
-				user.incrementNbCorrectResultsForLeague(leagueId);
-			}
-			
-			if (points.equals(3)) {
-				
-				user.incrementNbCorrectResultsForLeague(leagueId);
-				
-				user.incrementNbExactScoresForLeague(leagueId);
+					user.addPointsForLeague(leagueId, points);
+					
+					logger.debug("User " + user + " won " + points + " points for this game");
+					
+					user.incrementNbComputedPronosForLeague(leagueId);
+					
+					if (points.equals(1)) {
+						
+						user.incrementNbCorrectResultsForLeague(leagueId);
+					}
+					
+					if (points.equals(3)) {
+						
+						user.incrementNbCorrectResultsForLeague(leagueId);
+						
+						user.incrementNbExactScoresForLeague(leagueId);
+					}
+				}
 			}
 		}
 		

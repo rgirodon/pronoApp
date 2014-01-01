@@ -58,6 +58,10 @@ private static Logger logger = Logger.getLogger(LeagueController.class);
 		
 		model.addAttribute("leagueBeingCreated", leagueBeingCreated);
 		
+		Collection<League> publicLeagues = this.leagueService.retrievePublicLeagues();
+		
+		model.addAttribute("publicLeagues", publicLeagues);
+		
 		return "CreateLeague";
 	}
 	
@@ -65,9 +69,19 @@ private static Logger logger = Logger.getLogger(LeagueController.class);
 	public String createLeagueHandler(HttpSession session,
 										@ModelAttribute User user,
 										@ModelAttribute(value="leagueBeingCreated") League leagueBeingCreated,
+										@RequestParam Integer inheritsGamesFromLeagueId,
 										ModelMap model) {
 		
 		logger.debug("In createLeagueHandler");
+		
+		if (inheritsGamesFromLeagueId == -1) {
+			
+			leagueBeingCreated.setInheritsGamesFromLeague(null);
+		}
+		else {
+			League league = this.leagueService.findLeagueById(inheritsGamesFromLeagueId);
+			leagueBeingCreated.setInheritsGamesFromLeague(league);
+		}
 		
 		Collection<String> errors = this.leagueService.validateLeague(leagueBeingCreated);
 		
@@ -88,6 +102,13 @@ private static Logger logger = Logger.getLogger(LeagueController.class);
 			logger.debug("League creation is not valid");
 			
 			model.addAttribute("errors", errors);
+			
+			if (!leagueBeingCreated.getIsPublic()) {
+				
+				Collection<League> publicLeagues = this.leagueService.retrievePublicLeagues();
+				
+				model.addAttribute("publicLeagues", publicLeagues);
+			}
 			
 			return "CreateLeague";
 		}

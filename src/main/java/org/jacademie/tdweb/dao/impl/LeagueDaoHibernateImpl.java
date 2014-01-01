@@ -40,6 +40,17 @@ public class LeagueDaoHibernateImpl implements LeagueDao {
     	
     	return query.list();
 	}
+	
+	@Override
+	public Collection<League> retrieveLeaguesInheritingFromLeague(Integer leagueId) {
+		
+		Session session = this.getCurrentSession();
+		
+		Query query = session.getNamedQuery("leaguesByInheritsGamesFrom");
+		query.setInteger("inheritsGamesFromLeagueId", leagueId);
+    	
+    	return query.list();
+	}
 
 	@Override
 	public void createLeague(League league) {

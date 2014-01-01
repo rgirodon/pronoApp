@@ -16,4 +16,8 @@ public interface LeagueService {
 
 	void saveLeague(League leagueBeingEdited);
 
+	Collection<League> retrieveLeaguesInheritingFromLeague(Integer leagueId);
+
+	Collection<League> retrievePublicLeagues();
+
 }

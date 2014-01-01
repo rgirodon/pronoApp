@@ -6,10 +6,12 @@ import java.util.Collection;
 import org.apache.log4j.Logger;
 import org.jacademie.tdweb.dao.PronosticDao;
 import org.jacademie.tdweb.domain.Game;
+import org.jacademie.tdweb.domain.League;
 import org.jacademie.tdweb.domain.Pronostic;
 import org.jacademie.tdweb.domain.User;
 import org.jacademie.tdweb.dto.GameForBetDTO;
 import org.jacademie.tdweb.service.GameService;
+import org.jacademie.tdweb.service.LeagueService;
 import org.jacademie.tdweb.service.PronosticService;
 import org.jacademie.tdweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class PronosticServiceImpl implements PronosticService {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private LeagueService leagueService;
+	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void saveBetsForUser(Integer id, Collection<GameForBetDTO> bets) {
 		
@@ -50,7 +55,17 @@ public class PronosticServiceImpl implements PronosticService {
 		
 		Collection<GameForBetDTO> result = new ArrayList<>();
 		
-		Collection<Game> openedGames = this.gameService.retrieveOpenedGamesForLeague(leagueId);
+		League league = this.leagueService.findLeagueById(leagueId);
+		
+		Collection<Game> openedGames = null;
+		
+		if (league.getInheritsGamesFromLeague() == null) {
+		
+			openedGames = this.gameService.retrieveOpenedGamesForLeague(leagueId);
+		}
+		else {
+			openedGames = this.gameService.retrieveOpenedGamesForLeague(league.getInheritsGamesFromLeague().getId());
+		}		
 		
 		logger.debug("Found opened games : " + openedGames.size());
 		
@@ -94,7 +109,17 @@ public class PronosticServiceImpl implements PronosticService {
 		
 		Collection<GameForBetDTO> result = new ArrayList<>();
 		
-		Collection<Game> pointsComputedGames = this.gameService.retrievePointsComputedGamesForLeague(leagueId);
+		League league = this.leagueService.findLeagueById(leagueId);
+		
+		Collection<Game> pointsComputedGames = null;
+		
+		if (league.getInheritsGamesFromLeague() == null) {
+		
+			pointsComputedGames = this.gameService.retrievePointsComputedGamesForLeague(leagueId);
+		}
+		else {
+			pointsComputedGames = this.gameService.retrievePointsComputedGamesForLeague(league.getInheritsGamesFromLeague().getId());
+		}
 		
 		logger.debug("Found pointsComputed games : " + pointsComputedGames.size());
 		
@@ -130,7 +155,17 @@ public class PronosticServiceImpl implements PronosticService {
 		
 		Collection<GameForBetDTO> result = new ArrayList<>();
 		
-		Collection<Game> pointsNotComputedClosedGames = this.gameService.retrievePointsNotComputedClosedGamesForLeague(leagueId);
+		League league = this.leagueService.findLeagueById(leagueId);
+		
+		Collection<Game> pointsNotComputedClosedGames = null;
+		
+		if (league.getInheritsGamesFromLeague() == null) {
+		
+			pointsNotComputedClosedGames = this.gameService.retrievePointsNotComputedClosedGamesForLeague(leagueId);
+		}
+		else {
+			pointsNotComputedClosedGames = this.gameService.retrievePointsNotComputedClosedGamesForLeague(league.getInheritsGamesFromLeague().getId());
+		}
 		
 		logger.debug("Found pointsNotComputed closed games : " + pointsNotComputedClosedGames.size());
 		

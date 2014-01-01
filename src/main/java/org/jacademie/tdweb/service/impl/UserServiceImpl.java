@@ -2,6 +2,7 @@ package org.jacademie.tdweb.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -317,13 +318,26 @@ public class UserServiceImpl implements UserService {
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void reComputeRankingForLeague(Integer leagueId) {
 		
-		Collection<User> allUsers = this.retrieveUsersForLeague(leagueId);
+		Collection<Integer> leagueIdsToReset = new HashSet<>();
+		leagueIdsToReset.add(leagueId);
 		
-		for (User user : allUsers) {
+		Collection<League> leaguesInheritingFromLeague = this.leagueService.retrieveLeaguesInheritingFromLeague(leagueId);
+		
+		for (League leagueInheritingFromLeague : leaguesInheritingFromLeague) {
 			
-			user.resetPointsForLeague(leagueId);
+			leagueIdsToReset.add(leagueInheritingFromLeague.getId());
 		}
 		
+		for (Integer leagueIdToReset : leagueIdsToReset) {
+			
+			Collection<User> allUsers = this.retrieveUsersForLeague(leagueIdToReset);
+			
+			for (User user : allUsers) {
+				
+				user.resetPointsForLeague(leagueIdToReset);
+			}
+		}
+			
 		Collection<Game> pointsComputedGames = gameService.retrievePointsComputedGamesForLeague(leagueId);
 		
 		for (Game game : pointsComputedGames) {

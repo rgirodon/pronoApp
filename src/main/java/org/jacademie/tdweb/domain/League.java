@@ -24,7 +24,8 @@ import javax.persistence.Table;
 @Table(name="LEAGUE")
 @NamedQueries({
 	@NamedQuery(name="publicLeagues", query="from League where isPublic is true order by name"),
-	@NamedQuery(name="leaguesByName", query="from League where upper(name) = :name order by name")
+	@NamedQuery(name="leaguesByName", query="from League where upper(name) = :name order by name"),
+	@NamedQuery(name="leaguesByInheritsGamesFrom", query="from League where inheritsGamesFromLeague.id = :inheritsGamesFromLeagueId order by name")
 })
 public class League implements Serializable {
 

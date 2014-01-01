@@ -16,4 +16,6 @@ public interface LeagueDao {
 
 	void saveLeague(League league);
 
+	Collection<League> retrieveLeaguesInheritingFromLeague(Integer leagueId);
+
 }

@@ -38,6 +38,16 @@ public class LeagueServiceImpl implements LeagueService {
 	}
 	
 	@Override
+	public Collection<League> retrievePublicLeagues() {
+		
+		logger.debug("In retrievePublicLeagues");
+		
+		Collection<League> publicLeagues = leagueDao.retrievePublicLeagues();
+		
+		return publicLeagues;
+	}
+	
+	@Override
 	public Collection<League> retrievePublicLeaguesAvailableForUser(Integer userId) {
 		
 		logger.debug("In retrievePublicLeaguesAvailableForUser");
@@ -105,6 +115,15 @@ public class LeagueServiceImpl implements LeagueService {
 		logger.debug("In saveLeague");
 		
 		this.leagueDao.saveLeague(league);
+	}
+
+	@Override
+	public Collection<League> retrieveLeaguesInheritingFromLeague(
+			Integer leagueId) {
+		
+		logger.debug("In retrieveLeaguesInheritingFromLeague");
+		
+		return leagueDao.retrieveLeaguesInheritingFromLeague(leagueId);
 	}
 
 }
