@@ -57,4 +57,6 @@ public interface UserService {
 	void acceptInvitation(Integer invitationId, Integer userId);
 
 	void changeMyDefaultLeague(Integer userId, Integer defaultLeagueId);
+
+	boolean checkUserIsInvitedToLeague(String friend, Integer leagueId);
 }

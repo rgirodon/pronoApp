@@ -24,3 +24,5 @@ ALTER SEQUENCE pronostic_id_seq RESTART WITH 1000;
 ALTER SEQUENCE league_participation_id_seq RESTART WITH 1000;
 
 UPDATE UTILISATEUR SET PASSWORD = md5(PASSWORD);
+
+ALTER TABLE invitation DROP CONSTRAINT invitation_email_key;

@@ -128,9 +128,15 @@ private static Logger logger = Logger.getLogger(InvitationsController.class);
 				
 				if (!this.userService.checkUserIsInvolvedInLeague(friend, league.getId())) {
 					
-					this.userService.inviteFriend(friend, user.getId(), league.getId());
-					
-					nbInvitations++;
+					if (!this.userService.checkUserIsInvitedToLeague(friend, league.getId())) {
+						
+						this.userService.inviteFriend(friend, user.getId(), league.getId());
+						
+						nbInvitations++;
+					}
+					else {
+						errors.add(friend + " has already been invited to league " + league.getName());
+					}
 				}
 				else {
 					errors.add(friend + " has already joined league " + league.getName());

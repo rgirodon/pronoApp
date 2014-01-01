@@ -31,6 +31,13 @@
 	    <constructor-arg value="${DATABASE_URL}"/>
 	</bean>
 	
+	<bean class="org.jacademie.tdweb.service.impl.MailServiceImpl" id="mailService">
+		<property name="username" value="${SENDGRID_USERNAME}" />
+		<property name="password" value="${SENDGRID_PASSWORD}" />
+		<property name="from" value="${mail.from}"/>
+		<property name="webSiteUrl" value="${mail.webSiteUrl}"/>
+	</bean>
+	
 	<tx:annotation-driven/>
 	
 	<bean id="sessionFactory" 

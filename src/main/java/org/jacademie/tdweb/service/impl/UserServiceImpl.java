@@ -17,6 +17,7 @@ import org.jacademie.tdweb.dto.LoginPasswordDTO;
 import org.jacademie.tdweb.dto.RegisterDTO;
 import org.jacademie.tdweb.service.GameService;
 import org.jacademie.tdweb.service.LeagueService;
+import org.jacademie.tdweb.service.MailService;
 import org.jacademie.tdweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private LeagueService leagueService;
+	
+	@Autowired
+	private MailService mailService;
 		
 	@Autowired
 	private UserDao userDao;
@@ -162,6 +166,8 @@ public class UserServiceImpl implements UserService {
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void inviteFriend(String friend, Integer userId, Integer leagueId) {
 		
+		User user = this.findUserById(userId);
+		
 		League league = this.leagueService.findLeagueById(leagueId);
 		
 		Invitation invitation = new Invitation();
@@ -170,6 +176,8 @@ public class UserServiceImpl implements UserService {
 		invitation.setLeague(league);
 		
 		this.userDao.createInvitation(invitation);
+		
+		this.mailService.sendInvitationMail(friend, user.getDisplayName(), league.getName());
 	}
 	
 	@Override
@@ -184,6 +192,25 @@ public class UserServiceImpl implements UserService {
 			if (user.isInvolvedInLeague(leagueId)) {
 				
 				result = true;
+			}
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public boolean checkUserIsInvitedToLeague(String friend, Integer leagueId) {
+		
+		boolean result = false;
+		
+		Collection<Invitation> invitations = this.userDao.findInvitationsForEmail(friend);
+		
+		for (Invitation invitation : invitations) {
+			
+			if (invitation.getLeague().getId().equals(leagueId)) {
+				
+				result = true;
+				break;
 			}
 		}
 		
