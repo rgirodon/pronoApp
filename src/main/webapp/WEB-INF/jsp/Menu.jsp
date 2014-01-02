@@ -6,7 +6,7 @@
 	      <span class="icon-bar"></span>
 	      <span class="icon-bar"></span>
 	    </button>	    
-   		<a href="Welcome.do"><img src="img/PronoClub.png" height="50" /></a>
+   		<a href="Welcome.do"><img src="img/PronoClub.jpg" height="50" /></a>
  	</div>
  	<div class="collapse navbar-collapse" id="menu-collapse">
  			<ul class="nav navbar-nav">

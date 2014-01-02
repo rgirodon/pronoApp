@@ -18,7 +18,7 @@
   <body>
     <div class="navbar-black navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container center">
-		<img src="img/PronoClub.png" height="200" />
+		<img src="img/PronoClub.jpg" height="200" />
       </div>
     </div>
     <br/>
