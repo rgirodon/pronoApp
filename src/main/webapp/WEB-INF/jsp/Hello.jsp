@@ -8,6 +8,7 @@
     <link href="css/theme.bootstrap.css" rel="stylesheet">
     <link href="addons/pager/jquery.tablesorter.pager.css" rel="stylesheet">
     <link href="css/hello.css" rel="stylesheet">
+    <link href="css/common.css" rel="stylesheet">
     <script src="js/jquery-1.10.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.tablesorter.js"></script>
@@ -47,23 +48,7 @@
   </head>
   <body>
     <div>
-	  	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-			<div class="navbar-header">
-	    		<a class="navbar-brand" href="Welcome.do">PronoClub</a>
-	  		</div>
-	  		<div class="collapse navbar-collapse">
-	  			<ul class="nav navbar-nav">
-	  				
-	  				<%@include file="MyAccountMenu.jsp" %>
-				    
-				    <%@include file="AdministrationMenu.jsp" %>
-				    
-	  			</ul>
-	  			
-	  			<%@include file="SelectLeagueMenu.jsp" %>
-	  			
-	  		</div>
-		</nav>
+    	<%@include file="Menu.jsp" %>
 	</div>
   	<div class="jumbotron">
 		<div class="container">	    
@@ -159,7 +144,7 @@
 		          	<c:forEach var="rankingUser" items="${rankingUsers}" begin="0" end="2" varStatus="rank">
 		          		<tr>
 		          			<td><c:out value="${ rank.index + 1 }" /></td>
-		          			<td><c:out value="${ rankingUser.login }" /></td>
+		          			<td><c:out value="${ rankingUser.displayName }" /></td>
 		          			<td><c:out value="${ rankingUser.getPointsForLeague(league.id) }" /></td>
 		          		</tr>
 		          	</c:forEach>
@@ -285,7 +270,7 @@
 	          	<c:forEach var="rankingUser" items="${rankingUsers}" varStatus="rank">
 	          		<tr>
 	          			<td><c:out value="${ rank.index + 1 }" /></td>
-	          			<td><c:out value="${ rankingUser.login }" /></td>
+	          			<td><c:out value="${ rankingUser.displayName }" /></td>
 	          			<td><c:out value="${ rankingUser.getPointsForLeague(league.id) }" /></td>
 	          			<td><c:out value="${ rankingUser.getNbComputedPronosForLeague(league.id) }" /></td>
 	          			<td><c:out value="${ rankingUser.getNbCorrectResultsForLeague(league.id) }" /></td>

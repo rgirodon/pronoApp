@@ -6,9 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/signin.css" rel="stylesheet">
+    <link href="css/common.css" rel="stylesheet">
   </head>
   <body>
-  
+    <div class="navbar-black navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container center">
+		<img src="img/PronoClub.png" height="200" />
+      </div>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
     <div class="container">
 
       <form class="form-signin" method="post" action="Register.do">
