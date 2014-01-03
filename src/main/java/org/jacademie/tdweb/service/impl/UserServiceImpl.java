@@ -282,7 +282,7 @@ public class UserServiceImpl implements UserService {
 		
 		User user = this.findUserById(userId);
 		
-		user.setPassword(changeMyPasswordDTO.getNewPassword());
+		user.setPassword(changeMyPasswordDTO.getEncryptedNewPassword());
 	}
 
 	@Override	
@@ -294,7 +294,7 @@ public class UserServiceImpl implements UserService {
 		User user = this.findUserById(userId);
 		
 		// check oldPassword and user password are equals
-		if (!StringUtils.equals(changeMyPasswordDTO.getOldPassword(), user.getPassword())) {
+		if (!StringUtils.equals(changeMyPasswordDTO.getEncryptedOldPassword(), user.getPassword())) {
 			
 			errors.add("Old Password is not correct");
 		}
