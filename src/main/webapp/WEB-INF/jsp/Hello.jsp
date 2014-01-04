@@ -80,18 +80,18 @@
           
 	          <c:forEach var="gameForBet" items="${gamesForBet}" >
 	          	<div class="row bet-row">
-		          	<div class="col-md-4 bet-team-home">
-				  		<small><c:out value="${ gameForBet.team1 }" /></small>
-				  	</div>
-				  	<div class="col-md-2">
+	          		<div class="col-xs-4 col-md-4">
+			  			<small><c:out value="${ gameForBet.team1 }" /></small>
+			  		</div>
+			  		<div class="col-xs-2 col-md-2">
 			  			<input type="text" class="form-control score-input" name="<c:out value="${ gameForBet.idGame }" />_scoreTeam1" value="<c:out value="${ gameForBet.scoreTeam1 }" />">
 			  		</div>
-			  		<div class="col-md-2"> 
+			  		<div class="col-xs-2 col-md-2">
 			  			<input type="text" class="form-control score-input" name="<c:out value="${ gameForBet.idGame }" />_scoreTeam2" value="<c:out value="${ gameForBet.scoreTeam2 }" />"> 
-			  		</div>
-			  		<div class="col-md-4 bet-team-away">
-			  			<small><c:out value="${ gameForBet.team2 }" /></small>
-			  		</div>
+		  			</div>
+		  			<div class="col-xs-4 col-md-4">
+						<small><c:out value="${ gameForBet.team2 }" /></small>
+					</div>
 			  	</div>
 			  </c:forEach>
 			  
@@ -110,16 +110,16 @@
 	        	<br/>
 	        	<c:forEach var="notComputedBetGame" items="${notComputedBetGames}" >
 		          	<div class="row bet-row">
-			          	<div class="col-md-4 bet-team-home">
+			          	<div class="col-xs-4 col-md-4">
 					  		<small><c:out value="${ notComputedBetGame.team1 }" /></small>
 					  	</div>
-					  	<div class="col-md-2">
+					  	<div class="col-xs-2 col-md-2">
 				  			<input disabled="true" type="text" class="form-control score-input" name="<c:out value="${ notComputedBetGame.idGame }" />_scoreTeam1" value="<c:out value="${ notComputedBetGame.scoreTeam1 }" />">
 				  		</div>
-				  		<div class="col-md-2"> 
+				  		<div class="col-xs-2 col-md-2"> 
 				  			<input disabled="true" type="text" class="form-control score-input" name="<c:out value="${ notComputedBetGame.idGame }" />_scoreTeam2" value="<c:out value="${ notComputedBetGame.scoreTeam2 }" />"> 
 				  		</div>
-				  		<div class="col-md-4 bet-team-away">
+				  		<div class="col-xs-4 col-md-4">
 		  					<small><c:out value="${ notComputedBetGame.team2 }" /></small>
 		  					<a href="SeeOtherPronostics.do?idGame=<c:out value="${ notComputedBetGame.idGame }" />" data-toggle="modal" data-target="#seeOtherPronosticsModal"><span class="glyphicon glyphicon-eye-open"></span></a> 
 				  		</div>
@@ -127,8 +127,7 @@
 				 </c:forEach>
 				 <br/>
 				 <h4>Hope for the best, prepare for the worst</h4>
-	        </div>
-	    
+	        </div>	    
         
 	        <div class="col-md-4">
 	          <h2>Ranking</h2>
@@ -152,12 +151,12 @@
 	          </p>
 	          <p><button class="btn btn-default" data-toggle="modal" data-target="#rankingModal"><span class="glyphicon glyphicon-list"></span> View full ranking &raquo;</button></p>
 	        </div>
-      
-        </div>
+	        
+	     </div>
+	     
+	     <div class="row">
         
-        <div class="row">
-        
-	        <div class="col-md-4">
+	        <div class="col-md-6">
 	          <h2>History</h2>
 	          <p>
 		          <table class="table table-striped table-condensed">

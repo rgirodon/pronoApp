@@ -31,6 +31,7 @@
 
 .bet-row {
 	margin: 10px;
+	text-align: center;
 }
 
 .tablesorter-bootstrap tbody > .odd:hover > td, .tablesorter-bootstrap tbody > .even:hover > td {

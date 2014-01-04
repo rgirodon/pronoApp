@@ -111,9 +111,9 @@
 		<version>9.1.0.v20131115</version>
 		<configuration>
 	    	<scanIntervalSeconds>10</scanIntervalSeconds>
-	    	<webApp>
-	      		<contextPath>/pronoclub</contextPath>
-	    	</webApp>
+     		<contextPath>/pronoclub</contextPath>
+     		<stopKey>stop</stopKey>
+  			<stopPort>9999</stopPort>
 	  	</configuration>
 	  </plugin>
 	  <plugin>
