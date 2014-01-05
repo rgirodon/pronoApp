@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.jacademie.tdweb.domain.Invitation;
 import org.jacademie.tdweb.domain.User;
+import org.jacademie.tdweb.dto.ChangeMyDisplayNameDTO;
 import org.jacademie.tdweb.dto.ChangeMyPasswordDTO;
 import org.jacademie.tdweb.dto.LoginPasswordDTO;
 import org.jacademie.tdweb.dto.RegisterDTO;
@@ -63,4 +64,10 @@ public interface UserService {
 	void deleteInvitationsForLeague(Integer leagueId);
 
 	void resetDefaultLeagueForLeague(Integer leagueId);
+
+	void changeMyDisplayName(Integer userId,
+			ChangeMyDisplayNameDTO changeMyDisplayNameDTO);
+
+	Collection<String> validateChangeMyDisplayName(Integer userId,
+			ChangeMyDisplayNameDTO changeMyDisplayNameDTO);
 }

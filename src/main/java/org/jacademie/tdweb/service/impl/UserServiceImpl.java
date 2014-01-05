@@ -13,6 +13,7 @@ import org.jacademie.tdweb.domain.Invitation;
 import org.jacademie.tdweb.domain.League;
 import org.jacademie.tdweb.domain.LeagueParticipation;
 import org.jacademie.tdweb.domain.User;
+import org.jacademie.tdweb.dto.ChangeMyDisplayNameDTO;
 import org.jacademie.tdweb.dto.ChangeMyPasswordDTO;
 import org.jacademie.tdweb.dto.LoginPasswordDTO;
 import org.jacademie.tdweb.dto.RegisterDTO;
@@ -285,6 +286,16 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(changeMyPasswordDTO.getEncryptedNewPassword());
 	}
 
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void changeMyDisplayName(Integer userId,
+			ChangeMyDisplayNameDTO changeMyDisplayNameDTO) {
+		
+		User user = this.findUserById(userId);
+		
+		user.setDisplayName(changeMyDisplayNameDTO.getDisplayNameInput());
+	}
+	
 	@Override	
 	public Collection<String> validateChangeMyPassword(Integer userId,
 			ChangeMyPasswordDTO changeMyPasswordDTO) {
@@ -309,6 +320,29 @@ public class UserServiceImpl implements UserService {
 		if (!StringUtils.equals(changeMyPasswordDTO.getNewPassword(), changeMyPasswordDTO.getReEnterNewPassword())) {
 			
 			errors.add("New Passwords are not the same");
+		}
+		
+		return errors;
+	}
+	
+	@Override	
+	public Collection<String> validateChangeMyDisplayName(Integer userId,
+			ChangeMyDisplayNameDTO changeMyDisplayNameDTO) {
+		
+		Collection<String> errors = new ArrayList<>();
+		
+		// check displayName is not empty
+		if (StringUtils.isEmpty(changeMyDisplayNameDTO.getDisplayNameInput())) {
+			
+			errors.add("Display name is mandatory");
+		}
+		
+		User user = this.findUserByDisplayName(changeMyDisplayNameDTO.getDisplayNameInput());
+		
+		if ((user != null)
+				&& (!user.getId().equals(userId))) {
+			
+			errors.add("Display name is already existing");
 		}
 		
 		return errors;

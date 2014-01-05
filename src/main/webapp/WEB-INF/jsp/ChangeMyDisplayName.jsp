@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
   <head>
-    <title>Change my password</title>
+    <title>Change my display name</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet"> 
     <link href="css/hello.css" rel="stylesheet">
@@ -22,10 +22,10 @@
           <br/>
           <br/>
           
-          <h2>Change my password</h2>
+          <h2>Change my display name</h2>
 
-		  <c:if test="${ not empty changeMyPasswordInformation }">
-		  	<div class="alert alert-success registerInformation"><c:out value="${ changeMyPasswordInformation }" /></div>
+		  <c:if test="${ not empty changeMyDisplayNameInformation }">
+		  	<div class="alert alert-success registerInformation"><c:out value="${ changeMyDisplayNameInformation }" /></div>
 		  </c:if>
 
 		  <c:if test="${ not empty errors }">
@@ -36,24 +36,15 @@
 		  	</div>
 		  </c:if>
 
-		  <form method="post" role="form" action="ChangeMyPassword.do">
+		  <form method="post" role="form" action="ChangeMyDisplayName.do">
 			  <div class="form-group">
-			    <label for="login">Email address</label>
-			    <input disabled="true" type="text" class="form-control" id="login" value="<c:out value="${ user.login }" />">
+			    <label for="loginInput">Email address</label>
+			    <input disabled="true" type="text" class="form-control" id="loginInput" name="loginInput" value="<c:out value="${ user.login }" />">
 			  </div>
 			  <div class="form-group">
-			    <label for="oldPassword">Old Password</label>
-			    <input required="true" type="password" class="form-control" name="oldPassword" />
+			    <label for="displayNameInput">Display Name</label>
+			    <input type="text" class="form-control" id="displayNameInput" name="displayNameInput" value="<c:out value="${ changeMyDisplayNameDTO.displayNameInput }" />">
 			  </div>
-			  <div class="form-group">
-			    <label for="newPassword">New Password</label>
-			    <input required="true" type="password" class="form-control" name="newPassword" />
-			  </div>
-			  <div class="form-group">
-			    <label for="reEnterNewPassword">Re-Enter New Password</label>
-			    <input required="true" type="password" class="form-control" name="reEnterNewPassword" /> 
-			  </div>
-			  
           	  <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Change</button>
 		  </form>
 
