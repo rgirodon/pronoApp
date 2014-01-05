@@ -66,7 +66,7 @@
        	<tbody>
 	    	<c:forEach var="othersPronosticForGame" items="${othersPronosticsForGame}" >
 	      		<tr>
-          			<td><c:out value="${ othersPronosticForGame.login }" /></td>
+          			<td><c:out value="${ othersPronosticForGame.displayName }" /></td>
           			<td><c:out value="${ othersPronosticForGame.pronosticScore }" /></td>
           		</tr>
 	    	</c:forEach>
