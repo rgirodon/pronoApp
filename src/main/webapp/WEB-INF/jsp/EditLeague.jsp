@@ -11,6 +11,19 @@
     <script src="js/jquery-1.10.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap-datepicker.js"></script>
+	<script>
+	$(function() {
+		$("#confirmCloseButton").click(function() {
+			
+			console.log('confirmCloseButton');
+			
+			$("#confirmCloseModal").modal('hide');
+			
+			window.location.href = 'CloseLeague.do?leagueId=<c:out value="${ leagueBeingEdited.id }" />&userId=<c:out value="${ user.id }" />';
+		});
+	});
+	</script>
+
 
   </head>
   <body>
@@ -47,7 +60,29 @@
 	          
           </form> 
           
+          <br/>
+          <br/>
+          
+          <div class="alert alert-danger">If you want to close this league (irreversible action) : <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmCloseModal"><span class="glyphicon glyphicon-ban-circle"></span> Close</button></div>
+          
 		</div>
+	  </div>
+	</div>
+	<div class="modal fade" id="confirmCloseModal" tabindex="-1" role="dialog" aria-labelledby="confirmCloseModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="confirmCloseModalLabel">Confirm league close</h4>
+	      </div>
+	      <div class="modal-body">
+	        <p>Are you sure you want to close this league ?</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	        <button id="confirmCloseButton" type="button" class="btn btn-danger">Confirm Close</button>
+	      </div>
+	    </div>
 	  </div>
 	</div>
   </body>

@@ -11,7 +11,7 @@ $(function() {
     <div class="form-group">
       <select id="chooseLeagueSelect" name="leagueId" class="form-control">
   		<option value="-1">- Select League -</option>
-  		<c:forEach var="leagueInvolvedIn" items="${user.leaguesInvolvedIn}">
+  		<c:forEach var="leagueInvolvedIn" items="${user.openLeaguesInvolvedIn}">
        		<option value="<c:out value="${ leagueInvolvedIn.id }" />"><c:out value="${ leagueInvolvedIn.name }" /></option>
        	</c:forEach>
 	  </select>	  

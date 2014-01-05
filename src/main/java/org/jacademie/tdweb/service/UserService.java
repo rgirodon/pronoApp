@@ -59,4 +59,8 @@ public interface UserService {
 	void changeMyDefaultLeague(Integer userId, Integer defaultLeagueId);
 
 	boolean checkUserIsInvitedToLeague(String friend, Integer leagueId);
+
+	void deleteInvitationsForLeague(Integer leagueId);
+
+	void resetDefaultLeagueForLeague(Integer leagueId);
 }

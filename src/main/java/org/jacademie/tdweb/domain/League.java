@@ -23,8 +23,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="LEAGUE")
 @NamedQueries({
-	@NamedQuery(name="publicLeagues", query="from League where isPublic is true order by name"),
-	@NamedQuery(name="leaguesByName", query="from League where upper(name) = :name order by name"),
+	@NamedQuery(name="publicLeagues", query="from League where isPublic is true and closed is false order by name"),
+	@NamedQuery(name="leaguesByName", query="from League where closed is false and upper(name) = :name order by name"),
 	@NamedQuery(name="leaguesByInheritsGamesFrom", query="from League where inheritsGamesFromLeague.id = :inheritsGamesFromLeagueId order by name")
 })
 public class League implements Serializable {
@@ -37,6 +37,8 @@ public class League implements Serializable {
 	private String name;
 	
 	private Boolean isPublic;
+	
+	private Boolean closed;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "inheritsGamesFromLeague_id")
@@ -109,6 +111,14 @@ public class League implements Serializable {
 
 	public void setIsPublic(Boolean isPublic) {
 		this.isPublic = isPublic;
+	}
+
+	public Boolean getClosed() {
+		return closed;
+	}
+
+	public void setClosed(Boolean closed) {
+		this.closed = closed;
 	}
 
 	public League getInheritsGamesFromLeague() {

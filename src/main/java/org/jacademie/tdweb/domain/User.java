@@ -29,7 +29,8 @@ import javax.persistence.Table;
 	@NamedQuery(name="allUsers", query="from User order by login"),
 	@NamedQuery(name="allUsersForLeague", query="Select u from User as u join u.leagueParticipations as lp where lp.league.id = :leagueId order by u.login"),
 	@NamedQuery(name="rankingUsersForLeague", query="Select u from User as u join u.leagueParticipations as lp where lp.league.id = :leagueId order by lp.points desc, lp.nbCorrectResults desc"),
-	@NamedQuery(name="userByDisplayName", query="from User where UPPER(displayName) = :displayName")
+	@NamedQuery(name="userByDisplayName", query="from User where UPPER(displayName) = :displayName"),
+	@NamedQuery(name="usersWithDefaultLeague", query="from User where defaultLeague.id = :leagueId")
 })
 public class User implements Serializable {
 
@@ -91,13 +92,16 @@ public class User implements Serializable {
 		return (this.getLeagueParticipation(leagueId) != null);
 	}
 	
-	public Collection<League> getLeaguesInvolvedIn() {
+	public Collection<League> getOpenLeaguesInvolvedIn() {
 		
 		Collection<League> result = new HashSet<>();
 		
 		for (LeagueParticipation leagueParticipation : leagueParticipations) {
 			
-			result.add(leagueParticipation.getLeague());
+			if (!leagueParticipation.getLeague().getClosed()) {
+				
+				result.add(leagueParticipation.getLeague());
+			}
 		}
 		
 		return result;

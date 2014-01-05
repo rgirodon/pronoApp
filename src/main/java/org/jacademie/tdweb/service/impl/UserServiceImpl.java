@@ -441,4 +441,28 @@ public class UserServiceImpl implements UserService {
 		
 		user.setDefaultLeague(defaultLeague);
 	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void deleteInvitationsForLeague(Integer leagueId) {
+		
+		Collection<Invitation> invitations = this.userDao.retrieveInvitationsForLeague(leagueId);
+		
+		for (Invitation invitation : invitations) {
+			
+			this.userDao.deleteInvitation(invitation.getId());
+		}
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void resetDefaultLeagueForLeague(Integer leagueId) {
+		
+		Collection<User> users = this.userDao.retrieveUsersWithDefaultLeague(leagueId);
+		
+		for (User user : users) {
+			
+			user.setDefaultLeague(null);
+		}
+	}
 }

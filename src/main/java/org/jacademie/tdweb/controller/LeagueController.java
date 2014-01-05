@@ -41,6 +41,7 @@ private static Logger logger = Logger.getLogger(LeagueController.class);
 		
 		League leagueBeingCreated = new League();
 		leagueBeingCreated.setIsPublic(Boolean.TRUE);
+		leagueBeingCreated.setClosed(Boolean.FALSE);
 		
 		model.addAttribute("leagueBeingCreated", leagueBeingCreated);
 		
@@ -55,6 +56,7 @@ private static Logger logger = Logger.getLogger(LeagueController.class);
 		
 		League leagueBeingCreated = new League();
 		leagueBeingCreated.setIsPublic(Boolean.FALSE);
+		leagueBeingCreated.setClosed(Boolean.FALSE);
 		
 		model.addAttribute("leagueBeingCreated", leagueBeingCreated);
 		
@@ -160,6 +162,28 @@ private static Logger logger = Logger.getLogger(LeagueController.class);
 		}
 	}
 	
+	@RequestMapping(value="CloseLeague", method = RequestMethod.GET)
+	public String closeLeague(HttpSession session,
+								@RequestParam Integer leagueId,
+								@RequestParam Integer userId,
+								@ModelAttribute User user,
+								ModelMap model) {
+		
+		User closingUser = this.userService.findUserById(user.getId());
+		
+		if (closingUser.getAdmin()
+				|| closingUser.isLeagueAdmin(leagueId)) {
+			
+			logger.debug("League will be closed");
+			
+			this.leagueService.closeLeague(leagueId);
+		}
+		else{
+			logger.debug("League can not be closed by this user");
+		}
+		
+		return welcomeController.welcomeHandler(session, user, model);
+	}
 	
 	
 	@RequestMapping(value="JoinPublicLeague", method = RequestMethod.GET)

@@ -17,7 +17,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="INVITATION")
 @NamedQueries({
-	@NamedQuery(name="invitationsForEmail", query="from Invitation where email = :email")
+	@NamedQuery(name="invitationsForEmail", query="from Invitation where email = :email"),
+	@NamedQuery(name="invitationsForLeague", query="from Invitation where league.id = :leagueId")
 })
 public class Invitation implements Serializable {
 

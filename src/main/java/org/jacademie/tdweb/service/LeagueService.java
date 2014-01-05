@@ -20,4 +20,6 @@ public interface LeagueService {
 
 	Collection<League> retrievePublicLeagues();
 
+	void closeLeague(Integer leagueId);
+
 }

@@ -107,6 +107,32 @@ public class LeagueServiceImpl implements LeagueService {
 		
 		return errors;
 	}
+	
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void closeLeague(Integer leagueId) {
+		
+		League league = this.findLeagueById(leagueId);
+		
+		league.setClosed(Boolean.TRUE);
+		
+		this.userService.deleteInvitationsForLeague(leagueId);
+		
+		this.userService.resetDefaultLeagueForLeague(leagueId);
+		
+		this.closeLeaguesInheritingFromLeague(leagueId);
+	}
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	private void closeLeaguesInheritingFromLeague(Integer leagueId) {
+		
+		Collection<League> leagues = this.retrieveLeaguesInheritingFromLeague(leagueId);
+		
+		for (League league : leagues) {
+			
+			this.closeLeague(league.getId());
+		}
+	}
 
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)

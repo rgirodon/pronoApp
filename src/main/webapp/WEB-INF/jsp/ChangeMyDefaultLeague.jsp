@@ -49,7 +49,7 @@
 			    <label for="login">My default league</label>
 			    <select id="chooseDefaultLeagueSelect" name="defaultLeagueId" class="form-control">
 			  		<option value="-1">- No Default League -</option>
-			  		<c:forEach var="leagueInvolvedIn" items="${user.leaguesInvolvedIn}">
+			  		<c:forEach var="leagueInvolvedIn" items="${user.openLeaguesInvolvedIn}">
 			       		<option value="<c:out value="${ leagueInvolvedIn.id }" />"><c:out value="${ leagueInvolvedIn.name }" /></option>
 			       	</c:forEach>
 				</select>

@@ -165,4 +165,26 @@ public class UserDaoHibernateImpl implements UserDao {
 		
 		session.delete(invitation);
 	}
+
+	@Override
+	public Collection<Invitation> retrieveInvitationsForLeague(Integer leagueId) {
+
+		Session session = this.getCurrentSession();
+		
+		Query query = session.getNamedQuery("invitationsForLeague");
+    	query.setInteger("leagueId", leagueId);
+    	
+    	return query.list();
+	}
+
+	@Override
+	public Collection<User> retrieveUsersWithDefaultLeague(Integer leagueId) {
+		
+		Session session = this.getCurrentSession();
+		
+		Query query = session.getNamedQuery("usersWithDefaultLeague");
+    	query.setInteger("leagueId", leagueId);
+    	
+    	return query.list();
+	}
 }

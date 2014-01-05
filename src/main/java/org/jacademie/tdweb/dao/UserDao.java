@@ -28,4 +28,8 @@ public interface UserDao {
 	Invitation findInvitationById(Integer invitationId);
 
 	void deleteInvitation(Integer invitationId);
+
+	Collection<Invitation> retrieveInvitationsForLeague(Integer leagueId);
+
+	Collection<User> retrieveUsersWithDefaultLeague(Integer leagueId);
 }
