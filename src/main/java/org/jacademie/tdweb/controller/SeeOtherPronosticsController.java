@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.apache.log4j.Logger;
 import org.jacademie.tdweb.domain.Game;
+import org.jacademie.tdweb.domain.League;
 import org.jacademie.tdweb.domain.User;
 import org.jacademie.tdweb.dto.GameForBetDTO;
 import org.jacademie.tdweb.service.GameService;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes(value={"user"})
+@SessionAttributes(value={"user","league"})
 @RequestMapping("/SeeOtherPronostics")
 public class SeeOtherPronosticsController {
 
@@ -31,7 +32,10 @@ public class SeeOtherPronosticsController {
 	private PronosticService pronosticService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String displaySeeOtherPronosticsHandler(@RequestParam Integer idGame, @ModelAttribute User user, ModelMap model) {
+	public String displaySeeOtherPronosticsHandler(@RequestParam Integer idGame, 
+												   @ModelAttribute League league,		
+												   @ModelAttribute User user, 
+												   ModelMap model) {
 		
 		logger.debug("In displaySeeOtherPronosticsHandler with param : " + idGame);
 		
@@ -39,7 +43,7 @@ public class SeeOtherPronosticsController {
 		
 		model.addAttribute("game", game);
 		
-		Collection<GameForBetDTO> othersPronosticsForGame = this.pronosticService.retrieveOthersPronosticsForGame(user.getId(), idGame);
+		Collection<GameForBetDTO> othersPronosticsForGame = this.pronosticService.retrieveOthersPronosticsForGameAndLeague(user.getId(), idGame, league.getId());
 		
 		model.addAttribute("othersPronosticsForGame", othersPronosticsForGame);
 		

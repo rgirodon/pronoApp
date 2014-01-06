@@ -204,8 +204,8 @@ public class PronosticServiceImpl implements PronosticService {
 	}
 
 	@Override
-	public Collection<GameForBetDTO> retrieveOthersPronosticsForGame(
-			Integer idUser, Integer idGame) {
+	public Collection<GameForBetDTO> retrieveOthersPronosticsForGameAndLeague(
+			Integer idUser, Integer idGame, Integer idLeague) {
 		
 		Collection<GameForBetDTO> result = new ArrayList<>();
 		
@@ -213,7 +213,10 @@ public class PronosticServiceImpl implements PronosticService {
 		
 		for (Pronostic pronosticForGame : pronosticsForGame) {
 			
-			if (!idUser.equals(pronosticForGame.getUser().getId())) {
+			User user = this.userService.findUserById(pronosticForGame.getUser().getId());
+			
+			if ((!idUser.equals(user.getId()))
+					&& (user.isInvolvedInLeague(idLeague))) {
 				
 				GameForBetDTO betGameDTO = new GameForBetDTO();
 				
