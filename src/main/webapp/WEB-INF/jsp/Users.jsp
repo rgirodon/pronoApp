@@ -62,7 +62,9 @@
 		  <c:if test="${ not empty actionError }">
 		  	<div class="alert alert-danger"><c:out value="${ actionError }" /></div>
 		  </c:if>
-
+		  <p>
+		  	<a href="NotifyLeagueUsers.do" role="button" class="btn btn-default"><span class="glyphicon glyphicon-bullhorn"></span> Notify Users</a>
+		  </p>
 		  <p>
 		  	<a href="ReComputeRanking.do" role="button" class="btn btn-default"><span class="glyphicon glyphicon-dashboard"></span> Re-Compute Ranking</a>
 		  </p>
