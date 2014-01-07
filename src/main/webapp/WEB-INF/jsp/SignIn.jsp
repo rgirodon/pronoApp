@@ -43,7 +43,7 @@
 			<div class="alert alert-success registerInformation"><c:out value="${ param.registerInformation }" /></div>
 		</c:if>
         
-        <input name="login" type="text" class="form-control" placeholder="Email address" required autofocus>
+        <input name="login" type="email" class="form-control" placeholder="Email address" required autofocus>
         <input name="password" type="password" class="form-control" placeholder="Password" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         

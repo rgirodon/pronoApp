@@ -59,7 +59,7 @@ public class UserDaoHibernateImpl implements UserDao {
     	Session session = this.getCurrentSession();
     	
     	Query query = session.getNamedQuery("userByLogin");
-    	query.setString("login", login);
+    	query.setString("login", login.toUpperCase());
     	
     	List<User> users = query.list();
     	

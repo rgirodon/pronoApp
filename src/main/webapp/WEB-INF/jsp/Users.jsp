@@ -71,6 +71,7 @@
 	          	<thead>
 	          		<tr>
 	          			<th>Login</th>
+	          			<th>Display Name</th>
 	          			<th>Admin</th>
 	          			<th>Points</th>
 	          			<th>Pronos</th>
@@ -82,6 +83,7 @@
 	          	<tfoot>
 					<tr>
 	          			<th>Login</th>
+	          			<th>Display Name</th>
 	          			<th>Admin</th>
 	          			<th>Points</th>
 	          			<th>Pronos</th>
@@ -90,7 +92,7 @@
 	          			<th>Action</th>
 					</tr>
 					<tr>
-						<th colspan="7" class="ts-pager form-horizontal">
+						<th colspan="8" class="ts-pager form-horizontal">
 							<button type="button" class="btn first"><i class="icon-step-backward glyphicon glyphicon-step-backward"></i></button>
 							<button type="button" class="btn prev"><i class="icon-arrow-left glyphicon glyphicon-backward"></i></button>
 							<span class="pagedisplay"></span> <!-- this can be any element, including an input -->
@@ -110,6 +112,7 @@
 		          	<c:forEach var="user" items="${users}">		          		
 		          		<tr>
 		          			<td><c:out value="${ user.login }" /></td>
+		          			<td><c:out value="${ user.displayName }" /></td>
 		          			<td><c:out value="${ user.isLeagueAdmin(league.id) }" /></td>
 		          			<td><c:out value="${ user.getPointsForLeague(league.id) }" /></td>
 		          			<td><c:out value="${ user.getNbComputedPronosForLeague(league.id) }" /></td>

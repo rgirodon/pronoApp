@@ -25,7 +25,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="UTILISATEUR")
 @NamedQueries({
-	@NamedQuery(name="userByLogin", query="from User where login = :login"),
+	@NamedQuery(name="userByLogin", query="from User where UPPER(login) = :login"),
 	@NamedQuery(name="allUsers", query="from User order by login"),
 	@NamedQuery(name="allUsersForLeague", query="Select u from User as u join u.leagueParticipations as lp where lp.league.id = :leagueId order by u.login"),
 	@NamedQuery(name="rankingUsersForLeague", query="Select u from User as u join u.leagueParticipations as lp where lp.league.id = :leagueId order by lp.points desc, lp.nbCorrectResults desc"),
