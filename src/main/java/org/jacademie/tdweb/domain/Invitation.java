@@ -42,7 +42,6 @@ public class Invitation implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((league == null) ? 0 : league.hashCode());
 		return result;
 	}
@@ -60,11 +59,6 @@ public class Invitation implements Serializable {
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
 			return false;
 		if (league == null) {
 			if (other.league != null)

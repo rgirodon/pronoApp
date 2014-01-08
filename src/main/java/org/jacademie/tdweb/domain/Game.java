@@ -135,6 +135,7 @@ public class Game implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + ((league == null) ? 0 : league.hashCode());
 		result = prime * result + ((team1 == null) ? 0 : team1.hashCode());
 		result = prime * result + ((team2 == null) ? 0 : team2.hashCode());
 		return result;
@@ -153,6 +154,11 @@ public class Game implements Serializable {
 			if (other.date != null)
 				return false;
 		} else if (!date.equals(other.date))
+			return false;
+		if (league == null) {
+			if (other.league != null)
+				return false;
+		} else if (!league.equals(other.league))
 			return false;
 		if (team1 == null) {
 			if (other.team1 != null)
