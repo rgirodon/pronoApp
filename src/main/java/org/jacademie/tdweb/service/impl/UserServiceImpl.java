@@ -3,6 +3,7 @@ package org.jacademie.tdweb.service.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -22,9 +23,12 @@ import org.jacademie.tdweb.service.LeagueService;
 import org.jacademie.tdweb.service.MailService;
 import org.jacademie.tdweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 @Service
 @Transactional(readOnly = true)
@@ -32,6 +36,9 @@ public class UserServiceImpl implements UserService {
 
 	private static Logger logger = Logger.getLogger(UserServiceImpl.class);
 
+	@Autowired
+	private MessageSource messageSource;
+	
 	@Autowired
 	private GameService gameService;
 	
@@ -222,50 +229,66 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Collection<String> validateRegister(RegisterDTO registerDTO) {
 		
+		Locale locale = LocaleContextHolder.getLocale();
+		
 		Collection<String> errors = new ArrayList<>();
 		
 		// check login is not empty
 		if (StringUtils.isEmpty(registerDTO.getLogin())) {
 			
-			errors.add("Login is mandatory");
+			errors.add(this.messageSource.getMessage("register.login.mandatory", 
+														null, 
+														locale));
 		}
 		
 		// check login is unique
 		User userWithSameLogin = this.findUserByLogin(registerDTO.getLogin());
 		if (userWithSameLogin != null) {
 			
-			errors.add("Login is already existing");
+			errors.add(this.messageSource.getMessage("register.login.alreadyExisting", 
+														null, 
+														locale));
 		}
 		
 		// check email is a mail
 		if (!EmailValidator.getInstance().isValid(registerDTO.getLogin())) {
-			
-			errors.add("Login must be a valid email");
+
+			errors.add(this.messageSource.getMessage("register.login.invalid", 
+														null, 
+														locale));
 		}
 		
 		// check displayName is not empty
 		if (StringUtils.isEmpty(registerDTO.getDisplayName())) {
 			
-			errors.add("Display name is mandatory");
+			errors.add(this.messageSource.getMessage("register.displayName.mandatory", 
+					null, 
+					locale));
 		}
 		
 		// check displayName is unique
 		User userWithSameDisplayName = this.findUserByDisplayName(registerDTO.getDisplayName());
 		if (userWithSameDisplayName != null) {
 			
-			errors.add("Display name is already existing");
+			errors.add(this.messageSource.getMessage("register.displayName.alreadyExisting", 
+														null, 
+														locale));
 		}
 		
 		// check password is not empty
 		if (StringUtils.isEmpty(registerDTO.getPassword())) {
 			
-			errors.add("Password is mandatory");
+			errors.add(this.messageSource.getMessage("register.password.mandatory", 
+														null, 
+														locale));
 		}
 		
 		// check password and reEnterPassword are equals
 		if (!StringUtils.equals(registerDTO.getPassword(), registerDTO.getReEnterPassword())) {
 			
-			errors.add("Passwords are not the same");
+			errors.add(this.messageSource.getMessage("register.password.different", 
+														null, 
+														locale));
 		}
 		
 		return errors;
@@ -300,6 +323,8 @@ public class UserServiceImpl implements UserService {
 	public Collection<String> validateChangeMyPassword(Integer userId,
 			ChangeMyPasswordDTO changeMyPasswordDTO) {
 		
+		Locale locale = LocaleContextHolder.getLocale();
+		
 		Collection<String> errors = new ArrayList<>();
 		
 		User user = this.findUserById(userId);
@@ -307,19 +332,25 @@ public class UserServiceImpl implements UserService {
 		// check oldPassword and user password are equals
 		if (!StringUtils.equals(changeMyPasswordDTO.getEncryptedOldPassword(), user.getPassword())) {
 			
-			errors.add("Old Password is not correct");
+			errors.add(this.messageSource.getMessage("mypassword.oldPassword.incorrect", 
+					null, 
+					locale));
 		}
 		
 		// check new password is not empty
 		if (StringUtils.isEmpty(changeMyPasswordDTO.getNewPassword())) {
 			
-			errors.add("New Password is mandatory");
+			errors.add(this.messageSource.getMessage("mypassword.newPassword.mandatory", 
+					null, 
+					locale));
 		}
 		
 		// check newPassword and reEnterNewPassword are equals
 		if (!StringUtils.equals(changeMyPasswordDTO.getNewPassword(), changeMyPasswordDTO.getReEnterNewPassword())) {
 			
-			errors.add("New Passwords are not the same");
+			errors.add(this.messageSource.getMessage("mypassword.newPassword.different", 
+					null, 
+					locale));
 		}
 		
 		return errors;
@@ -329,12 +360,16 @@ public class UserServiceImpl implements UserService {
 	public Collection<String> validateChangeMyDisplayName(Integer userId,
 			ChangeMyDisplayNameDTO changeMyDisplayNameDTO) {
 		
+		Locale locale = LocaleContextHolder.getLocale();
+		
 		Collection<String> errors = new ArrayList<>();
 		
 		// check displayName is not empty
 		if (StringUtils.isEmpty(changeMyDisplayNameDTO.getDisplayNameInput())) {
 			
-			errors.add("Display name is mandatory");
+			errors.add(this.messageSource.getMessage("myDisplayName.displayName.mandatory", 
+					null, 
+					locale));
 		}
 		
 		User user = this.findUserByDisplayName(changeMyDisplayNameDTO.getDisplayNameInput());
@@ -342,7 +377,9 @@ public class UserServiceImpl implements UserService {
 		if ((user != null)
 				&& (!user.getId().equals(userId))) {
 			
-			errors.add("Display name is already existing");
+			errors.add(this.messageSource.getMessage("myDisplayName.displayName.alreadyExisting", 
+					null, 
+					locale));
 		}
 		
 		return errors;

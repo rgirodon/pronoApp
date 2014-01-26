@@ -1,8 +1,8 @@
-# PronoClub
+# Prono Club
 
-PronoClub lets you forecast the scores of football games.
+Prono Club lets you forecast the scores of football games.
 
-You can join a public league, with all the games administration handled by PronoClub team.
+You can join a public league, with all the games administration handled by Prono Club team.
 
 You can also build a private league, and you will then have the responsibility of inviting your fiends, administering the games, computing the points...
 
@@ -57,7 +57,7 @@ If you decline, the invitation is dropped.
 ### Join a public league
 
 This page lets you join a public league.
-Public leagues are administered by PronoClub team.
+Public leagues are administered by Prono Club team.
 Anyone can join and bet in public leagues.
 
 ### Invite friends
@@ -69,7 +69,7 @@ You can enter up to 5 mail address.
 
 ### Create a public league
 
-This page is reserved to PronoClub admins.
+This page is reserved to Prono Club admins.
 It enables to create a new public league.
 
 ### Create a private league
@@ -78,18 +78,18 @@ This page enables to create a new private league.
 You need to enter a league name.
 You can also set a public league as the league from which the league being created will inherit its games.
 A private league inheriting games from a public league does not need games administration.
-All game administration will be done by PronoClub team in the public league and inherited in this private league.
+All game administration will be done by Prono Club team in the public league and inherited in this private league.
 Private league can only be joined via invitations.
 
 ### Admin league
 
 This page enables to change a league's name.
-It is reserved to PronoClub admins for public leagues, and to league admins for private leagues.
+It is reserved to Prono Club admins for public leagues, and to league admins for private leagues.
 
 ### Admin games
 
 This page enables to administrate the games of a league.
-It is reserved to PronoClub admins for public leagues, and to league admins for private leagues.
+It is reserved to Prono Club admins for public leagues, and to league admins for private leagues.
 
 Here is the life cycle of a game in a league :
 
@@ -118,6 +118,7 @@ Once the points have been computed, the ranking of this league has probably been
 ### Admin participants
 
 This page enables to administrate the participants of a league.
-It is reserved to PronoClub admins for public leagues, and to league admins for private leagues.
+It is reserved to Prono Club admins for public leagues, and to league admins for private leagues.
 
 On this page you can recompute the full ranking of this league.
+You can also notify the league participants (send a mail with subject and text entered in the form).

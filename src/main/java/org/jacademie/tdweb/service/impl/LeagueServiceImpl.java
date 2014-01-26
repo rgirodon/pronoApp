@@ -3,6 +3,7 @@ package org.jacademie.tdweb.service.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Locale;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -13,6 +14,8 @@ import org.jacademie.tdweb.domain.User;
 import org.jacademie.tdweb.service.LeagueService;
 import org.jacademie.tdweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class LeagueServiceImpl implements LeagueService {
 
 	private static Logger logger = Logger.getLogger(LeagueServiceImpl.class);
+	
+	@Autowired
+	private MessageSource messageSource;
 	
 	@Autowired
 	private UserService userService;
@@ -83,12 +89,16 @@ public class LeagueServiceImpl implements LeagueService {
 	@Override
 	public Collection<String> validateLeague(League league) {
 
+		Locale locale = LocaleContextHolder.getLocale();
+		
 		Collection<String> errors = new ArrayList<>();
 		
 		// check name is not empty
 		if (StringUtils.isEmpty(league.getName())) {
-			
-			errors.add("Name is mandatory");
+						
+			errors.add(this.messageSource.getMessage("createleague.name.mandatory", 
+					null, 
+					locale));
 		}
 		
 		// check name is not a doublon
@@ -99,8 +109,10 @@ public class LeagueServiceImpl implements LeagueService {
 			for (League leagueWithSameName : leaguesWithSameName) {
 				
 				if (!ObjectUtils.equals(leagueWithSameName.getId(), league.getId())) {
-					
-					errors.add("League with same name is already existing");
+				
+					errors.add(this.messageSource.getMessage("createleague.name.alreadyexists", 
+							null, 
+							locale));
 				}
 			}
 		}

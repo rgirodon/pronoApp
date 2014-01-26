@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <html>
   <head>
-    <title>My Invitations</title>
+    <title><spring:message code="myInvitations.title"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet"> 
     <link href="css/theme.bootstrap.css" rel="stylesheet">
@@ -54,7 +55,7 @@
           <br/>
           <br/>
           
-          <h2>My Invitations</h2>
+          <h2><spring:message code="myInvitations.header"/></h2>
 
 		  <c:if test="${ not empty actionMessage }">
 		  	<div class="alert alert-success"><c:out value="${ actionMessage }" /></div>
@@ -67,14 +68,14 @@
 	          <table id="myInvitationsTable" class="table table-striped table-condensed">
 	          	<thead>
 	          		<tr>
-	          			<th>League</th>
-	          			<th>Action</th>
+	          			<th><spring:message code="myInvitations.header.league"/></th>
+	          			<th><spring:message code="myInvitations.header.action"/></th>
 	          		</tr>
 	          	</thead>
 	          	<tfoot>
 					<tr>
-	          			<th>League</th>
-	          			<th>Action</th>
+	          			<th><spring:message code="myInvitations.header.league"/></th>
+	          			<th><spring:message code="myInvitations.header.action"/></th>
 					</tr>
 					<tr>
 						<th colspan="2" class="ts-pager form-horizontal">
@@ -98,8 +99,8 @@
 		          		<tr>
 		          			<td><c:out value="${ invitation.league.name }" /></td>
 		          			<td>
-	          					<a href="AcceptInvitation.do?invitationId=<c:out value="${ invitation.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-thumbs-up"></span> Accept</a>
-	          					<a href="DeclineInvitation.do?invitationId=<c:out value="${ invitation.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-thumbs-down"></span> Decline</a>
+	          					<a href="AcceptInvitation.do?invitationId=<c:out value="${ invitation.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-thumbs-up"></span> <spring:message code="myInvitations.accept"/></a>
+	          					<a href="DeclineInvitation.do?invitationId=<c:out value="${ invitation.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-thumbs-down"></span> <spring:message code="myInvitations.decline"/></a>
 		          			</td>
 		          		</tr>
 		          	</c:forEach>

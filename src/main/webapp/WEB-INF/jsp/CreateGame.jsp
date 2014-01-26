@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
   <head>
-    <title>Games Administration</title>
+    <title><spring:message code="game.create.title"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet"> 
     <link href="css/hello.css" rel="stylesheet">
@@ -35,7 +36,7 @@
           <br/>
           <br/>
           
-          <h2>Create Game</h2>
+          <h2><spring:message code="game.create.header"/></h2>
 
 		  <c:if test="${ not empty errors }">
 		  	<div class="alert alert-danger">
@@ -49,15 +50,15 @@
 	      <form class="form-inline" method="post" role="form" action="FinishGame.do">
           
 			  <p>
-			  	<input id="strDate" placeholder="Date" required="true" type="text" class="form-control date-input" name="strDate" value="<c:out value="${ gameBeingCreated.formattedDate }" />" />
-			  	<input required="true" placeholder="Team 1" type="text" class="form-control team-input" name="team1" value="<c:out value="${ gameBeingCreated.team1 }" />" />
+			  	<input id="strDate" placeholder="<spring:message code="game.create.date"/>" required="true" type="text" class="form-control date-input" name="strDate" value="<c:out value="${ gameBeingCreated.formattedDate }" />" />
+			  	<input required="true" placeholder="<spring:message code="game.create.team1"/>" type="text" class="form-control team-input" name="team1" value="<c:out value="${ gameBeingCreated.team1 }" />" />
 			  		 - 
-			  	<input required="true" placeholder="Team 2" type="text" class="form-control team-input" name="team2" value="<c:out value="${ gameBeingCreated.team2 }" />" />
+			  	<input required="true" placeholder="<spring:message code="game.create.team2"/>" type="text" class="form-control team-input" name="team2" value="<c:out value="${ gameBeingCreated.team2 }" />" />
 			  </p>
 			  
 	          <p>
-	          	<a href="ListGames.do" role="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
-	          	<button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Finish</button>
+	          	<a href="ListGames.do" role="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> <spring:message code="game.create.cancel"/></a>
+	          	<button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> <spring:message code="game.create.finish"/></button>
 	          </p>
 	          
           </form> 

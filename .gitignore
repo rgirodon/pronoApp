@@ -12,3 +12,4 @@ ml_pronodb.lck
 ml_pronodb.log
 ml_pronodb.properties
 ml_pronodb.script
+src/main/sql/postgresql/prod/

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
   <head>
-    <title>Notify league users</title>
+    <title><spring:message code="notify.users.title"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet"> 
     <link href="css/hello.css" rel="stylesheet">
@@ -22,7 +23,7 @@
           <br/>
           <br/>
           
-          <h2>Notify <c:out value="${ league.name }" /></h2>
+          <h2><spring:message code="notify.users.header"/> <c:out value="${ league.name }" /></h2>
 
 		  <c:if test="${ not empty actionMessage }">
 		  	<div class="alert alert-success"><c:out value="${ actionMessage }" /></div>
@@ -40,16 +41,16 @@
 	      <form method="post" role="form" action="NotifyLeagueUsers.do">
           
 			  <div class="form-group">
-			    <label for="name">Subject</label>
-			    <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" value="<c:out value="${ notificationDTO.subject }" />">
+			    <label for="name"><spring:message code="notify.users.subject"/></label>
+			    <input type="text" class="form-control" id="subject" name="subject" placeholder="<spring:message code="notify.users.subject"/>" value="<c:out value="${ notificationDTO.subject }" />">
 			  </div>
 			  
 			  <div class="form-group">
-			    <label for="name">Text</label>
-			    <textarea class="form-control" id="text" name="text" placeholder="Text" rows="10"><c:out value="${ notificationDTO.text }" /></textarea>
+			    <label for="name"><spring:message code="notify.users.text"/></label>
+			    <textarea class="form-control" id="text" name="text" placeholder="<spring:message code="notify.users.text"/>" rows="10"><c:out value="${ notificationDTO.text }" /></textarea>
 			  </div>
 			  	          
-	          <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Finish</button>	          
+	          <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> <spring:message code="notify.users.finish"/></button>	          
 	          
           </form> 
           

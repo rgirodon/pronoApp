@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <html>
   <head>
-    <title>Join a public league</title>
+    <title><spring:message code="joinPublicLeague.title"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet"> 
     <link href="css/theme.bootstrap.css" rel="stylesheet">
@@ -54,7 +55,7 @@
           <br/>
           <br/>
           
-          <h2>Available public leagues</h2>
+          <h2><spring:message code="joinPublicLeague.header"/></h2>
 
 		  <c:if test="${ not empty actionMessage }">
 		  	<div class="alert alert-success"><c:out value="${ actionMessage }" /></div>
@@ -67,14 +68,14 @@
 	          <table id="availablePublicLeaguesTable" class="table table-striped table-condensed">
 	          	<thead>
 	          		<tr>
-	          			<th>Name</th>
-	          			<th>Action</th>
+	          			<th><spring:message code="joinPublicLeague.header.name"/></th>
+	          			<th><spring:message code="joinPublicLeague.header.action"/></th>
 	          		</tr>
 	          	</thead>
 	          	<tfoot>
 					<tr>
-	          			<th>Name</th>
-	          			<th>Action</th>
+	          			<th><spring:message code="joinPublicLeague.header.name"/></th>
+	          			<th><spring:message code="joinPublicLeague.header.action"/></th>
 					</tr>
 					<tr>
 						<th colspan="2" class="ts-pager form-horizontal">
@@ -98,7 +99,7 @@
 		          		<tr>
 		          			<td><c:out value="${ availablePublicLeague.name }" /></td>
 		          			<td>
-	          					<a href="JoinPublicLeagueAction.do?leagueId=<c:out value="${ availablePublicLeague.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-log-in"></span> Join this league</a>
+	          					<a href="JoinPublicLeagueAction.do?leagueId=<c:out value="${ availablePublicLeague.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-log-in"></span> <spring:message code="joinPublicLeague.join"/></a>
 		          			</td>
 		          		</tr>
 		          	</c:forEach>

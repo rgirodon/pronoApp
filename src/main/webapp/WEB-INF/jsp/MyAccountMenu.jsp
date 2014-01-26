@@ -1,13 +1,13 @@
 <li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><spring:message code="menu.myaccount"/> <b class="caret"></b></a>
     <ul class="dropdown-menu">
-      <li><a href="ChangeMyPassword.do">My password</a></li>
-      <li><a href="ChangeMyDisplayName.do">My display name</a></li>
-      <li><a href="ChangeMyDefaultLeague.do">My default league</a></li>
-      <li><a href="MyInvitations.do">My invitations</a></li>
-      <li><a href="JoinPublicLeague.do">Join a public league</a></li>
+      <li><a href="ChangeMyPassword.do"><spring:message code="menu.myaccount.myPassword"/></a></li>
+      <li><a href="ChangeMyDisplayName.do"><spring:message code="menu.myaccount.myDisplayName"/></a></li>
+      <li><a href="ChangeMyDefaultLeague.do"><spring:message code="menu.myaccount.myDefaultLeague"/></a></li>
+      <li><a href="MyInvitations.do"><spring:message code="menu.myaccount.myInvitations"/></a></li>
+      <li><a href="JoinPublicLeague.do"><spring:message code="menu.myaccount.joinPublicLeague"/></a></li>
       <c:if test="${ not empty league }">
-	      <li><a href="InviteFriends.do">Invite friends</a></li>
+	      <li><a href="InviteFriends.do"><spring:message code="menu.myaccount.inviteFriends"/></a></li>
       </c:if>
     </ul>
 </li>

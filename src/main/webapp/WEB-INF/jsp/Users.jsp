@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
   <head>
-    <title>Users Administration</title>
+    <title><spring:message code="users.title"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet"> 
     <link href="css/theme.bootstrap.css" rel="stylesheet">
@@ -54,7 +55,7 @@
           <br/>
           <br/>
           
-          <h2>List of Users</h2>
+          <h2><spring:message code="users.header"/></h2>
 
 		  <c:if test="${ not empty actionMessage }">
 		  	<div class="alert alert-success"><c:out value="${ actionMessage }" /></div>
@@ -63,35 +64,35 @@
 		  	<div class="alert alert-danger"><c:out value="${ actionError }" /></div>
 		  </c:if>
 		  <p>
-		  	<a href="NotifyLeagueUsers.do" role="button" class="btn btn-default"><span class="glyphicon glyphicon-bullhorn"></span> Notify Users</a>
+		  	<a href="NotifyLeagueUsers.do" role="button" class="btn btn-default"><span class="glyphicon glyphicon-bullhorn"></span> <spring:message code="users.notify"/></a>
 		  </p>
 		  <p>
-		  	<a href="ReComputeRanking.do" role="button" class="btn btn-default"><span class="glyphicon glyphicon-dashboard"></span> Re-Compute Ranking</a>
+		  	<a href="ReComputeRanking.do" role="button" class="btn btn-default"><span class="glyphicon glyphicon-dashboard"></span> <spring:message code="users.recompute.ranking"/></a>
 		  </p>
           <p>
 	          <table id="usersTable" class="table table-striped table-condensed">
 	          	<thead>
 	          		<tr>
-	          			<th>Login</th>
-	          			<th>Display Name</th>
-	          			<th>Admin</th>
-	          			<th>Points</th>
-	          			<th>Pronos</th>
-	          			<th>Correct</th>
-	          			<th>Exact</th>
-	          			<th>Action</th>
+	          			<th><spring:message code="users.login"/></th>
+	          			<th><spring:message code="users.displayName"/></th>
+	          			<th><spring:message code="users.admin"/></th>
+	          			<th><spring:message code="users.points"/></th>
+	          			<th><spring:message code="users.pronos"/></th>
+	          			<th><spring:message code="users.correct"/></th>
+	          			<th><spring:message code="users.exact"/></th>
+	          			<th><spring:message code="users.action"/></th>
 	          		</tr>
 	          	</thead>
 	          	<tfoot>
 					<tr>
-	          			<th>Login</th>
-	          			<th>Display Name</th>
-	          			<th>Admin</th>
-	          			<th>Points</th>
-	          			<th>Pronos</th>
-	          			<th>Correct</th>
-	          			<th>Exact</th>
-	          			<th>Action</th>
+	          			<th><spring:message code="users.login"/></th>
+	          			<th><spring:message code="users.displayName"/></th>
+	          			<th><spring:message code="users.admin"/></th>
+	          			<th><spring:message code="users.points"/></th>
+	          			<th><spring:message code="users.pronos"/></th>
+	          			<th><spring:message code="users.correct"/></th>
+	          			<th><spring:message code="users.exact"/></th>
+	          			<th><spring:message code="users.action"/></th>
 					</tr>
 					<tr>
 						<th colspan="8" class="ts-pager form-horizontal">
@@ -122,10 +123,10 @@
 		          			<td><c:out value="${ user.getNbExactScoresForLeague(league.id) }" /></td>
 		          			<td>
 		          				<c:if test="${ user.isLeagueAdmin(league.id) }">
-		          					<a href="RemoveFromLeagueAdmins.do?userId=<c:out value="${ user.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus"></span> Remove from Admins</a>
+		          					<a href="RemoveFromLeagueAdmins.do?userId=<c:out value="${ user.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-minus"></span> <spring:message code="users.removeFromAdmins"/></a>
 		          				</c:if>
 		          				<c:if test="${ not user.isLeagueAdmin(league.id) }">
-		          					<a href="AddToLeagueAdmins.do?userId=<c:out value="${ user.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"></span> Add to Admins</a>
+		          					<a href="AddToLeagueAdmins.do?userId=<c:out value="${ user.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"></span> <spring:message code="users.addToAdmins"/></a>
 		          				</c:if>
 		          			</td>
 		          		</tr>

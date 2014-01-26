@@ -1,6 +1,7 @@
 package org.jacademie.tdweb.controller;
 
 import java.util.Collection;
+import java.util.Locale;
 
 import org.apache.log4j.Logger;
 import org.jacademie.tdweb.controller.helper.HelloHelper;
@@ -11,6 +12,8 @@ import org.jacademie.tdweb.dto.LoginPasswordDTO;
 import org.jacademie.tdweb.dto.RegisterDTO;
 import org.jacademie.tdweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,6 +30,9 @@ public class ChangeMyDisplayNameController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private MessageSource messageSource;
 		
 	@RequestMapping(method = RequestMethod.GET)
 	public String displayChangeMyDisplayNameHandler(@ModelAttribute(value = "user") User user, 
@@ -49,6 +55,8 @@ public class ChangeMyDisplayNameController {
 		
 		logger.debug("In validateChangeMyDisplayNameHandler");
 		
+		Locale locale = LocaleContextHolder.getLocale();
+		
 		logger.debug("new displayName : " + changeMyDisplayNameDTO.getDisplayNameInput());
 		
 		Collection<String> errors = this.userService.validateChangeMyDisplayName(user.getId(), changeMyDisplayNameDTO);
@@ -59,7 +67,9 @@ public class ChangeMyDisplayNameController {
 			
 			this.userService.changeMyDisplayName(user.getId(), changeMyDisplayNameDTO);
 			
-			model.addAttribute("changeMyDisplayNameInformation", "Display name successfully changed");
+			model.addAttribute("changeMyDisplayNameInformation", this.messageSource.getMessage("myDisplayName.success", 
+																								null, 
+																								locale));
 			
 			// refresh user
 			user = this.userService.findUserById(user.getId());

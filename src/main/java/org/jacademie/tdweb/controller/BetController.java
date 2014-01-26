@@ -2,6 +2,7 @@ package org.jacademie.tdweb.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.lang.math.NumberUtils;
@@ -13,6 +14,8 @@ import org.jacademie.tdweb.dto.GameForBetDTO;
 import org.jacademie.tdweb.service.PronosticService;
 import org.jacademie.tdweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,6 +40,9 @@ public class BetController {
 	@Autowired
 	private PronosticService pronosticService;
 	
+	@Autowired
+	private MessageSource messageSource;
+	
 	@RequestMapping(method = RequestMethod.POST)
 	public String betHandler(@RequestParam Map<String,String> allRequestParams, 
 							 @ModelAttribute(value = "user") User user, 
@@ -46,6 +52,8 @@ public class BetController {
 		
 		logger.debug("User " + user.getLogin() + " is betting.");
 
+		Locale locale = LocaleContextHolder.getLocale();
+		
 		Collection<GameForBetDTO> validBets = new ArrayList<>();
 		Collection<GameForBetDTO> invalidBets = new ArrayList<>();
 		
@@ -79,12 +87,22 @@ public class BetController {
 			
 			pronosticService.saveBetsForUser(user.getId(), validBets);
 			
-			model.addAttribute("betConfirmMessage", "You have saved " + validBets.size() + " bet(s). Thanks and good luck !");
+			Integer [] messageParams = {validBets.size()};
+			
+			model.addAttribute("betConfirmMessage",
+					this.messageSource.getMessage("bet.valid", 
+										messageParams, 
+										locale));
 		}
 		
 		if (!invalidBets.isEmpty()) {
 			
-			model.addAttribute("betErrorMessage", invalidBets.size() + " of your bet(s) were invalid. Retry !");
+			Integer [] messageParams = {invalidBets.size()};
+			
+			model.addAttribute("betErrorMessage",
+					this.messageSource.getMessage("bet.invalid", 
+										messageParams, 
+										locale));
 		}
 		
 		// get leagueId

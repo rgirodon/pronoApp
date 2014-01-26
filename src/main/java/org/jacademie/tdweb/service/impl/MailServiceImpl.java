@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 import org.jacademie.tdweb.domain.League;
@@ -15,6 +16,8 @@ import org.jacademie.tdweb.service.LeagueService;
 import org.jacademie.tdweb.service.MailService;
 import org.jacademie.tdweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -30,6 +33,9 @@ public class MailServiceImpl implements MailService {
 	private String webSiteUrl;
 	
 	@Autowired
+	private MessageSource messageSource;
+	
+	@Autowired
 	private UserService userService;
 	
 	@Autowired
@@ -38,17 +44,25 @@ public class MailServiceImpl implements MailService {
 	@Override
 	public void sendInvitationMail(String friend, String invitor, String league) {
 		
+		Locale locale = LocaleContextHolder.getLocale();
+		
 		MultipleBccSendGrid sendGrid = new MultipleBccSendGrid(this.username, this.password);
 		
 		sendGrid.addTo(friend);
 		sendGrid.setFrom(this.from);
-		sendGrid.setSubject("PronoClub - You're invited to join a league !");
+		
+		String subject = this.messageSource.getMessage("invitation.subject", 
+														null, 
+														locale);
+		
+		sendGrid.setSubject(subject);
 		
 		StringBuilder text = new StringBuilder();
-		text.append("<h1>Hey !</h1>");
-		text.append("<h2>").append(invitor).append(" has invited you to join league ").append(league).append(".</h2>");
-		text.append("<h2>Click <a href=\"").append(this.webSiteUrl).append("\">here</a> to register and enter the Prono Club (don't forget to read the rules before you sign in...).</h2>");
-		text.append("<h3>-Mail sent by PronoClub team-</h3>");
+		text.append("<h1>").append(this.messageSource.getMessage("invitation.hey", null, locale)).append("</h1>");
+		text.append("<h2>").append(invitor).append(" ").append(this.messageSource.getMessage("invitation.hasInvitedYou", null, locale)).append(" ").append(league).append(".</h2>");
+		text.append("<h2> ").append(this.messageSource.getMessage("invitation.click", null, locale)).append(" <a href=\"").append(this.webSiteUrl).append("\">").append(this.messageSource.getMessage("invitation.here", null, locale)).append("</a> ");
+		text.append(this.messageSource.getMessage("invitation.register", null, locale)).append("</h2>");
+		text.append("<h3>").append(this.messageSource.getMessage("mail.footer", null, locale)).append("</h3>");
 		sendGrid.setHtml(text.toString());
 
 		sendGrid.send();
@@ -56,6 +70,8 @@ public class MailServiceImpl implements MailService {
 	
 	@Override
 	public void sendLeagueUsersNotification(Integer leagueId, NotificationDTO notificationDTO) {
+		
+		Locale locale = LocaleContextHolder.getLocale();
 		
 		League league = this.leagueService.findLeagueById(leagueId);
 		
@@ -79,7 +95,7 @@ public class MailServiceImpl implements MailService {
 		sendGrid.setFrom(this.from);
 		
 		StringBuilder subject = new StringBuilder();
-		subject.append("PronoClub - Notification for league ").append(league.getName()).append(" : ").append(notificationDTO.getSubject());
+		subject.append(this.messageSource.getMessage("notification.subject", null, locale)).append(" ").append(league.getName()).append(" : ").append(notificationDTO.getSubject());
 		sendGrid.setSubject(subject.toString());
 		
 		StringBuilder text = new StringBuilder();
@@ -87,9 +103,10 @@ public class MailServiceImpl implements MailService {
 		String formattedText = StringUtils.replace(notificationDTO.getText(), "\n", "<br/>");	
 		text.append(formattedText);
 		
-		text.append("<h2>Click <a href=\"").append(this.webSiteUrl).append("\">here</a> to enter the Prono Club.</h2>");
+		text.append("<h2> ").append(this.messageSource.getMessage("notification.click", null, locale)).append(" <a href=\"").append(this.webSiteUrl).append("\">").append(this.messageSource.getMessage("notification.here", null, locale)).append("</a> ");
+		text.append(this.messageSource.getMessage("notification.enter", null, locale)).append("</h2>");
 		
-		text.append("<h3>-Mail sent by PronoClub team-</h3>");
+		text.append("<h3>").append(this.messageSource.getMessage("mail.footer", null, locale)).append("</h3>");
 		
 		sendGrid.setHtml(text.toString());
 

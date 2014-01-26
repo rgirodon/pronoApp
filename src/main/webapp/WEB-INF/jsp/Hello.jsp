@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <html>
   <head>
-    <title>Welcome to PronoClub</title>
+    <title><spring:message code="hello.title"/>Welcome to PronoClub</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/theme.bootstrap.css" rel="stylesheet">
@@ -52,10 +53,10 @@
 	</div>
   	<div class="jumbotron">
 		<div class="container">	    
-		  <h2>Welcome to league <c:out value="${ league.name }" /> dear <c:out value="${ user.displayName }" /></h2>
-		  <p>You have <c:out value="${ user.getPointsForLeague(league.id) }" /> point(s)</p>
-		  <p>Your ranking : <c:out value="${ ranking }" /> / <c:out value="${ nbTotalUsers }" /></p>
-		  <p>If you want to leave <a class="btn btn-lg btn-default" href="SignOut.do" role="button"><span class="glyphicon glyphicon-off"></span> Sign Out</a></p>
+		  <h2><spring:message code="hello.header.welcome"/> <c:out value="${ league.name }" /> <c:out value="${ user.displayName }" /></h2>
+		  <p><spring:message code="hello.youHave"/> <c:out value="${ user.getPointsForLeague(league.id) }" /> point(s)</p>
+		  <p><spring:message code="hello.yourRanking"/> <c:out value="${ ranking }" /> / <c:out value="${ nbTotalUsers }" /></p>
+		  <p><spring:message code="hello.youLeave"/> <a class="btn btn-lg btn-default" href="SignOut.do" role="button"><span class="glyphicon glyphicon-off"></span> <spring:message code="hello.signout"/></a></p>
 		</div>		
 	</div>
 	<div class="container">
@@ -64,7 +65,7 @@
       
         <div class="col-md-4">
           
-          <h2>Bet for games</h2>
+          <h2><spring:message code="hello.betForGames"/></h2>
           
           <br/>
           
@@ -97,7 +98,7 @@
 			  
 	          <div class="row">
 	          	<div class="col-md-12 bet-button">
-	          		<button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bet</button>
+	          		<button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> <spring:message code="hello.bet"/></button>
 	          	</div>
 	          </div>
 	          
@@ -106,7 +107,7 @@
         </div>
         
 	        <div class="col-md-4">
-	        	<h2>Ongoing bets</h2>
+	        	<h2><spring:message code="hello.ongoingBets"/></h2>
 	        	<br/>
 	        	<c:forEach var="notComputedBetGame" items="${notComputedBetGames}" >
 		          	<div class="row bet-row">
@@ -126,18 +127,18 @@
 				  	</div>
 				 </c:forEach>
 				 <br/>
-				 <h4>Hope for the best, prepare for the worst</h4>
+				 <h4><spring:message code="hello.ongoingBets.slogan"/></h4>
 	        </div>	    
         
 	        <div class="col-md-4">
-	          <h2>Ranking</h2>
+	          <h2><spring:message code="hello.ranking"/></h2>
 	          <p>
 	          	  <table class="table table-striped table-condensed">
 		          	<thead>
 		          		<tr>
-		          			<th>Rank</th>
-		          			<th>User</th>
-		          			<th>Points</th>
+		          			<th><spring:message code="hello.ranking.rank"/></th>
+		          			<th><spring:message code="hello.ranking.user"/></th>
+		          			<th><spring:message code="hello.ranking.points"/></th>
 		          		</tr>
 		          	</thead>
 		          	<c:forEach var="rankingUser" items="${rankingUsers}" begin="0" end="2" varStatus="rank">
@@ -149,7 +150,7 @@
 		          	</c:forEach>
 		          </table>
 	          </p>
-	          <p><button class="btn btn-default" data-toggle="modal" data-target="#rankingModal"><span class="glyphicon glyphicon-list"></span> View full ranking &raquo;</button></p>
+	          <p><button class="btn btn-default" data-toggle="modal" data-target="#rankingModal"><span class="glyphicon glyphicon-list"></span> <spring:message code="hello.ranking.viewFull"/></button></p>
 	        </div>
 	        
 	     </div>
@@ -157,15 +158,15 @@
 	     <div class="row">
         
 	        <div class="col-md-6">
-	          <h2>History</h2>
+	          <h2><spring:message code="hello.history"/></h2>
 	          <p>
 		          <table class="table table-striped table-condensed">
 		          	<thead>
 		          		<tr>
-		          			<th>Game</th>
-		          			<th>Score</th>
-		          			<th>Pronostic</th>
-		          			<th>Points</th>
+		          			<th><spring:message code="hello.history.game"/></th>
+		          			<th><spring:message code="hello.history.score"/></th>
+		          			<th><spring:message code="hello.history.pronostic"/></th>
+		          			<th><spring:message code="hello.history.points"/></th>
 		          		</tr>
 		          	</thead>
 		          	<c:forEach var="computedBetGame" items="${computedBetGames}" begin="0" end="2">
@@ -178,7 +179,7 @@
 		          	</c:forEach>
 		          </table>
 	          </p>
-	          <p><button class="btn btn-default" data-toggle="modal" data-target="#historyModal"><span class="glyphicon glyphicon-time"></span> View full history &raquo;</button></p>
+	          <p><button class="btn btn-default" data-toggle="modal" data-target="#historyModal"><span class="glyphicon glyphicon-time"></span> <spring:message code="hello.history.viewFull"/></button></p>
 	        </div>
                 
       	</div>
@@ -193,24 +194,24 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		        <h4 class="modal-title" id="historyModalLabel">History</h4>
+		        <h4 class="modal-title" id="historyModalLabel"><spring:message code="hello.history"/></h4>
 		      </div>
 		      <div class="modal-body">
 		        <table id="fullComputedBetGamesTable" class="table table-striped table-condensed">
 		          	<thead>
 		          		<tr>
-		          			<th>Game</th>
-		          			<th>Score</th>
-		          			<th>Pronostic</th>
-		          			<th>Points</th>
+		          			<th><spring:message code="hello.history.game"/></th>
+		          			<th><spring:message code="hello.history.score"/></th>
+		          			<th><spring:message code="hello.history.pronostic"/></th>
+		          			<th><spring:message code="hello.history.points"/></th>
 		          		</tr>
 		          	</thead>
 		          	<tfoot>
 						<tr>
-		          			<th>Game</th>
-		          			<th>Score</th>
-		          			<th>Pronostic</th>
-		          			<th>Points</th>
+		          			<th><spring:message code="hello.history.game"/></th>
+		          			<th><spring:message code="hello.history.score"/></th>
+		          			<th><spring:message code="hello.history.pronostic"/></th>
+		          			<th><spring:message code="hello.history.points"/></th>
 						</tr>
 						<tr>
 							<th colspan="4" class="fullComputedBetGamesTable-ts-pager form-horizontal">
@@ -240,7 +241,7 @@
 		          </table>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="hello.close"/></button>
 		      </div>
 		    </div>
 		  </div>
@@ -251,19 +252,19 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		        <h4 class="modal-title" id="historyModalLabel">Ranking</h4>
+		        <h4 class="modal-title" id="historyModalLabel"><spring:message code="hello.ranking"/></h4>
 		      </div>
 		      <div class="modal-body">
 		        <table class="table table-striped table-condensed">
 	          	<thead>
 	          		<tr>
-	          			<th>Rank</th>
-	          			<th>User</th>
-	          			<th>Points</th>
-	          			<th>Pronos</th>
-	          			<th>Correct (including exact)</th>
-	          			<th>Exact</th>
-	          			<th>Correct, but inexact</th>
+	          			<th><spring:message code="hello.ranking.rank"/></th>
+	          			<th><spring:message code="hello.ranking.user"/></th>
+	          			<th><spring:message code="hello.ranking.points"/></th>
+	          			<th><spring:message code="hello.ranking.pronos"/></th>
+	          			<th><spring:message code="hello.ranking.correct.withExact"/></th>
+	          			<th><spring:message code="hello.ranking.exact"/></th>
+	          			<th><spring:message code="hello.ranking.correct.withoutExact"/></th>
 	          		</tr>
 	          	</thead>
 	          	<c:forEach var="rankingUser" items="${rankingUsers}" varStatus="rank">
@@ -280,12 +281,11 @@
 	          </table>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="hello.close"/></button>
 		      </div>
 		    </div>
 		  </div>
-		</div>
-	
+		</div>	
     
   </body>
 </html>

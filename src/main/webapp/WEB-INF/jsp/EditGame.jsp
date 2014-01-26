@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
   <head>
-    <title>Games Administration</title>
+    <title><spring:message code="game.edit.title"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet"> 
     <link href="css/hello.css" rel="stylesheet">
@@ -35,7 +36,7 @@
           <br/>
           <br/>
           
-          <h2>Edit Game</h2>
+          <h2><spring:message code="game.edit.header"/></h2>
 
 		  <c:if test="${ not empty errors }">
 		  	<div class="alert alert-danger">
@@ -58,8 +59,8 @@
 			  </p>
 			  
 	          <p>
-	          	<a href="ListGames.do" role="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
-	          	<button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Save</button>
+	          	<a href="ListGames.do" role="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> <spring:message code="game.edit.cancel"/></a>
+	          	<button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> <spring:message code="game.edit.save"/></button>
 	          </p>
 	          
           </form> 

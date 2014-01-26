@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
   <head>
-    <title>Games Administration</title>
+    <title><spring:message code="games.title"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet"> 
     <link href="css/theme.bootstrap.css" rel="stylesheet">
@@ -54,7 +55,7 @@
           <br/>
           <br/>
           
-          <h2>List of Games</h2>
+          <h2><spring:message code="games.header"/></h2>
 
 		  <c:if test="${ not empty actionMessage }">
 		  	<div class="alert alert-success"><c:out value="${ actionMessage }" /></div>
@@ -64,28 +65,28 @@
 		  </c:if>
 
 		  <p>
-		  	<a href="NewGame.do" role="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> New Game</a>
+		  	<a href="NewGame.do" role="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> <spring:message code="games.new"/></a>
 		  </p>
           <p>
 	          <table id="gamesTable" class="table table-striped table-condensed">
 	          	<thead>
 	          		<tr>
-	          			<th data-sorter="shortDate" data-date-format="yyyymmdd">Date</th>
-	          			<th>Game</th>
-	          			<th>Score</th>
-	          			<th>Closed</th>
-	          			<th>Points Computed</th>
-	          			<th>Action</th>
+	          			<th data-sorter="shortDate" data-date-format="yyyymmdd"><spring:message code="games.date"/></th>
+	          			<th><spring:message code="games.game"/></th>
+	          			<th><spring:message code="games.score"/></th>
+	          			<th><spring:message code="games.closed"/></th>
+	          			<th><spring:message code="games.computed"/></th>
+	          			<th><spring:message code="games.action"/></th>
 	          		</tr>
 	          	</thead>
 	          	<tfoot>
 					<tr>
-						<th data-sorter="shortDate" data-date-format="yyyymmdd">Date</th>
-	          			<th>Game</th>
-	          			<th>Score</th>
-	          			<th>Closed</th>
-	          			<th>Points Computed</th>
-	          			<th>Action</th>
+						<th data-sorter="shortDate" data-date-format="yyyymmdd"><spring:message code="games.date"/></th>
+	          			<th><spring:message code="games.game"/></th>
+	          			<th><spring:message code="games.score"/></th>
+	          			<th><spring:message code="games.closed"/></th>
+	          			<th><spring:message code="games.computed"/></th>
+	          			<th><spring:message code="games.action"/></th>
 					</tr>
 					<tr>
 						<th colspan="6" class="ts-pager form-horizontal">
@@ -124,19 +125,19 @@
 		          			<td><c:out value="${ game.pointsComputed }" /></td>
 		          			<td>
 		          				<c:if test="${ game.editable }">
-		          					<a href="EditGame.do?gameId=<c:out value="${ game.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+		          					<a href="EditGame.do?gameId=<c:out value="${ game.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-edit"></span> <spring:message code="games.edit"/></a>
 		          				</c:if>
 		          				<c:if test="${ game.closable }">
-		          					<a href="CloseGame.do?gameId=<c:out value="${ game.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-eye-close"></span> Close</a>
+		          					<a href="CloseGame.do?gameId=<c:out value="${ game.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-eye-close"></span> <spring:message code="games.close"/></a>
 		          				</c:if>
 		          				<c:if test="${ game.openable }">
-		          					<a href="OpenGame.do?gameId=<c:out value="${ game.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-eye-open"></span> Open</a>
+		          					<a href="OpenGame.do?gameId=<c:out value="${ game.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-eye-open"></span> <spring:message code="games.open"/></a>
 		          				</c:if>
 		          				<c:if test="${ game.pointsComputable }">
-		          					<a href="ComputePointsForGame.do?gameId=<c:out value="${ game.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-dashboard"></span> Compute points</a>
+		          					<a href="ComputePointsForGame.do?gameId=<c:out value="${ game.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-dashboard"></span> <spring:message code="games.compute"/></a>
 		          				</c:if>
 		          				<c:if test="${ game.deletable }">
-		          					<a href="DeleteGame.do?gameId=<c:out value="${ game.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+		          					<a href="DeleteGame.do?gameId=<c:out value="${ game.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove"></span> <spring:message code="games.delete"/></a>
 		          				</c:if>
 		          			</td>
 		          		</tr>

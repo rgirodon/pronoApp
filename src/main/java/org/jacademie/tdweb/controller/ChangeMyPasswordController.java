@@ -1,6 +1,7 @@
 package org.jacademie.tdweb.controller;
 
 import java.util.Collection;
+import java.util.Locale;
 
 import org.apache.log4j.Logger;
 import org.jacademie.tdweb.controller.helper.HelloHelper;
@@ -10,6 +11,8 @@ import org.jacademie.tdweb.dto.LoginPasswordDTO;
 import org.jacademie.tdweb.dto.RegisterDTO;
 import org.jacademie.tdweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,6 +29,9 @@ public class ChangeMyPasswordController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private MessageSource messageSource;
 		
 	@RequestMapping(method = RequestMethod.GET)
 	public String displayChangeMyPasswordHandler(ModelMap model) {
@@ -46,6 +52,8 @@ public class ChangeMyPasswordController {
 		
 		logger.debug("In validateChangeMyPasswordHandler");
 		
+		Locale locale = LocaleContextHolder.getLocale();
+		
 		logger.debug("old password : " + changeMyPasswordDTO.getOldPassword());
 		
 		logger.debug("new password : " + changeMyPasswordDTO.getNewPassword());
@@ -60,7 +68,9 @@ public class ChangeMyPasswordController {
 			
 			this.userService.changeMyPassword(user.getId(), changeMyPasswordDTO);
 			
-			model.addAttribute("changeMyPasswordInformation", "Password successfully changed");
+			model.addAttribute("changeMyPasswordInformation", this.messageSource.getMessage("mypassword.success", 
+																null, 
+																locale));
 			
 			return "ChangeMyPassword";
 		}

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
   <head>
-    <title>Create League</title>
+    <title><spring:message code="createleague.title"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet"> 
     <link href="css/hello.css" rel="stylesheet">
@@ -34,7 +35,7 @@
           <br/>
           <br/>
           
-          <h2>Create League</h2>
+          <h2><spring:message code="createleague.header"/></h2>
 
 		  <c:if test="${ not empty errors }">
 		  	<div class="alert alert-danger">
@@ -48,13 +49,14 @@
 	      <form method="post" role="form" action="CreateLeague.do">
           
 			  <div class="form-group">
-			    <label for="name">League Name</label>
-			    <input type="text" class="form-control" id="name" name="name" placeholder="Enter League Name" value="<c:out value="${ leagueBeingCreated.name }" />">
+			    <label for="name"><spring:message code="createleague.name"/></label>
+			    <input type="text" class="form-control" id="name" name="name" placeholder="<spring:message code="createleague.enter.name"/>" value="<c:out value="${ leagueBeingCreated.name }" />">
 			    
 			    <c:if test="${ not leagueBeingCreated.isPublic }">
-			    	<label for="name">Inherits Games from league</label>
+			    	<br/>
+			    	<label for="name"><spring:message code="createleague.inherits"/></label>
 			    	<select id="inheritsGamesFromLeagueId" name="inheritsGamesFromLeagueId" class="form-control">
-				  		<option value="-1">- No League -</option>
+				  		<option value="-1"><spring:message code="createleague.inherits.none"/></option>
 				  		<c:forEach var="publicLeague" items="${publicLeagues}">
 				       		<option value="<c:out value="${ publicLeague.id }" />"><c:out value="${ publicLeague.name }" /></option>
 				       	</c:forEach>
@@ -66,7 +68,7 @@
 			    
 			  </div>
 			  	          
-	          <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Finish</button>	          
+	          <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> <spring:message code="createleague.finish"/></button>	          
 	          
           </form> 
           

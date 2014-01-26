@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <html>
   <head>
-    <title>Change my default league</title>
+    <title><spring:message code="myDefaultLeague.title"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet"> 
     <link href="css/hello.css" rel="stylesheet">
@@ -30,7 +31,7 @@
           <br/>
           <br/>
           
-          <h2>Change my default league</h2>
+          <h2><spring:message code="myDefaultLeague.header"/></h2>
 
 		  <c:if test="${ not empty changeMyDefaultLeagueInformation }">
 		  	<div class="alert alert-success registerInformation"><c:out value="${ changeMyDefaultLeagueInformation }" /></div>
@@ -46,16 +47,16 @@
 
 		  <form method="post" role="form" action="ChangeMyDefaultLeague.do">
 			  <div class="form-group">
-			    <label for="login">My default league</label>
+			    <label for="login"><spring:message code="myDefaultLeague.defaultLeague"/></label>
 			    <select id="chooseDefaultLeagueSelect" name="defaultLeagueId" class="form-control">
-			  		<option value="-1">- No Default League -</option>
+			  		<option value="-1"><spring:message code="myDefaultLeague.choose"/></option>
 			  		<c:forEach var="leagueInvolvedIn" items="${user.openLeaguesInvolvedIn}">
 			       		<option value="<c:out value="${ leagueInvolvedIn.id }" />"><c:out value="${ leagueInvolvedIn.name }" /></option>
 			       	</c:forEach>
 				</select>
 			  </div>
 			  
-          	  <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Change</button>
+          	  <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> <spring:message code="myDefaultLeague.change"/></button>
 		  </form>
 
           

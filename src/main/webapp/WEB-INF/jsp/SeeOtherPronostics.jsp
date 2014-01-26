@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <script id="js">
 	
 	$(function() {
@@ -31,20 +32,20 @@
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      <h4 class="modal-title" id="seeOtherPronosticsModallLabel">What others think about <c:out value="${ game.label }" /></h4>
+      <h4 class="modal-title" id="seeOtherPronosticsModallLabel"><spring:message code="hello.seeOther.title"/> <c:out value="${ game.label }" /></h4>
     </div>
     <div class="modal-body">
       <table id="othersPronosticsForGameTable" class="table table-striped table-condensed">
        	<thead>
        		<tr>
-       			<th>User</th>
-       			<th>Score</th>
+       			<th><spring:message code="hello.seeOther.user"/></th>
+       			<th><spring:message code="hello.seeOther.pronostic"/></th>
        		</tr>
        	</thead>
        	<tfoot>
 			<tr>
-         			<th>User</th>
-         			<th>Score</th>
+         			<th><spring:message code="hello.seeOther.user"/></th>
+         			<th><spring:message code="hello.seeOther.pronostic"/></th>
 			</tr>
 			<tr>
 				<th colspan="2" class="othersPronosticsForGameTable-ts-pager form-horizontal">
@@ -74,7 +75,7 @@
       </table>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="hello.close"/></button>
     </div>
   </div>
 </div>

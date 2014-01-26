@@ -2,6 +2,7 @@ package org.jacademie.tdweb.controller;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +14,8 @@ import org.jacademie.tdweb.domain.User;
 import org.jacademie.tdweb.service.LeagueService;
 import org.jacademie.tdweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,6 +35,9 @@ private static Logger logger = Logger.getLogger(InvitationsController.class);
 	
 	@Autowired
 	private LeagueService leagueService;
+	
+	@Autowired
+	private MessageSource messageSource;
 			
 	@RequestMapping(value="MyInvitations", method = RequestMethod.GET)
 	public String displayMyInvitationsHandler(@ModelAttribute User user,
@@ -52,10 +58,14 @@ private static Logger logger = Logger.getLogger(InvitationsController.class);
 												ModelMap model) {
 		
 		logger.debug("In displayDeclineInvitationHandler");
+		
+		Locale locale = LocaleContextHolder.getLocale();
 				
 		this.userService.declineInvitation(invitationId);
 		
-		model.addAttribute("actionMessage", "Invitation declined");
+		model.addAttribute("actionMessage", this.messageSource.getMessage("myInvitations.declined", 
+																			null, 
+																			locale));
 		
 		return this.displayMyInvitationsHandler(user, model);
 	}
@@ -66,6 +76,8 @@ private static Logger logger = Logger.getLogger(InvitationsController.class);
 												ModelMap model) {
 		
 		logger.debug("In displayAcceptInvitationHandler");
+		
+		Locale locale = LocaleContextHolder.getLocale();
 				
 		this.userService.acceptInvitation(invitationId, user.getId());
 		
@@ -74,7 +86,9 @@ private static Logger logger = Logger.getLogger(InvitationsController.class);
 		
 		model.addAttribute("user", user);
 		
-		model.addAttribute("actionMessage", "Invitation accepted");
+		model.addAttribute("actionMessage", this.messageSource.getMessage("myInvitations.accepted", 
+																			null, 
+																			locale));
 		
 		return this.displayMyInvitationsHandler(user, model);
 	}
@@ -100,6 +114,8 @@ private static Logger logger = Logger.getLogger(InvitationsController.class);
 		
 		logger.debug("In inviteFriendsActionHandler");
 				
+		Locale locale = LocaleContextHolder.getLocale();
+		
 		Collection<String> errors = new HashSet<>();
 		
 		Collection<String> friends = new HashSet<>();
@@ -135,15 +151,20 @@ private static Logger logger = Logger.getLogger(InvitationsController.class);
 						nbInvitations++;
 					}
 					else {
-						errors.add(friend + " has already been invited to league " + league.getName());
+						errors.add(friend + 
+								this.messageSource.getMessage("myInvitations.alreadyInvited", null, locale) + 
+								league.getName());
 					}
 				}
 				else {
-					errors.add(friend + " has already joined league " + league.getName());
+					errors.add(friend + 
+								this.messageSource.getMessage("myInvitations.alreadyJoined", null, locale) + 
+								league.getName());
 				}
 			}
 			else {
-				errors.add(friend + " is an invalid email");
+				errors.add(friend + 
+							this.messageSource.getMessage("myInvitations.invalid", null, locale));
 			}
 		}
 		
@@ -152,7 +173,8 @@ private static Logger logger = Logger.getLogger(InvitationsController.class);
 			model.addAttribute("errors", errors);
 		}
 		
-		model.addAttribute("actionMessage", nbInvitations + " invitations sent !");		
+		model.addAttribute("actionMessage", nbInvitations + 
+											this.messageSource.getMessage("myInvitations.sent", null, locale));		
 		
 		return "InviteFriends";
 	}

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <html>
   <head>
-    <title>Change my display name</title>
+    <title><spring:message code="myDisplayName.title"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet"> 
     <link href="css/hello.css" rel="stylesheet">
@@ -22,7 +23,7 @@
           <br/>
           <br/>
           
-          <h2>Change my display name</h2>
+          <h2><spring:message code="myDisplayName.header"/></h2>
 
 		  <c:if test="${ not empty changeMyDisplayNameInformation }">
 		  	<div class="alert alert-success registerInformation"><c:out value="${ changeMyDisplayNameInformation }" /></div>
@@ -38,14 +39,14 @@
 
 		  <form method="post" role="form" action="ChangeMyDisplayName.do">
 			  <div class="form-group">
-			    <label for="loginInput">Email address</label>
+			    <label for="loginInput"><spring:message code="myDisplayName.email"/></label>
 			    <input disabled="true" type="text" class="form-control" id="loginInput" name="loginInput" value="<c:out value="${ user.login }" />">
 			  </div>
 			  <div class="form-group">
-			    <label for="displayNameInput">Display Name</label>
+			    <label for="displayNameInput"><spring:message code="myDisplayName.displayName"/></label>
 			    <input type="text" class="form-control" id="displayNameInput" name="displayNameInput" value="<c:out value="${ changeMyDisplayNameDTO.displayNameInput }" />">
 			  </div>
-          	  <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Change</button>
+          	  <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> <spring:message code="myDisplayName.submit"/></button>
 		  </form>
 
           

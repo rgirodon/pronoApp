@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <html>
   <head>
-    <title>Invite friends</title>
+    <title><spring:message code="inviteFriends.title"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet"> 
     <link href="css/hello.css" rel="stylesheet">
@@ -25,7 +26,7 @@
           <br/>
           <br/>
           
-          <h2>Invite friends to league <c:out value="${ league.name }" /></h2>
+          <h2><spring:message code="inviteFriends.header"/> <c:out value="${ league.name }" /></h2>
 		  
 		  <c:if test="${ not empty actionMessage }">
 		  	<div class="alert alert-success"><c:out value="${ actionMessage }" /></div>
@@ -43,27 +44,27 @@
 	      <form method="post" role="form" action="InviteFriends.do">
           
 			  <div class="form-group">
-			    <label for="friend1">Friend #1</label>
+			    <label for="friend1"><spring:message code="inviteFriends.friend"/> #1</label>
 			    <input type="text" class="form-control" id="friend1" name="friend1" placeholder="Friend 1" value="">
 			  </div>
 			  <div class="form-group">
-			    <label for="friend2">Friend #2</label>
+			    <label for="friend2"><spring:message code="inviteFriends.friend"/> #2</label>
 			    <input type="text" class="form-control" id="friend2" name="friend2" placeholder="Friend 2" value="">
 			  </div>
 			  <div class="form-group">
-			    <label for="friend3">Friend #3</label>
+			    <label for="friend3"><spring:message code="inviteFriends.friend"/> #3</label>
 			    <input type="text" class="form-control" id="friend3" name="friend3" placeholder="Friend 3" value="">
 			  </div>
 			  <div class="form-group">
-			    <label for="friend4">Friend #4</label>
+			    <label for="friend4"><spring:message code="inviteFriends.friend"/> #4</label>
 			    <input type="text" class="form-control" id="friend4" name="friend4" placeholder="Friend 4" value="">
 			  </div>
 			  <div class="form-group">
-			    <label for="friend5">Friend #5</label>
+			    <label for="friend5"><spring:message code="inviteFriends.friend"/> #5</label>
 			    <input type="text" class="form-control" id="friend5" name="friend5" placeholder="Friend 5" value="">
 			  </div>
 			  	          
-	          <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Invite</button>	          
+	          <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> <spring:message code="inviteFriends.invite"/></button>	          
 	          
           </form> 
           

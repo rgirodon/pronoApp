@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
   <head>
-    <title>Create League</title>
+    <title><spring:message code="editleague.title"/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet"> 
     <link href="css/hello.css" rel="stylesheet">
@@ -38,7 +39,7 @@
           <br/>
           <br/>
           
-          <h2>Edit League</h2>
+          <h2><spring:message code="editleague.header"/></h2>
 
 		  <c:if test="${ not empty errors }">
 		  	<div class="alert alert-danger">
@@ -52,18 +53,18 @@
 	      <form method="post" role="form" action="EditLeague.do">
           
 			  <div class="form-group">
-			    <label for="name">League Name</label>
-			    <input type="text" class="form-control" id="name" name="name" placeholder="Enter League Name" value="<c:out value="${ leagueBeingEdited.name }" />">
+			    <label for="name"><spring:message code="editleague.name"/></label>
+			    <input type="text" class="form-control" id="name" name="name" placeholder="<spring:message code="editleague.enter.name"/>" value="<c:out value="${ leagueBeingEdited.name }" />">
 			  </div>
 			  	          
-	          <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Finish</button>	          
+	          <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> <spring:message code="editleague.finish"/></button>	          
 	          
           </form> 
           
           <br/>
           <br/>
           
-          <div class="alert alert-danger">If you want to close this league (irreversible action) : <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmCloseModal"><span class="glyphicon glyphicon-ban-circle"></span> Close</button></div>
+          <div class="alert alert-danger"><spring:message code="editleague.close.warning"/><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmCloseModal"><span class="glyphicon glyphicon-ban-circle"></span> <spring:message code="editleague.close"/></button></div>
           
 		</div>
 	  </div>
@@ -73,14 +74,14 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	        <h4 class="modal-title" id="confirmCloseModalLabel">Confirm league close</h4>
+	        <h4 class="modal-title" id="confirmCloseModalLabel"><spring:message code="editleague.close.confirm.title"/></h4>
 	      </div>
 	      <div class="modal-body">
-	        <p>Are you sure you want to close this league ?</p>
+	        <p><spring:message code="editleague.close.confirm.question"/></p>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-	        <button id="confirmCloseButton" type="button" class="btn btn-danger">Confirm Close</button>
+	        <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="editleague.close.confirm.cancel"/></button>
+	        <button id="confirmCloseButton" type="button" class="btn btn-danger"><spring:message code="editleague.close.confirm.close"/></button>
 	      </div>
 	    </div>
 	  </div>

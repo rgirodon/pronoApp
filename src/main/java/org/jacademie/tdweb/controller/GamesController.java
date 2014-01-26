@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
@@ -14,6 +15,8 @@ import org.jacademie.tdweb.domain.Game;
 import org.jacademie.tdweb.domain.League;
 import org.jacademie.tdweb.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,6 +33,9 @@ public class GamesController {
 	
 	@Autowired
 	private GameService gameService;
+	
+	@Autowired
+	private MessageSource messageSource;
 	
 	@RequestMapping(value="ListGames", method = RequestMethod.GET)
 	public String listHandler(@ModelAttribute League league,
@@ -51,9 +57,14 @@ public class GamesController {
 		
 		logger.debug("Closing game " + gameId);
 		
+		Locale locale = LocaleContextHolder.getLocale();
+		
 		gameService.closeGame(gameId);
 		
-		model.addAttribute("actionMessage", "Game successfully closed.");
+		model.addAttribute("actionMessage",
+				this.messageSource.getMessage("games.close.success", 
+									null, 
+									locale));
 		
 		return this.listHandler(league, model);
 	}
@@ -65,9 +76,14 @@ public class GamesController {
 		
 		logger.debug("Opening game " + gameId);
 		
+		Locale locale = LocaleContextHolder.getLocale();
+		
 		gameService.openGame(gameId);
 		
-		model.addAttribute("actionMessage", "Game successfully opened.");
+		model.addAttribute("actionMessage",
+							this.messageSource.getMessage("games.open.success", 
+												null, 
+												locale));
 		
 		return this.listHandler(league, model);
 	}
@@ -79,9 +95,14 @@ public class GamesController {
 		
 		logger.debug("Computing points for game " + gameId);
 		
+		Locale locale = LocaleContextHolder.getLocale();
+		
 		gameService.computePointsForGame(gameId);
 		
-		model.addAttribute("actionMessage", "Points successfully computed.");
+		model.addAttribute("actionMessage",
+							this.messageSource.getMessage("games.computePoints.success", 
+															null, 
+															locale));
 		
 		return this.listHandler(league, model);
 	}
@@ -113,12 +134,16 @@ public class GamesController {
 		
 		logger.debug("Creating game");
 		
+		Locale locale = LocaleContextHolder.getLocale();
+		
 		Collection<String> errors = new ArrayList<>();
 		
 		logger.debug("Date : " + strDate);
 		if (StringUtils.isEmpty(strDate)) {
 			
-			errors.add("Date is mandatory");
+			errors.add(this.messageSource.getMessage("games.create.date.mandatory", 
+					null, 
+					locale));
 		}
 		else {
 			String[] patterns = {DateFormatUtils.ISO_DATE_FORMAT.getPattern()};
@@ -127,7 +152,9 @@ public class GamesController {
 				date = DateUtils.parseDate(strDate, patterns);
 			}
 			catch(ParseException pe) {
-				errors.add("Date is invalid");
+				errors.add(this.messageSource.getMessage("games.create.date.invalid", 
+						null, 
+						locale));
 				date = null;
 			}
 			gameBeingCreated.setDate(date);
@@ -136,14 +163,18 @@ public class GamesController {
 		logger.debug("Team1 : " + team1);
 		if (StringUtils.isEmpty(team1)) {
 			
-			errors.add("Team 1 is mandatory");
+			errors.add(this.messageSource.getMessage("games.create.team1.mandatory", 
+					null, 
+					locale));
 		}
 		gameBeingCreated.setTeam1(team1);
 		
 		logger.debug("Team2 : " + team2);
 		if (StringUtils.isEmpty(team2)) {
 			
-			errors.add("Team 2 is mandatory");
+			errors.add(this.messageSource.getMessage("games.create.team2.mandatory", 
+					null, 
+					locale));
 		}
 		gameBeingCreated.setTeam2(team2);
 		
@@ -156,7 +187,10 @@ public class GamesController {
 		else {
 			gameService.createGame(gameBeingCreated);
 			
-			model.addAttribute("actionMessage", "Game successfully created"); 
+			model.addAttribute("actionMessage",
+					this.messageSource.getMessage("games.create.success", 
+													null, 
+													locale));
 			
 			return this.listHandler(league, model);
 		}
@@ -186,12 +220,16 @@ public class GamesController {
 		
 		logger.debug("Saving game " + gameEdited.getId());
 		
+		Locale locale = LocaleContextHolder.getLocale();
+		
 		Collection<String> errors = new ArrayList<>();
 		
 		logger.debug("Date : " + strDate);
 		if (StringUtils.isEmpty(strDate)) {
 			
-			errors.add("Date is mandatory");
+			errors.add(this.messageSource.getMessage("games.edit.date.mandatory", 
+					null, 
+					locale));
 		}
 		else {
 			String[] patterns = {DateFormatUtils.ISO_DATE_FORMAT.getPattern()};
@@ -200,7 +238,11 @@ public class GamesController {
 				date = DateUtils.parseDate(strDate, patterns);
 			}
 			catch(ParseException pe) {
-				errors.add("Date is invalid");
+				
+				errors.add(this.messageSource.getMessage("games.edit.date.invalid", 
+						null, 
+						locale));
+				
 				date = null;
 			}
 			gameEdited.setDate(date);
@@ -209,14 +251,18 @@ public class GamesController {
 		logger.debug("Team1 : " + team1);
 		if (StringUtils.isEmpty(team1)) {
 			
-			errors.add("Team 1 is mandatory");
+			errors.add(this.messageSource.getMessage("games.edit.team1.mandatory", 
+					null, 
+					locale));
 		}
 		gameEdited.setTeam1(team1);
 		
 		logger.debug("Team2 : " + team2);
 		if (StringUtils.isEmpty(team2)) {
 			
-			errors.add("Team 2 is mandatory");
+			errors.add(this.messageSource.getMessage("games.edit.team2.mandatory", 
+					null, 
+					locale));
 		}
 		gameEdited.setTeam2(team2);
 		
@@ -229,7 +275,10 @@ public class GamesController {
 				gameEdited.setScoreTeam1(Integer.parseInt(strScoreTeam1));
 			}
 			else {
-				errors.add("Score Team 1 is invalid");
+				errors.add(this.messageSource.getMessage("games.edit.score1.invalid", 
+						null, 
+						locale));
+				
 				gameEdited.setScoreTeam1(null);
 			}
 		}
@@ -243,7 +292,10 @@ public class GamesController {
 				gameEdited.setScoreTeam2(Integer.parseInt(strScoreTeam2));
 			}
 			else {
-				errors.add("Score Team 2 is invalid");
+				errors.add(this.messageSource.getMessage("games.edit.score2.invalid", 
+						null, 
+						locale));
+				
 				gameEdited.setScoreTeam2(null);
 			}
 		}
@@ -257,7 +309,10 @@ public class GamesController {
 		else {
 			gameService.updateGame(gameEdited);
 			
-			model.addAttribute("actionMessage", "Game successfully saved"); 
+			model.addAttribute("actionMessage",
+					this.messageSource.getMessage("games.edit.success", 
+													null, 
+													locale));
 			
 			return this.listHandler(league, model);
 		}
@@ -268,19 +323,27 @@ public class GamesController {
 								@ModelAttribute League league,
 								ModelMap model) {
 		
+		Locale locale = LocaleContextHolder.getLocale();
+		
 		if (gameService.canDeleteGame(gameId)) {
 		
 			logger.debug("Deleting game " + gameId);
 			
 			gameService.deleteGame(gameId);
 			
-			model.addAttribute("actionMessage", "Game successfully deleted.");
+			model.addAttribute("actionMessage",
+					this.messageSource.getMessage("games.delete.success", 
+													null, 
+													locale));
 			
 			return this.listHandler(league, model);
 		}
 		else {
-			model.addAttribute("actionError", "Game can not be deleted because pronostics have already been made.");
-			
+			model.addAttribute("actionError",
+					this.messageSource.getMessage("games.delete.pronosticsExisting", 
+													null, 
+													locale));
+
 			return this.listHandler(league, model);
 		}
 	}

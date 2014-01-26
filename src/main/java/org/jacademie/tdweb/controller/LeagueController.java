@@ -154,7 +154,7 @@ private static Logger logger = Logger.getLogger(LeagueController.class);
 			return welcomeController.chooseLeagueHandler(session, leagueBeingEdited.getId(), user, model);
 		}
 		else {
-			logger.debug("League creation is not valid");
+			logger.debug("League edition is not valid");
 			
 			model.addAttribute("errors", errors);
 			

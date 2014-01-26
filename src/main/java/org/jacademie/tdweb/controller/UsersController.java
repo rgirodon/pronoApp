@@ -2,6 +2,7 @@ package org.jacademie.tdweb.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -12,6 +13,8 @@ import org.jacademie.tdweb.dto.RegisterDTO;
 import org.jacademie.tdweb.service.MailService;
 import org.jacademie.tdweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,6 +34,9 @@ public class UsersController {
 	
 	@Autowired
 	private MailService mailService;
+	
+	@Autowired
+	private MessageSource messageSource;
 	
 	@RequestMapping(value="NotifyLeagueUsers", method = RequestMethod.GET)
 	public String displayNotifyLeagueUsersHandler(@ModelAttribute League league,
@@ -52,16 +58,22 @@ public class UsersController {
 		
 		logger.debug("Submit NotifyLeagueUsersHandler.");
 		
+		Locale locale = LocaleContextHolder.getLocale();
+		
 		Collection<String> errors = new ArrayList<>();
 		
 		if (StringUtils.isEmpty(notificationDTO.getSubject())) {
 			
-			errors.add("Subject is mandatory");
+			errors.add(this.messageSource.getMessage("notify.users.subject.mandatory", 
+					null, 
+					locale));
 		}
 		
 		if (StringUtils.isEmpty(notificationDTO.getText())) {
 			
-			errors.add("Text is mandatory");
+			errors.add(this.messageSource.getMessage("notify.users.text.mandatory", 
+					null, 
+					locale));
 		}
 		
 		if (!errors.isEmpty()) {
@@ -71,7 +83,10 @@ public class UsersController {
 		else {
 			this.mailService.sendLeagueUsersNotification(league.getId(), notificationDTO);
 			
-			model.addAttribute("actionMessage", "Notification sent to League Users");
+			model.addAttribute("actionMessage",
+					this.messageSource.getMessage("notify.users.success", 
+													null, 
+													locale));
 		}
 		
 		return "NotifyLeagueUsers";
@@ -101,10 +116,15 @@ public class UsersController {
 		
 		logger.debug("Re-computing ranking for users.");
 		
+		Locale locale = LocaleContextHolder.getLocale();
+		
 		// get leagueId in session
 		userService.reComputeRankingForLeague(league.getId());
 		
-		model.addAttribute("actionMessage", "Ranking successfully re-computed.");
+		model.addAttribute("actionMessage",
+				this.messageSource.getMessage("users.recompute.ranking.success", 
+												null, 
+												locale));
 		
 		return this.prepareUsersDisplay(league, model);
 	}
@@ -116,9 +136,14 @@ public class UsersController {
 		
 		logger.debug("RemoveFromLeagueAdmins : " + userId);
 		
+		Locale locale = LocaleContextHolder.getLocale();
+		
 		userService.removeFromLeagueAdmins(userId, league.getId());
 		
-		model.addAttribute("actionMessage", "User removed from league admins.");
+		model.addAttribute("actionMessage",
+				this.messageSource.getMessage("users.removeFromAdmins.success", 
+												null, 
+												locale));
 		
 		return this.prepareUsersDisplay(league, model);
 	}
@@ -130,9 +155,14 @@ public class UsersController {
 		
 		logger.debug("AddToLeagueAdmins : " + userId);
 		
+		Locale locale = LocaleContextHolder.getLocale();
+		
 		userService.addToLeagueAdmins(userId, league.getId());
 		
-		model.addAttribute("actionMessage", "User added to league admins.");
+		model.addAttribute("actionMessage",
+				this.messageSource.getMessage("users.addToAdmins.success", 
+												null, 
+												locale));
 		
 		return this.prepareUsersDisplay(league, model);
 	}
