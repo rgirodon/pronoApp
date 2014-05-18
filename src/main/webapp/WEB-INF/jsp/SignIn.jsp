@@ -12,7 +12,13 @@
     <script src="js/bootstrap.min.js"></script>	
     <script type="text/javascript">
     $(function() {
-		$('#pronoClubRulesModal').modal('show');
+		// $('#pronoClubRulesModal').modal('show');
+		
+		$('#signin-button').click(function() {
+			
+			var btn = $(this);
+		    btn.button('loading');
+		});
 	});
 	</script>
   </head>
@@ -46,7 +52,7 @@
         
         <input name="login" type="email" class="form-control" placeholder="<spring:message code="signin.email"/>" required autofocus>
         <input name="password" type="password" class="form-control" placeholder="<spring:message code="signin.password"/>" required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="signin.login"/></button>
+        <button id="signin-button" data-loading-text="<spring:message code="wait"/>" class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="signin.login"/></button>
         
         <br/>
 	    <h2 class="form-signin-heading"><spring:message code="signin.newuser"/></h2>

@@ -8,6 +8,19 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/signin.css" rel="stylesheet">
     <link href="css/common.css" rel="stylesheet">
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script id="js">	
+	$(function() {
+
+		$('#register-button').click(function() {
+		
+			var btn = $(this);
+		    btn.button('loading');
+		});
+	});
+	</script>
+	
   </head>
   <body>
     <div class="navbar-black navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -40,7 +53,7 @@
         <input name="displayName" type="text" class="form-control" placeholder="<spring:message code="register.displayName"/>" required autofocus value="<c:out value="${ registerDTO.displayName }" />">
         <input name="password" type="password" class="form-control" placeholder="<spring:message code="register.password"/>" required>
         <input name="reEnterPassword" type="password" class="form-control" placeholder="<spring:message code="register.reEnterPassword"/>" required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="register.submit"/></button>
+        <button id="register-button" data-loading-text="<spring:message code="wait"/>" class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="register.submit"/></button>
       </form>
 
     </div>

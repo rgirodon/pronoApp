@@ -19,6 +19,12 @@
 	
 	$(function() {
 
+		$('#bet-button').click(function() {
+		
+			var btn = $(this);
+		    btn.button('loading');
+		});
+		
 		$("#fullComputedBetGamesTable").tablesorter({
 
 			theme : "bootstrap",
@@ -98,7 +104,7 @@
 			  
 	          <div class="row">
 	          	<div class="col-md-12 bet-button">
-	          		<button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> <spring:message code="hello.bet"/></button>
+	          		<button id="bet-button" class="btn btn-default" data-loading-text="<spring:message code="wait"/>"><span class="glyphicon glyphicon-ok"></span> <spring:message code="hello.bet"/></button>
 	          	</div>
 	          </div>
 	          

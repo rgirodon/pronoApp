@@ -53,7 +53,7 @@ public class RegisterController {
 										  ModelMap model) {
 						
 		logger.debug("In validateRegisterHandler");
-		
+
 		Locale locale = LocaleContextHolder.getLocale();
 		
 		logger.debug("login : " + registerDTO.getLogin());

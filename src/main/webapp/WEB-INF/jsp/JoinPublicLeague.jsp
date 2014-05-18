@@ -18,7 +18,11 @@
 	<script id="js">
 	
 	$(function() {
-
+		$('[id^=link-joinPublicLeague-]').click(function() {
+			
+			var btn = $(this);
+		    btn.button('loading');
+		});
 		$("#availablePublicLeaguesTable").tablesorter({
 
 			theme : "bootstrap",
@@ -99,7 +103,11 @@
 		          		<tr>
 		          			<td><c:out value="${ availablePublicLeague.name }" /></td>
 		          			<td>
-	          					<a href="JoinPublicLeagueAction.do?leagueId=<c:out value="${ availablePublicLeague.id }" />" role="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-log-in"></span> <spring:message code="joinPublicLeague.join"/></a>
+	          					<a id="link-joinPublicLeague-<c:out value="${ availablePublicLeague.id }" />" 
+	          					   data-loading-text="<spring:message code="wait"/>" 
+	          					   href="JoinPublicLeagueAction.do?leagueId=<c:out value="${ availablePublicLeague.id }" />" 
+	          					   role="button" 
+	          					   class="btn btn-default btn-sm"><span class="glyphicon glyphicon-log-in"></span> <spring:message code="joinPublicLeague.join"/></a>
 		          			</td>
 		          		</tr>
 		          	</c:forEach>
