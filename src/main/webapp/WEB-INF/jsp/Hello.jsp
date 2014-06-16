@@ -69,6 +69,17 @@
       <!-- Example row of columns -->
       <div class="row">
       
+        <div class="col-md-12">
+        	<div class="alert alert-info">
+        		PronoClub est partenaire du SQLI Soccer 5 Tournament. 
+        		<br><br><a target="_blank" href="https://docs.google.com/a/sqli.com/forms/d/1osdUgwQC2dPD_KOxRdsQ0I9cuFdI5xoAYo9_zXmias4/viewform?usp=send_form">Inscris-toi vite jeune carioca.</a>
+        		<br><br><h6><span class="label label-primary">Note</span> Reservé aux SQLiens <span class="label label-primary">Note</span></h6>
+        	</div>
+        </div>
+        
+      </div>
+      <div class="row">
+      
         <div class="col-md-4">
           
           <h2><spring:message code="hello.betForGames"/></h2>
