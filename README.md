@@ -1,6 +1,6 @@
 # PronoClub
 
-PronoClub lets you forecast the scores of football games.
+PronoClub lets you forecast the scores of football games, great isn't it ?
 
 You can join a public league, with all the games administration handled by PronoClub team.
 
